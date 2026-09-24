@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>🧭 E-Reader Wizard · MayDocSach</title>
+<meta name="description" content="Wizard chọn máy đọc sách theo nhu cầu: Kindle, Kobo, BOOX, Xteink và E-Ink màu.">
+<style>
+:root{--bg:#f5f6fa;--card:#fff;--ink:#172033;--muted:#687386;--line:#e1e5ed;--accent:#6256d9;--soft:#f0efff;--good:#edf9f1;--goodink:#17643b;--warn:#fff7e7;--warnink:#875b00}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
+.wrap{max-width:1080px;margin:auto;padding:22px 15px 50px}.hero,.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 34px rgba(23,32,51,.07)}
+.hero{padding:28px 30px;margin-bottom:15px;background:linear-gradient(135deg,#fff,#f0efff)}.eyebrow{font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase;color:#4941bd}
+h1{font-size:clamp(30px,5vw,50px);line-height:1.05;margin:8px 0 10px}h2{font-size:26px;line-height:1.15;margin:0 0 8px}h3{font-size:19px;line-height:1.25;margin:5px 0 8px}.muted{color:var(--muted)}
+.note{margin-top:15px;padding:12px 14px;border:1px solid var(--line);border-radius:13px;color:var(--muted);font-size:13px;background:#fff}
+.bar{padding:15px 19px;border-bottom:1px solid var(--line)}.dots{display:flex;gap:5px}.dot{height:7px;border-radius:99px;background:#e9ecf2;flex:1}.dot.on{background:var(--accent)}.meta{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:13px}
+.body{padding:23px 21px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:17px}.option{border:1px solid var(--line);border-radius:15px;background:#fff;padding:15px;text-align:left;cursor:pointer;min-height:74px}.option.sel{border-color:var(--accent);background:var(--soft)}.option strong{display:block;font-size:15px}.option span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.actions{display:flex;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--line);background:#fcfcfe}button{font:inherit;border:0;border-radius:11px;padding:10px 15px;font-weight:800;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:#edf0f5;color:var(--ink)}button:disabled{opacity:.45;cursor:not-allowed}
+.results{display:none}.head{padding:21px;border-bottom:1px solid var(--line)}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{background:var(--soft);color:#443dc4;border-radius:99px;padding:5px 9px;font-size:11px;font-weight:800}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:21px}.card{border:1px solid var(--line);border-radius:17px;padding:17px;background:#fff;position:relative}.rank{position:absolute;top:14px;right:14px;background:#111827;color:#fff;border-radius:99px;padding:5px 8px;font-size:10px;font-weight:800}.tag{display:inline-block;background:#eef7ff;color:#21587f;border-radius:99px;padding:4px 8px;font-size:10px;font-weight:800;margin-bottom:6px}.score{font-size:11px;color:var(--muted);margin:2px 0 9px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;padding:0;margin:10px 0;list-style:none}.specs li{font-size:12px;color:#4d5a6d}.why{background:var(--good);color:var(--goodink);padding:10px;border-radius:11px;font-size:13px}.trade{background:var(--warn);color:var(--warnink);padding:10px;border-radius:11px;font-size:12px;margin-top:7px}.links{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.link{display:inline-block;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--ink);font-size:12px;font-weight:800}.link.main{background:#111827;color:#fff;border-color:#111827}
+.section{padding:0 21px 21px}.paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.path{border:1px dashed #ccd2df;border-radius:13px;padding:10px;font-size:12px;color:var(--muted)}.path strong{display:block;color:var(--ink);margin-bottom:3px}.error{padding:20px}.status{font-size:12px;color:var(--muted);margin-top:8px}
+@media(max-width:720px){.options,.cards,.paths{grid-template-columns:1fr}.hero{padding:23px}.body,.head{padding:18px}.specs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="hero">
+<div class="eyebrow">Wiki-Ereader · MayDocSach</div>
+<h1>🧭 Bạn nên chọn máy đọc sách nào?</h1>
+<p class="muted">Trả lời 7 bước để đi từ nhu cầu → tiêu chí → <b>model cụ thể</b>. Wizard dùng catalog model đã được MayDocSach đánh dấu <b>Wizard-ready</b>.</p>
+<div class="note">Không phải model nào cũng có affiliate. Model phù hợp nhưng chưa có link vẫn được hiển thị; dữ liệu thương mại không quyết định việc xuất hiện trong kết quả.</div>
+<div class="status" id="status">Đang tải dữ liệu…</div>
+</section>
+<section class="panel" id="wizard">
+<div class="bar"><div class="dots" id="dots"></div><div class="meta"><span id="label"></span><span id="counter"></span></div></div>
+<div class="body" id="view"></div>
+<div class="actions"><button class="secondary" id="prev">← Quay lại</button><button class="primary" id="next" disabled>Tiếp tục →</button></div>
+</section>
+<section class="panel results" id="results">
+<div class="head"><div class="eyebrow">Bước cuối · Model cụ thể</div><h2>🎯 Các model khớp với tiêu chí của anh</h2><p class="muted">Kết quả được tính theo tiêu chí anh chọn. Đây là công cụ lọc/định hướng, không phải đánh giá chất lượng tuyệt đối.</p><div class="chips" id="chips"></div></div>
+<div class="cards" id="cards"></div>
+<div class="section">
+<div class="paths">
+<div class="path"><strong>💰 Theo ngân sách</strong><a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-duoi-1-trieu" target="_blank" rel="noopener">Dưới 1 triệu</a> · <a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-tu-1-2-trieu" target="_blank" rel="noopener">1–2 triệu</a> · <a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-tu-3-4-trieu" target="_blank" rel="noopener">3–4 triệu</a></div>
+<div class="path"><strong>🧩 Theo hệ sinh thái</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle" target="_blank" rel="noopener">Kindle</a> · <a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kobo" target="_blank" rel="noopener">Kobo</a> · <a href="https://maydocsach.gitbook.io/guide" target="_blank" rel="noopener">BOOX / Xteink</a></div>
+<div class="path"><strong>🛠 Tùy biến</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle" target="_blank" rel="noopener">Jailbreak & KOReader</a> · <a href="https://maydocsach.gitbook.io/guide/so-sanh-may-doc-sach" target="_blank" rel="noopener">So sánh</a></div>
+</div>
+<button class="primary" id="restart" style="margin-top:12px">↻ Chọn lại</button>
+</div>
+</section>
+</div>
+<script>
+let Q=[], M=[], i=0, A={};
+const els={view:document.getElementById('view'),dots:document.getElementById('dots'),label:document.getElementById('label'),counter:document.getElementById('counter'),prev:document.getElementById('prev'),next:document.getElementById('next'),status:document.getElementById('status')};
+const labels={u1:'Dưới 1 triệu',one:'1–2 triệu','1to2':'1–2 triệu',two:'2–4 triệu','2to4':'2–4 triệu',four:'4–7 triệu','4to7':'4–7 triệu',sevenplus:'Trên 7 triệu',unknown:'Chưa xác định',novel:'Sách chữ',pdf:'PDF',manga:'Manga',color:'Màu',work:'Tài liệu công việc',web:'Web',tiny:'Ưu tiên siêu nhỏ','6':'Khoảng 6 inch','7':'Khoảng 7 inch',large:'Màn hình lớn',neutral:'Kích thước không quan trọng',often:'Đọc đêm thường xuyên',sometimes:'Đọc đêm thỉnh thoảng',rare:'Ít đọc ban đêm',water:'Chống nước',warm:'Đèn ấm',buttons:'Nút chuyển trang',android:'Android',pen:'Ghi chú bằng bút',microsd:'Khe microSD',amazon:'Amazon / Kindle',epub:'EPUB',many:'Nhiều nguồn',apps:'Nhiều ứng dụng',yes:'Quan tâm jailbreak/KOReader',maybe:'Có thể quan tâm',no:'Không cần tùy biến'};
+
+function answerValid(){const q=Q[i];const a=A[q.key];return q.type==='single'?!!a:Array.isArray(a)&&a.length>0}
+function render(){
+ const q=Q[i], a=A[q.key];
+ els.dots.innerHTML=Q.map((_,n)=>`<div class="dot ${n<=i?'on':''}"></div>`).join('');
+ els.label.textContent=q.question; els.counter.textContent=`Bước ${i+1}/${Q.length}`;
+ let h=`<h2>${q.question}</h2>${q.hint?`<div class="muted">${q.hint}</div>`:''}<div class="options">`;
+ q.options.forEach(([id,t,d])=>{const sel=q.type==='single'?a===id:Array.isArray(a)&&a.includes(id);h+=`<button type="button" class="option ${sel?'sel':''}" data-id="${id}"><strong>${t}</strong><span>${d}</span></button>`});
+ h+='</div>';els.view.innerHTML=h;
+ els.view.querySelectorAll('.option').forEach(b=>b.onclick=()=>{const id=b.dataset.id;if(q.type==='single')A[q.key]=id;else{A[q.key]=A[q.key]||[];A[q.key]=A[q.key].includes(id)?A[q.key].filter(x=>x!==id):[...A[q.key],id]}render()});
+ els.prev.disabled=i===0;els.next.disabled=!answerValid();
+}
+function hasTag(m,t){return Array.isArray(m.tags)&&m.tags.includes(t)}
+function score(m){
+ let s=0, reasons=[], vals=Object.values(A).flat(), features=A.features||[];
+ const add=(n,reason)=>{s+=n;if(reason)reasons.push(reason)};
+ if(A.budget&&A.budget!=='unknown'){if(m.budget===A.budget)add(4,'Ngân sách nằm trong nhóm dữ liệu của model.');else if(m.budget)add(1)}
+ if(A.content){A.content.forEach(c=>{if((m.content||[]).includes(c))add(3)})}
+ if(A.size==='tiny'){if(m.screen<=4.5||hasTag(m,'ultra_compact')||hasTag(m,'pocket'))add(7,'Ưu tiên máy nhỏ/gọn khớp với model.');else if(m.screen<=6.2)add(1)}
+ if(A.size==='6'&&m.screen>=5.5&&m.screen<=6.5)add(4,'Kích thước gần 6 inch.');
+ if(A.size==='7'&&m.screen>6.5&&m.screen<=7.5)add(4,'Kích thước gần 7 inch.');
+ if(A.size==='large'&&m.screen>=7.5)add(6,'Màn hình lớn phù hợp PDF/tài liệu.');
+ if(A.night==='often'){if(m.warm||hasTag(m,'warm_light'))add(4,'Có đèn ấm/đèn trước trong dữ liệu.')}else if(A.night==='sometimes'&&(m.warm||hasTag(m,'warm_light')))add(2);
+ features.forEach(f=>{
+   if(f==='water'&&m.waterproof)add(4);
+   if(f==='warm'&&(m.warm||hasTag(m,'warm_light')))add(4);
+   if(f==='buttons'&&(m.buttons||hasTag(m,'buttons')))add(4);
+   if(f==='android'&&m.android)add(5);
+   if(f==='color'&&m.color)add(6,'Có màn hình màu.');
+   if(f==='microsd'&&m.microsd)add(4);
+   if(f==='pen' && (hasTag(m,'pen')||hasTag(m,'note')||m.screen>=10))add(2);
+ });
+ if(A.ecosystem==='amazon'&&m.brand==='Kindle')add(5,'Thuộc hệ sinh thái Kindle.');
+ if(A.ecosystem==='epub'&&m.brand==='Kobo')add(5,'Thuộc hệ sinh thái Kobo.');
+ if(A.ecosystem==='apps'&&m.android)add(5,'Android phù hợp nhu cầu cài ứng dụng.');
+ if(A.ecosystem==='many'&&(m.android||m.brand==='Kobo'))add(2);
+ if(A.custom==='yes'){if(m.brand==='Kindle')add(3,'Có đường Wiki liên quan Kindle/tùy biến trong hệ thống.');else if(m.android)add(1)}
+ if(A.custom==='maybe'){if(m.brand==='Kindle')add(1)}
+ return {s,reasons};
+}
+function spec(m){
+ const screen=m.screen?`${m.screen}"`:'—';
+ const color=m.color?'Màu':'Đen trắng';const os=m.os||'—';
+ const features=[];if(m.waterproof)features.push('chống nước');if(m.warm||hasTag(m,'warm_light'))features.push('đèn ấm');if(m.buttons||hasTag(m,'buttons'))features.push('nút trang');if(m.android)features.push('Android');if(m.microsd)features.push('microSD');
+ return {screen,color,os,features:features.slice(0,4)};
+}
+function tradeoffs(m){const t=[];if(A.pdf&&m.screen<7)t.push('PDF trên màn hình nhỏ có thể kém thoải mái hơn.');if(featuresSelected('android')&&!m.android)t.push('Không phải Android, nên khả năng cài app hạn chế hơn.');if(featuresSelected('color')&&!m.color)t.push('Không có màn hình màu.');if(A.size==='tiny'&&m.screen>5)t.push('Không thuộc nhóm máy siêu nhỏ.');if(A.features?.includes('water')&&!m.waterproof)t.push('Dữ liệu hiện tại không ghi nhận chống nước.');return t}
+function featuresSelected(x){return Array.isArray(A.features)&&A.features.includes(x)}
+function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function resultsPage(){
+ const ranked=M.map(m=>({m,...score(m)})).sort((a,b)=>b.s-a.s);
+ const positive=ranked.filter(x=>x.s>0);const picks=(positive.length?positive:ranked).slice(0,6);
+ document.getElementById('chips').innerHTML=Object.values(A).flat().slice(0,12).map(x=>`<span class="chip">${escapeHtml(labels[x]||x)}</span>`).join('');
+ document.getElementById('cards').innerHTML=picks.map((x,n)=>{
+   const m=x.m, sp=spec(m), tr=tradeoffs(m);
+   const reason=x.reasons.slice(0,2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí đã chọn.';
+   const links=[]; if(m.wiki)links.push([`📚 Bài Wiki`,m.wiki]); if(m.affiliate)links.push([`🛒 Xem giá / link`,m.affiliate]);
+   return `<article class="card"><span class="rank">#${n+1}</span><span class="tag">${escapeHtml(m.brand||'eReader')}</span><h3>${escapeHtml(m.model)}</h3><div class="score">Mức khớp theo bộ lọc: ${x.s}</div><div class="why">${escapeHtml(reason)}</div><ul class="specs"><li>📐 ${sp.screen}</li><li>🖥 ${sp.color}</li><li>⚙️ ${escapeHtml(sp.os)}</li><li>✨ ${sp.features.length?escapeHtml(sp.features.join(' · ')):'Tính năng cơ bản'}</li></ul>${tr.length?`<div class="trade">⚠️ ${escapeHtml(tr.slice(0,2).join(' '))}</div>`:''}<div class="links">${links.map((l,j)=>`<a class="link ${j===0?'main':''}" href="${escapeHtml(l[1])}" target="_blank" rel="noopener">${escapeHtml(l[0])} ↗</a>`).join('')}</div></article>`;
+ }).join('');
+ document.getElementById('wizard').style.display='none';document.getElementById('results').style.display='block';window.scrollTo({top:document.getElementById('results').offsetTop-10,behavior:'smooth'});
+}
+async function boot(){
+ try{
+  const [qRes,mRes]=await Promise.all([fetch('./questions.json'),fetch('./models.json')]);
+  if(!qRes.ok||!mRes.ok)throw new Error('Không tải được dữ liệu.');
+  Q=(await qRes.json()).questions;M=(await mRes.json()).models.filter(m=>m.status==='Wizard-ready'||!m.status);
+  els.status.textContent=`Đã tải ${M.length} model Wizard-ready.`;render();
+ }catch(e){
+  els.status.textContent='Lỗi tải dữ liệu.';document.getElementById('wizard').innerHTML=`<div class="error"><h2>Không tải được dữ liệu Wizard</h2><p class="muted">Hãy kiểm tra GitHub Pages đã publish đủ <code>index.html</code>, <code>questions.json</code> và <code>models.json</code> chưa.</p></div>`;
+ }
+}
+els.next.onclick=()=>{if(!answerValid())return;if(i<Q.length-1){i++;render()}else resultsPage()};
+els.prev.onclick=()=>{if(i>0){i--;render()}};
+document.getElementById('restart').onclick=()=>{A={};i=0;document.getElementById('results').style.display='none';document.getElementById('wizard').style.display='block';render();window.scrollTo({top:0,behavior:'smooth'})};
+boot();
+</script>
+</body>
+</html>

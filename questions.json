@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "questions": [
+    {"key":"budget","question":"💰 Ngân sách anh dự định chi khoảng bao nhiêu?","type":"single","options":[
+      ["u1","Dưới 1 triệu","Chủ yếu là máy cũ/đời cũ trong dữ liệu hiện tại."],
+      ["1to2","1–2 triệu","Kindle/Kobo cũ và Xteink trong catalog hiện tại."],
+      ["2to4","2–4 triệu","Mở rộng sang model mới hơn, màu và Android."],
+      ["4to7","4–7 triệu","Mở rộng sang BOOX/Kindle/Kobo cao cấp và màn lớn."],
+      ["7plus","Trên 7 triệu","Nhu cầu cao cấp, màn lớn hoặc nhiều tính năng."],
+      ["unknown","Chưa xác định","Ưu tiên theo nhu cầu và tính năng trước."]
+    ]},
+    {"key":"content","question":"📖 Anh đọc nội dung gì nhiều nhất?","type":"multi","hint":"Có thể chọn nhiều.","options":[
+      ["novel","Sách chữ / tiểu thuyết",""],["pdf","PDF / tài liệu",""],["manga","Manga / truyện tranh",""],
+      ["color","Nội dung màu",""],["work","Tài liệu học tập / công việc",""],["web","Web / bài viết",""]
+    ]},
+    {"key":"size","question":"🪶 Anh ưu tiên kích thước máy thế nào?","type":"single","options":[
+      ["tiny","Càng nhỏ và nhẹ càng tốt","Ưu tiên thiết bị bỏ túi."],["6","Khoảng 6 inch","Kích thước phổ biến cho ebook."],
+      ["7","Khoảng 7 inch","Cân bằng giữa di động và không gian hiển thị."],["large","Càng lớn càng tốt","Hợp với PDF/tài liệu."],["neutral","Không quan trọng","Không dùng kích thước để loại máy."]
+    ]},
+    {"key":"night","question":"🌙 Anh có thường đọc trong phòng tối không?","type":"single","options":[
+      ["often","Thường xuyên","Ưu tiên model có đèn trước; đèn ấm là lợi thế."],
+      ["sometimes","Thỉnh thoảng","Đèn trước vẫn hữu ích."],["rare","Hầu như không","Có thể bỏ qua tiêu chí đèn."]
+    ]},
+    {"key":"features","question":"⚙️ Anh thực sự cần tính năng nào?","type":"multi","hint":"Chọn các tính năng quan trọng.","options":[
+      ["water","Chống nước",""],["warm","Đèn ấm",""],["buttons","Nút chuyển trang",""],["android","Android / cài app",""],
+      ["pen","Ghi chú bằng bút",""],["color","Màn hình màu",""],["microsd","Khe microSD",""]
+    ]},
+    {"key":"ecosystem","question":"📚 Anh đọc sách từ đâu là chủ yếu?","type":"single","options":[
+      ["amazon","Amazon / Kindle",""],["epub","EPUB / thư viện cá nhân",""],["many","Nhiều nguồn khác nhau",""],
+      ["apps","Muốn cài nhiều ứng dụng",""],["unknown","Chưa biết",""]
+    ]},
+    {"key":"custom","question":"🧩 Anh có quan tâm jailbreak / KOReader / tùy biến máy không?","type":"single","options":[
+      ["yes","Có, quan trọng",""],["maybe","Có, nhưng không bắt buộc",""],["no","Không",""]
+    ]}
+  ]
+}
