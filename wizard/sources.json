@@ -1,131 +1,166 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
+  "brand": "Wiki-eReader",
   "sources": [
-    [
-      "SRC001",
-      "eWritable",
-      "E-Reader Comparison Table",
-      "https://ewritable.net/e-readers/e-reader-comparison-table/",
-      "Comparison / baseline",
-      "Good coverage of mainstream current e-readers; page says last update 2025-12-11.",
-      "Use for baseline attributes; not for subjective rating or VN price."
-    ],
-    [
-      "SRC002",
-      "ComparisonTables",
-      "All E-readers",
-      "https://comparisontabl.es/e-readers/",
-      "High-coverage index",
-      "347 e-reader/e-ink tablet models from 47 brands; continually updated for 2026.",
-      "Use to discover missing brands/models and historical variants; verify facts with manufacturer."
-    ],
-    [
-      "SRC003",
-      "ComparisonTables",
-      "Kindle",
-      "https://comparisontabl.es/kindle-e-readers/",
-      "Brand comparison",
-      "All Kindle models; includes 2025/2026 models.",
-      "Good for generation history and cross-checking."
-    ],
-    [
-      "SRC004",
-      "ComparisonTables",
-      "Kobo",
-      "https://comparisontabl.es/kobo-e-readers/",
-      "Brand comparison",
-      "All Kobo models from 2010 onward.",
-      "Good for generation history and cross-checking."
-    ],
-    [
-      "SRC005",
-      "ComparisonTables",
-      "BOOX",
-      "https://comparisontabl.es/onyx-boox-e-readers/",
-      "Brand comparison",
-      "International BOOX models from 2017 onward; updated for 2026.",
-      "Good for model discovery and cross-checking; use Boox.com as authority."
-    ],
-    [
-      "SRC006",
-      "ComparisonTables",
-      "Bigme",
-      "https://comparisontabl.es/bigme-e-readers/",
-      "Brand comparison",
-      "Recent Bigme e-readers/e-ink smartphones including 2026 releases.",
-      "Use to discover new Bigme models; verify with Bigme official."
-    ],
-    [
-      "SRC007",
-      "ComparisonTables",
-      "PocketBook",
-      "https://comparisontabl.es/pocketbook-e-readers/",
-      "Brand comparison",
-      "PocketBook models from 2018 onward.",
-      "Use for discovery; verify with PocketBook official."
-    ],
-    [
-      "SRC008",
-      "ComparisonTables",
-      "Meebook",
-      "https://comparisontabl.es/e-readers/",
-      "Brand / aggregate comparison",
-      "Meebook recent and historical models are included in the full table.",
-      "Use to discover models; verify with manufacturer/manual."
-    ],
-    [
-      "SRC009",
-      "Kobo Official",
-      "Compare eReaders",
-      "https://ereader.kobo.com/en-us/pages/compare-ereaders",
-      "Manufacturer",
-      "Current Kobo lineup and feature comparison.",
-      "Authority for current Kobo specs."
-    ],
-    [
-      "SRC010",
-      "Amazon Official",
-      "Kindle product/help",
-      "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83",
-      "Manufacturer",
-      "Kindle device/spec/generation help.",
-      "Authority for Kindle device facts."
-    ],
-    [
-      "SRC011",
-      "BOOX Official",
-      "BOOX Store",
-      "https://shop.boox.com/",
-      "Manufacturer",
-      "Current BOOX products and specs.",
-      "Authority for current BOOX specs."
-    ],
-    [
-      "SRC012",
-      "Xteink Official",
-      "Xteink products",
-      "https://www.xteink.com/",
-      "Manufacturer",
-      "Current Xteink products including X3/X4 line.",
-      "Authority for current Xteink specs."
-    ],
-    [
-      "SRC013",
-      "ComparisonTables",
-      "Xteink (in full table)",
-      "https://comparisontabl.es/e-readers/",
-      "Comparison / discovery",
-      "Current Xteink rows can be found in the aggregate comparison.",
-      "Use as secondary cross-check."
-    ],
-    [
-      "SRC014",
-      "MayDocSach",
-      "Affiliate Tracking Registry",
-      "/mnt/data/maydocsach-affiliate-tracking-registry.xlsx",
-      "Internal",
-      "Affiliate URL + Sub_ID registry for MayDocSach.",
-      "Single source of truth for affiliate links/tracking."
-    ]
+    {
+      "id": "SRC001",
+      "publisher": "eWritable",
+      "resource": "E-Reader Comparison Table",
+      "url": "https://ewritable.net/e-readers/e-reader-comparison-table/",
+      "role": "baseline",
+      "note": "Baseline comparison; do not use subjective rating or USD MSRP as VN price."
+    },
+    {
+      "id": "SRC002",
+      "publisher": "ComparisonTables",
+      "resource": "All E-readers",
+      "url": "https://comparisontabl.es/e-readers/",
+      "role": "discovery",
+      "note": "High-coverage discovery pool; verify current specs with manufacturers."
+    },
+    {
+      "id": "SRC003",
+      "publisher": "ComparisonTables",
+      "resource": "Kindle comparison",
+      "url": "https://comparisontabl.es/kindle-e-readers/",
+      "role": "legacy and cross-check",
+      "note": "Useful for legacy Kindle generations and historical specs."
+    },
+    {
+      "id": "SRC004",
+      "publisher": "Kobo Official",
+      "resource": "Supported eReader models",
+      "url": "https://help.kobo.com/hc/en-us/articles/360019127133-Supported-eReader-models",
+      "role": "manufacturer/support",
+      "note": "Kobo model identity and supported models."
+    },
+    {
+      "id": "SRC005",
+      "publisher": "Kobo Official",
+      "resource": "eReader features",
+      "url": "https://help.kobo.com/hc/en-us/articles/360019127093-eReader-features",
+      "role": "manufacturer/support",
+      "note": "Kobo feature availability."
+    },
+    {
+      "id": "SRC006",
+      "publisher": "Amazon Official",
+      "resource": "Identify Your Kindle eReader",
+      "url": "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83",
+      "role": "manufacturer/support",
+      "note": "Current Kindle model, storage, front light, waterproof and generation facts."
+    },
+    {
+      "id": "SRC007",
+      "publisher": "Amazon Press Center",
+      "resource": "Kindle Paperwhite 2021",
+      "url": "https://press.aboutamazon.com/2021/9/amazon-unveils-the-next-generation-kindle-paperwhite-and-new-kindle-paperwhite-signature-edition",
+      "role": "manufacturer announcement",
+      "note": "Paperwhite 5 generation specs."
+    },
+    {
+      "id": "SRC008",
+      "publisher": "Amazon Press Center",
+      "resource": "Kindle Paperwhite 2018",
+      "url": "https://press.aboutamazon.com/2018/10/meet-the-all-new-kindle-paperwhite-thinner-lighter-2x-the-storage-and-waterproof-for-just-129",
+      "role": "manufacturer announcement",
+      "note": "Paperwhite 4 display, waterproofing and storage."
+    },
+    {
+      "id": "SRC009",
+      "publisher": "BOOX Official",
+      "resource": "BOOX product catalog",
+      "url": "https://shop.boox.com/",
+      "role": "manufacturer",
+      "note": "Current BOOX lineup and specs."
+    },
+    {
+      "id": "SRC010",
+      "publisher": "BOOX Official",
+      "resource": "Go 6 Gen II",
+      "url": "https://shop.boox.com/products/go6gen2",
+      "role": "manufacturer",
+      "note": "Go 6 Gen II current specs."
+    },
+    {
+      "id": "SRC011",
+      "publisher": "BOOX Official",
+      "resource": "Go 7 Series",
+      "url": "https://shop.boox.com/products/go7",
+      "role": "manufacturer",
+      "note": "Go 7 and Go Color 7 Gen II display, stylus, buttons, Android and formats."
+    },
+    {
+      "id": "SRC012",
+      "publisher": "BOOX Official",
+      "resource": "Palma 2 Pro",
+      "url": "https://shop.boox.com/products/palma2pro",
+      "role": "manufacturer",
+      "note": "Palma 2 Pro current specs."
+    },
+    {
+      "id": "SRC013",
+      "publisher": "BOOX Official",
+      "resource": "Go 10.3 Gen II",
+      "url": "https://shop.boox.com/products/go103gen2",
+      "role": "manufacturer",
+      "note": "10.3-inch monochrome branch, 64GB, stylus and formats."
+    },
+    {
+      "id": "SRC014",
+      "publisher": "BOOX Official",
+      "resource": "Note Air5 C",
+      "url": "https://shop.boox.com/products/noteair5c",
+      "role": "manufacturer",
+      "note": "10.3-inch color note/work branch."
+    },
+    {
+      "id": "SRC015",
+      "publisher": "Xteink Official",
+      "resource": "Xteink products",
+      "url": "https://www.xteink.com/",
+      "role": "manufacturer",
+      "note": "Current Xteink lineup."
+    },
+    {
+      "id": "SRC016",
+      "publisher": "Xteink Official",
+      "resource": "X4 Pro",
+      "url": "https://www.xteink.com/products/xteink-x4-pro-pocket-ereader",
+      "role": "manufacturer",
+      "note": "X4 Pro display, weight, front light, controls, storage and formats."
+    },
+    {
+      "id": "SRC017",
+      "publisher": "Xteink Official",
+      "resource": "X3 Vietnam",
+      "url": "https://www.xteink.vn/products/xteink-x3/",
+      "role": "regional product",
+      "note": "Vietnam price reference and X3/X4 comparison; price changes over time."
+    },
+    {
+      "id": "SRC018",
+      "publisher": "Bigme Official",
+      "resource": "Bigme B6 Color",
+      "url": "https://store.bigme.vip/products/bigme-b6-ai-color-ereader-with-android-14os",
+      "role": "manufacturer",
+      "note": "Reference-only until front-light/warm/stylus fields are completed."
+    },
+    {
+      "id": "SRC019",
+      "publisher": "PocketBook Official Support",
+      "resource": "InkPad Color 3 manual",
+      "url": "https://support.pocketbook-int.com/fw/741/u/6.8.4079/manual/ww/User_Manual_InkPad_Color_EN.pdf",
+      "role": "manufacturer manual",
+      "note": "Reference-only until warm light/waterproof/button fields are fully checked."
+    },
+    {
+      "id": "SRC020",
+      "publisher": "Wiki-eReader Internal",
+      "resource": "Affiliate Tracking Registry",
+      "url": "/mnt/data/maydocsach-affiliate-tracking-registry.xlsx",
+      "role": "commerce",
+      "note": "Affiliate links are a separate layer and never affect model ranking."
+    }
   ]
 }

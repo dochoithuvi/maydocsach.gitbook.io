@@ -1,36 +1,232 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "2.0",
+  "brand": "Wiki-eReader",
+  "question_count": 7,
   "questions": [
-    {"key":"budget","question":"💰 Ngân sách bạn dự định chi khoảng bao nhiêu?","type":"single","options":[
-      ["u1","Dưới 1 triệu","Chủ yếu là máy cũ/đời cũ trong dữ liệu hiện tại."],
-      ["1to2","1–2 triệu","Kindle/Kobo cũ và Xteink trong catalog hiện tại."],
-      ["2to4","2–4 triệu","Mở rộng sang model mới hơn, màu và Android."],
-      ["4to7","4–7 triệu","Mở rộng sang BOOX/Kindle/Kobo cao cấp và màn lớn."],
-      ["7plus","Trên 7 triệu","Nhu cầu cao cấp, màn lớn hoặc nhiều tính năng."],
-      ["unknown","Chưa xác định","Ưu tiên theo nhu cầu và tính năng trước."]
-    ]},
-    {"key":"content","question":"📖 Bạn đọc nội dung gì nhiều nhất?","type":"multi","hint":"Có thể chọn nhiều.","options":[
-      ["novel","Sách chữ / tiểu thuyết",""],["pdf","PDF / tài liệu",""],["manga","Manga / truyện tranh",""],
-      ["color","Nội dung màu",""],["work","Tài liệu học tập / công việc",""],["web","Web / bài viết",""]
-    ]},
-    {"key":"size","question":"🪶 Bạn ưu tiên kích thước máy thế nào?","type":"single","options":[
-      ["tiny","Càng nhỏ và nhẹ càng tốt","Ưu tiên thiết bị bỏ túi."],["6","Khoảng 6 inch","Kích thước phổ biến cho ebook."],
-      ["7","Khoảng 7 inch","Cân bằng giữa di động và không gian hiển thị."],["large","Càng lớn càng tốt","Hợp với PDF/tài liệu."],["neutral","Không quan trọng","Không dùng kích thước để loại máy."]
-    ]},
-    {"key":"night","question":"🌙 Bạn có thường đọc trong phòng tối không?","type":"single","options":[
-      ["often","Thường xuyên","Ưu tiên model có đèn trước; đèn ấm là lợi thế."],
-      ["sometimes","Thỉnh thoảng","Đèn trước vẫn hữu ích."],["rare","Hầu như không","Có thể bỏ qua tiêu chí đèn."]
-    ]},
-    {"key":"features","question":"⚙️ Bạn thực sự cần tính năng nào?","type":"multi","hint":"Chọn các tính năng quan trọng.","options":[
-      ["water","Chống nước",""],["warm","Đèn ấm",""],["buttons","Nút chuyển trang",""],["android","Android / cài app",""],
-      ["pen","Ghi chú bằng bút",""],["color","Màn hình màu",""],["microsd","Khe microSD",""]
-    ]},
-    {"key":"ecosystem","question":"📚 Bạn đọc sách từ đâu là chủ yếu?","type":"single","options":[
-      ["amazon","Amazon / Kindle",""],["epub","EPUB / thư viện cá nhân",""],["many","Nhiều nguồn khác nhau",""],
-      ["apps","Muốn cài nhiều ứng dụng",""],["unknown","Chưa biết",""]
-    ]},
-    {"key":"custom","question":"🧩 Bạn có quan tâm jailbreak / KOReader / tùy biến máy không?","type":"single","options":[
-      ["yes","Có, quan trọng",""],["maybe","Có, nhưng không bắt buộc",""],["no","Không",""]
-    ]}
+    {
+      "key": "budget",
+      "question": "💰 Ngân sách bạn dự định chi khoảng bao nhiêu?",
+      "type": "single",
+      "options": [
+        [
+          "u1",
+          "Dưới 1 triệu",
+          "Ưu tiên máy cũ/đời cũ; giá VN hiện tại cần kiểm tra."
+        ],
+        [
+          "1to2",
+          "1–2 triệu",
+          "Ưu tiên máy cũ hoặc model nhỏ gọn; giá VN cần kiểm tra theo thời điểm."
+        ],
+        [
+          "2to4",
+          "2–4 triệu",
+          "Mở rộng sang model mới hơn và một số máy màu/Android."
+        ],
+        [
+          "4to7",
+          "4–7 triệu",
+          "Mở rộng sang máy cao cấp, màn lớn, màu hoặc Android."
+        ],
+        [
+          "7plus",
+          "Trên 7 triệu",
+          "Không đặt trần chặt; ưu tiên tính năng và nhu cầu."
+        ],
+        [
+          "unknown",
+          "Chưa xác định",
+          "Để Wiki-eReader ưu tiên nhu cầu trước, rồi xem ngân sách sau."
+        ]
+      ]
+    },
+    {
+      "key": "primary_use",
+      "question": "📖 Bạn dùng máy chủ yếu để làm gì?",
+      "type": "single",
+      "options": [
+        [
+          "novel",
+          "Sách chữ / tiểu thuyết",
+          "Ưu tiên trải nghiệm đọc chữ và sự gọn nhẹ."
+        ],
+        [
+          "pdf",
+          "PDF / tài liệu",
+          "Ưu tiên màn hình lớn hơn và khả năng xử lý tài liệu."
+        ],
+        [
+          "manga",
+          "Manga / truyện tranh",
+          "Ưu tiên màn hình đủ lớn; màn màu là lợi thế nếu nội dung cần màu."
+        ],
+        [
+          "color",
+          "Nội dung màu",
+          "Ưu tiên màn hình E Ink màu."
+        ],
+        [
+          "work",
+          "Học tập / công việc",
+          "Ưu tiên PDF, định dạng rộng, Android hoặc bút ghi chú tùy nhu cầu."
+        ],
+        [
+          "web",
+          "Web / bài viết",
+          "Ưu tiên khả năng hiển thị web và nhiều nguồn nội dung."
+        ]
+      ]
+    },
+    {
+      "key": "size",
+      "question": "🪶 Bạn ưu tiên kích thước máy thế nào?",
+      "type": "single",
+      "options": [
+        [
+          "tiny",
+          "Càng nhỏ và nhẹ càng tốt",
+          "Ưu tiên thiết bị bỏ túi."
+        ],
+        [
+          "6",
+          "Khoảng 6 inch",
+          "Kích thước cân bằng cho đọc ebook."
+        ],
+        [
+          "7",
+          "Khoảng 7 inch",
+          "Tăng không gian hiển thị nhưng vẫn khá cơ động."
+        ],
+        [
+          "large",
+          "Càng lớn càng tốt",
+          "Ưu tiên PDF, tài liệu và ghi chú."
+        ],
+        [
+          "neutral",
+          "Không quan trọng",
+          "Không dùng kích thước để loại máy."
+        ]
+      ]
+    },
+    {
+      "key": "night",
+      "question": "🌙 Bạn có thường đọc trong phòng tối không?",
+      "type": "single",
+      "options": [
+        [
+          "often",
+          "Thường xuyên",
+          "Cần front light; đèn ấm là lợi thế."
+        ],
+        [
+          "sometimes",
+          "Thỉnh thoảng",
+          "Front light hữu ích nhưng không bắt buộc."
+        ],
+        [
+          "rare",
+          "Hầu như không",
+          "Có thể bỏ qua tiêu chí đèn."
+        ]
+      ]
+    },
+    {
+      "key": "features",
+      "question": "⚙️ Bạn thực sự cần tính năng nào?",
+      "type": "multi",
+      "hint": "Những tính năng bạn chọn ở đây được xem là yêu cầu bắt buộc.",
+      "options": [
+        [
+          "water",
+          "Chống nước",
+          ""
+        ],
+        [
+          "warm",
+          "Đèn ấm",
+          ""
+        ],
+        [
+          "buttons",
+          "Nút chuyển trang",
+          ""
+        ],
+        [
+          "android",
+          "Android / cài app",
+          ""
+        ],
+        [
+          "pen",
+          "Ghi chú bằng bút",
+          ""
+        ],
+        [
+          "color",
+          "Màn hình màu",
+          ""
+        ],
+        [
+          "microsd",
+          "Khe microSD",
+          ""
+        ]
+      ]
+    },
+    {
+      "key": "ecosystem",
+      "question": "📚 Bạn đọc sách từ đâu là chủ yếu?",
+      "type": "single",
+      "options": [
+        [
+          "amazon",
+          "Amazon / Kindle",
+          "Ưu tiên hệ sinh thái Kindle."
+        ],
+        [
+          "epub",
+          "EPUB / thư viện cá nhân",
+          "Ưu tiên format và quản lý thư viện cá nhân."
+        ],
+        [
+          "many",
+          "Nhiều nguồn khác nhau",
+          "Ưu tiên thiết bị mở và linh hoạt hơn về nguồn nội dung."
+        ],
+        [
+          "apps",
+          "Muốn cài nhiều ứng dụng",
+          "Ưu tiên Android/Google Play."
+        ],
+        [
+          "unknown",
+          "Chưa biết",
+          "Để Wizard ưu tiên nhu cầu đọc trước."
+        ]
+      ]
+    },
+    {
+      "key": "custom",
+      "question": "🧩 Bạn có quan tâm jailbreak / KOReader / tùy biến máy không?",
+      "type": "single",
+      "options": [
+        [
+          "yes",
+          "Có, quan trọng",
+          "Ưu tiên model có đường tùy biến phù hợp và dữ liệu hỗ trợ rõ ràng."
+        ],
+        [
+          "maybe",
+          "Có, nhưng không bắt buộc",
+          "Tùy biến là điểm cộng."
+        ],
+        [
+          "no",
+          "Không",
+          "Không dùng tiêu chí tùy biến để xếp hạng."
+        ]
+      ]
+    }
   ]
 }
