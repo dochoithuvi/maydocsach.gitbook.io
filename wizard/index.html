@@ -4,54 +4,150 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>🧭 E-Reader Wizard · MayDocSach</title>
-<meta name="description" content="Wizard chọn máy đọc sách theo nhu cầu: Kindle, Kobo, BOOX, Xteink và E-Ink màu.">
+<meta name="description" content="Công cụ giúp chọn máy đọc sách theo nhu cầu, ngân sách và tính năng.">
 <link rel="preconnect" href="https://rsms.me">
 <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+
 <style>
-:root{--bg:#f5f6fa;--card:#fff;--ink:#172033;--muted:#687386;--line:#e1e5ed;--accent:#6256d9;--soft:#f0efff;--good:#edf9f1;--goodink:#17643b;--warn:#fff7e7;--warnink:#875b00}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:"Inter",ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55;font-feature-settings:"liga" 1,"calt" 1;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-.wrap{max-width:1080px;margin:auto;padding:22px 15px 50px}.hero,.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:0 14px 34px rgba(23,32,51,.07)}
-.hero{padding:28px 30px;margin-bottom:15px;background:linear-gradient(135deg,#fff,#f0efff)}.eyebrow{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4941bd}
-h1{font-size:clamp(30px,5vw,50px);line-height:1.05;margin:8px 0 10px;font-weight:700;letter-spacing:-.025em}h2{font-size:26px;line-height:1.15;margin:0 0 8px;font-weight:650;letter-spacing:-.02em}h3{font-size:19px;line-height:1.25;margin:5px 0 8px;font-weight:650;letter-spacing:-.015em}.muted{color:var(--muted)}
-.note{margin-top:15px;padding:12px 14px;border:1px solid var(--line);border-radius:13px;color:var(--muted);font-size:13px;background:#fff}
-.bar{padding:15px 19px;border-bottom:1px solid var(--line)}.dots{display:flex;gap:5px}.dot{height:7px;border-radius:99px;background:#e9ecf2;flex:1}.dot.on{background:var(--accent)}.meta{display:flex;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:13px}
-.body{padding:23px 21px}.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:17px}.option{border:1px solid var(--line);border-radius:15px;background:#fff;padding:15px;text-align:left;cursor:pointer;min-height:74px}.option.sel{border-color:var(--accent);background:var(--soft)}.option strong{display:block;font-size:15px;font-weight:600}.option span{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.actions{display:flex;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--line);background:#fcfcfe}button{font:inherit;border:0;border-radius:11px;padding:10px 15px;font-weight:600;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:#edf0f5;color:var(--ink)}button:disabled{opacity:.45;cursor:not-allowed}
-.results{display:none}.head{padding:21px;border-bottom:1px solid var(--line)}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.chip{background:var(--soft);color:#443dc4;border-radius:99px;padding:5px 9px;font-size:11px;font-weight:600}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:21px}.card{border:1px solid var(--line);border-radius:17px;padding:17px;background:#fff;position:relative}.rank{position:absolute;top:14px;right:14px;background:#111827;color:#fff;border-radius:99px;padding:5px 8px;font-size:10px;font-weight:600}.tag{display:inline-block;background:#eef7ff;color:#21587f;border-radius:99px;padding:4px 8px;font-size:10px;font-weight:600;margin-bottom:6px}.score{font-size:11px;color:var(--muted);margin:2px 0 9px}
-.specs{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;padding:0;margin:10px 0;list-style:none}.specs li{font-size:12px;color:#4d5a6d}.why{background:var(--good);color:var(--goodink);padding:10px;border-radius:11px;font-size:13px}.trade{background:var(--warn);color:var(--warnink);padding:10px;border-radius:11px;font-size:12px;margin-top:7px}.links{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.link{display:inline-block;text-decoration:none;border:1px solid var(--line);border-radius:10px;padding:8px 10px;color:var(--ink);font-size:12px;font-weight:600}.link.main{background:#111827;color:#fff;border-color:#111827}
-.section{padding:0 21px 21px}.paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.path{border:1px dashed #ccd2df;border-radius:13px;padding:10px;font-size:12px;color:var(--muted)}.path strong{display:block;color:var(--ink);margin-bottom:3px}.error{padding:20px}.status{font-size:12px;color:var(--muted);margin-top:8px}
-@media(max-width:720px){.options,.cards,.paths{grid-template-columns:1fr}.hero{padding:23px}.body,.head{padding:18px}.specs{grid-template-columns:1fr}}
+:root{
+  color-scheme:light;
+  --page:transparent;
+  --surface:#ffffff;
+  --surface-soft:#f7f8fa;
+  --surface-hover:#f2f5fb;
+  --surface-selected:#eef4ff;
+  --text:#111827;
+  --text-muted:#667085;
+  --text-soft:#7b8494;
+  --border:#e4e7ec;
+  --accent:#2563eb;
+  --accent-hover:#1d4ed8;
+  --accent-soft:#eaf1ff;
+  --good:#eefbf3;
+  --good-text:#176b3a;
+  --warn:#fff8eb;
+  --warn-text:#8b5e00;
+  --button-muted:#eef1f5;
+  --button-muted-text:#1f2937;
+  --shadow:none;
+}
+html[data-theme="dark"]{
+  color-scheme:dark;
+  --page:transparent;
+  --surface:#202124;
+  --surface-soft:#25272b;
+  --surface-hover:#2a2d33;
+  --surface-selected:#273552;
+  --text:#f3f4f6;
+  --text-muted:#a5aab5;
+  --text-soft:#8e95a2;
+  --border:#353941;
+  --accent:#5b8cff;
+  --accent-hover:#79a0ff;
+  --accent-soft:#293651;
+  --good:#183225;
+  --good-text:#b9f2cf;
+  --warn:#392f1c;
+  --warn-text:#ffe09b;
+  --button-muted:#30333a;
+  --button-muted-text:#f3f4f6;
+  --shadow:none;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --surface:#202124;
+    --surface-soft:#25272b;
+    --surface-hover:#2a2d33;
+    --surface-selected:#273552;
+    --text:#f3f4f6;
+    --text-muted:#a5aab5;
+    --text-soft:#8e95a2;
+    --border:#353941;
+    --accent:#5b8cff;
+    --accent-hover:#79a0ff;
+    --accent-soft:#293651;
+    --good:#183225;
+    --good-text:#b9f2cf;
+    --warn:#392f1c;
+    --warn-text:#ffe09b;
+    --button-muted:#30333a;
+    --button-muted-text:#f3f4f6;
+  }
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--page);color:var(--text)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5;font-feature-settings:"liga" 1,"calt" 1;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,a{font:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:6px 4px 18px}
+.intro{padding:6px 8px 16px}
+.intro-title{display:flex;align-items:center;gap:10px;margin:0}
+.intro-title .icon{font-size:30px;line-height:1}
+h1{font-size:clamp(28px,4vw,40px);line-height:1.08;margin:0;font-weight:700;letter-spacing:-.028em}
+.intro p{margin:9px 0 0;max-width:900px;font-size:14px;color:var(--text-muted)}
+.meta-pills{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.meta-pill{display:inline-flex;align-items:center;padding:5px 9px;border:1px solid var(--border);background:var(--surface-soft);border-radius:999px;font-size:11px;color:var(--text-muted)}
+.note{margin-top:12px;padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-soft);color:var(--text-muted);font-size:12px}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.bar{padding:11px 15px;border-bottom:1px solid var(--border);background:var(--surface)}
+.dots{display:flex;gap:5px}.dot{height:5px;border-radius:99px;background:var(--border);flex:1}.dot.on{background:var(--accent)}
+.meta{display:flex;justify-content:space-between;gap:12px;margin-top:6px;color:var(--text-muted);font-size:11px}
+.body{padding:19px 18px 20px}.body h2{font-size:24px;line-height:1.16;margin:0;font-weight:650;letter-spacing:-.02em}.body>.muted{margin-top:6px}
+.muted{color:var(--text-muted)}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:15px}
+.option{appearance:none;border:1px solid var(--border);border-radius:11px;background:var(--surface);color:var(--text);padding:13px 13px;text-align:left;cursor:pointer;min-height:68px;transition:border-color .15s,background .15s,transform .15s,box-shadow .15s}
+.option:hover{border-color:color-mix(in srgb,var(--accent) 52%,var(--border));background:var(--surface-hover);transform:translateY(-1px)}
+.option.sel{border-color:var(--accent);background:var(--surface-selected);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 15%,transparent)}
+.option strong{display:block;font-size:14px;font-weight:650}.option span{display:block;color:var(--text-muted);font-size:12px;margin-top:2px}
+.actions{display:flex;justify-content:space-between;align-items:center;padding:11px 15px;border-top:1px solid var(--border);background:var(--surface)}
+button{border:0;border-radius:9px;padding:9px 12px;font-weight:600;cursor:pointer}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent-hover)}.secondary{background:var(--button-muted);color:var(--button-muted-text)}button:disabled{opacity:.45;cursor:not-allowed}
+.results{display:none}.head{padding:18px;border-bottom:1px solid var(--border)}.head h2{font-size:23px;line-height:1.18;margin:3px 0 6px;font-weight:650;letter-spacing:-.02em}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.chip{background:var(--accent-soft);color:var(--accent-hover);border-radius:999px;padding:5px 8px;font-size:10px;font-weight:600}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:16px}.card{border:1px solid var(--border);border-radius:11px;padding:14px;background:var(--surface);position:relative}.rank{position:absolute;top:11px;right:11px;background:var(--text);color:var(--surface);border-radius:999px;padding:3px 6px;font-size:9px;font-weight:700}.tag{display:inline-block;background:var(--accent-soft);color:var(--accent-hover);border-radius:999px;padding:4px 7px;font-size:9px;font-weight:650;margin-bottom:5px}.card h3{font-size:17px;line-height:1.2;margin:0 0 5px;font-weight:650;padding-right:40px}.score{font-size:10px;color:var(--text-soft);margin:0 0 8px}.specs{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;padding:0;margin:9px 0;list-style:none}.specs li{font-size:11px;color:var(--text-muted)}
+.why{background:var(--good);color:var(--good-text);padding:9px 10px;border-radius:9px;font-size:12px}.trade{background:var(--warn);color:var(--warn-text);padding:9px 10px;border-radius:9px;font-size:11px;margin-top:6px}.links{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.link{display:inline-block;text-decoration:none;border:1px solid var(--border);border-radius:8px;padding:7px 9px;color:var(--text);font-size:11px;font-weight:600;background:var(--surface)}.link.main{background:var(--accent);color:#fff;border-color:var(--accent)}
+.section{padding:0 16px 16px}.paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.path{border:1px solid var(--border);border-radius:10px;padding:9px;font-size:11px;color:var(--text-muted);background:var(--surface-soft)}.path strong{display:block;color:var(--text);margin-bottom:3px}.path a{color:var(--accent-hover)}.error{padding:18px}.status{display:none}
+code{font-size:.92em;background:var(--accent-soft);padding:.12em .3em;border-radius:.3em}
+@media(max-width:720px){.options,.cards,.paths{grid-template-columns:1fr}.intro{padding:4px 4px 14px}.body,.head{padding:15px}.specs{grid-template-columns:1fr}.wrap{padding:4px 2px 14px}.intro p{font-size:13px}.body h2{font-size:21px}}
 </style>
+
 </head>
 <body>
 <div class="wrap">
-<section class="hero">
-<div class="eyebrow">Wiki-Ereader · MayDocSach</div>
-<h1>🧭 Bạn nên chọn máy đọc sách nào?</h1>
-<p class="muted">Trả lời 7 bước để đi từ nhu cầu → tiêu chí → <b>model cụ thể</b>. Wizard dùng catalog model đã được MayDocSach đánh dấu <b>Wizard-ready</b>.</p>
-<div class="note">Không phải model nào cũng có affiliate. Model phù hợp nhưng chưa có link vẫn được hiển thị; dữ liệu thương mại không quyết định việc xuất hiện trong kết quả.</div>
-<div class="status" id="status">Đang tải dữ liệu…</div>
+<section class="intro">
+  <div class="intro-title"><span class="icon">🧭</span><h1>Bạn nên chọn máy đọc sách nào?</h1></div>
+  <p>Trả lời 7 bước để đi từ <b>nhu cầu thực tế</b> → <b>tiêu chí</b> → <b>model cụ thể</b>.</p>
+  <div class="meta-pills">
+    <span class="meta-pill">7 bước lựa chọn</span>
+    <span class="meta-pill">Kindle · Kobo · BOOX · Xteink</span>
+    <span class="meta-pill">Kết quả theo tiêu chí bạn chọn</span>
+  </div>
+  <div class="note">Wizard giúp thu hẹp lựa chọn. Sau khi có kết quả, bạn có thể mở bài Wiki tương ứng để đọc sâu hơn trước khi xem giá.</div>
+  <div class="status" id="status">Đang tải dữ liệu…</div>
 </section>
 <section class="panel" id="wizard">
-<div class="bar"><div class="dots" id="dots"></div><div class="meta"><span id="label"></span><span id="counter"></span></div></div>
-<div class="body" id="view"></div>
-<div class="actions"><button class="secondary" id="prev">← Quay lại</button><button class="primary" id="next" disabled>Tiếp tục →</button></div>
+  <div class="bar"><div class="dots" id="dots"></div><div class="meta"><span id="label"></span><span id="counter"></span></div></div>
+  <div class="body" id="view"></div>
+  <div class="actions"><button class="secondary" id="prev">← Quay lại</button><button class="primary" id="next" disabled>Tiếp tục →</button></div>
 </section>
 <section class="panel results" id="results">
-<div class="head"><div class="eyebrow">Bước cuối · Model cụ thể</div><h2>🎯 Các model khớp với tiêu chí của bạn</h2><p class="muted">Kết quả được tính theo tiêu chí bạn chọn. Đây là công cụ lọc/định hướng, không phải đánh giá chất lượng tuyệt đối.</p><div class="chips" id="chips"></div></div>
-<div class="cards" id="cards"></div>
-<div class="section">
-<div class="paths">
-<div class="path"><strong>💰 Theo ngân sách</strong><a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-duoi-1-trieu" target="_blank" rel="noopener">Dưới 1 triệu</a> · <a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-tu-1-2-trieu" target="_blank" rel="noopener">1–2 triệu</a> · <a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-tu-3-4-trieu" target="_blank" rel="noopener">3–4 triệu</a></div>
-<div class="path"><strong>🧩 Theo hệ sinh thái</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle" target="_blank" rel="noopener">Kindle</a> · <a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kobo" target="_blank" rel="noopener">Kobo</a> · <a href="https://maydocsach.gitbook.io/guide" target="_blank" rel="noopener">BOOX / Xteink</a></div>
-<div class="path"><strong>🛠 Tùy biến</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle" target="_blank" rel="noopener">Jailbreak & KOReader</a> · <a href="https://maydocsach.gitbook.io/guide/so-sanh-may-doc-sach" target="_blank" rel="noopener">So sánh</a></div>
-</div>
-<button class="primary" id="restart" style="margin-top:12px">↻ Chọn lại</button>
-</div>
+  <div class="head"><div class="eyebrow muted">Kết quả lựa chọn</div><h2>🎯 Các model khớp với tiêu chí của bạn</h2><p class="muted">Kết quả là gợi ý dựa trên các tiêu chí bạn đã chọn, không phải đánh giá chất lượng tuyệt đối.</p><div class="chips" id="chips"></div></div>
+  <div class="cards" id="cards"></div>
+  <div class="section">
+    <div class="paths">
+      <div class="path"><strong>💰 Theo ngân sách</strong><a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-duoi-1-trieu" target="_blank" rel="noopener">Dưới 1 triệu</a> · <a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-tu-1-2-trieu" target="_blank" rel="noopener">1–2 triệu</a> · <a href="https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-tu-3-4-trieu" target="_blank" rel="noopener">3–4 triệu</a></div>
+      <div class="path"><strong>🧩 Theo hệ sinh thái</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle" target="_blank" rel="noopener">Kindle</a> · <a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kobo" target="_blank" rel="noopener">Kobo</a> · <a href="https://maydocsach.gitbook.io/guide" target="_blank" rel="noopener">BOOX / Xteink</a></div>
+      <div class="path"><strong>🛠 Tùy biến</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle" target="_blank" rel="noopener">Jailbreak & KOReader</a> · <a href="https://maydocsach.gitbook.io/guide/so-sanh-may-doc-sach" target="_blank" rel="noopener">So sánh</a></div>
+    </div>
+    <button class="primary" id="restart" style="margin-top:11px">↻ Chọn lại</button>
+  </div>
 </section>
 </div>
 <script>
+(function(){
+  const p = new URLSearchParams(location.search);
+  const theme = p.get('theme');
+  if (theme === 'dark' || theme === 'light') document.documentElement.dataset.theme = theme;
+})();
 let Q=[], M=[], i=0, A={};
 const els={view:document.getElementById('view'),dots:document.getElementById('dots'),label:document.getElementById('label'),counter:document.getElementById('counter'),prev:document.getElementById('prev'),next:document.getElementById('next'),status:document.getElementById('status')};
 const labels={u1:'Dưới 1 triệu',one:'1–2 triệu','1to2':'1–2 triệu',two:'2–4 triệu','2to4':'2–4 triệu',four:'4–7 triệu','4to7':'4–7 triệu',sevenplus:'Trên 7 triệu',unknown:'Chưa xác định',novel:'Sách chữ',pdf:'PDF',manga:'Manga',color:'Màu',work:'Tài liệu công việc',web:'Web',tiny:'Ưu tiên siêu nhỏ','6':'Khoảng 6 inch','7':'Khoảng 7 inch',large:'Màn hình lớn',neutral:'Kích thước không quan trọng',often:'Đọc đêm thường xuyên',sometimes:'Đọc đêm thỉnh thoảng',rare:'Ít đọc ban đêm',water:'Chống nước',warm:'Đèn ấm',buttons:'Nút chuyển trang',android:'Android',pen:'Ghi chú bằng bút',microsd:'Khe microSD',amazon:'Amazon / Kindle',epub:'EPUB',many:'Nhiều nguồn',apps:'Nhiều ứng dụng',yes:'Quan tâm jailbreak/KOReader',maybe:'Có thể quan tâm',no:'Không cần tùy biến'};
@@ -110,7 +206,7 @@ function resultsPage(){
  document.getElementById('chips').innerHTML=Object.values(A).flat().slice(0,12).map(x=>`<span class="chip">${escapeHtml(labels[x]||x)}</span>`).join('');
  document.getElementById('cards').innerHTML=picks.map((x,n)=>{
    const m=x.m, sp=spec(m), tr=tradeoffs(m);
-   const reason=x.reasons.slice(0,2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí đã chọn.';
+   const reason=x.reasons.slice(0,2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí bạn đã chọn.';
    const links=[]; if(m.wiki)links.push([`📚 Bài Wiki`,m.wiki]); if(m.affiliate)links.push([`🛒 Xem giá / link`,m.affiliate]);
    return `<article class="card"><span class="rank">#${n+1}</span><span class="tag">${escapeHtml(m.brand||'eReader')}</span><h3>${escapeHtml(m.model)}</h3><div class="score">Mức khớp theo bộ lọc: ${x.s}</div><div class="why">${escapeHtml(reason)}</div><ul class="specs"><li>📐 ${sp.screen}</li><li>🖥 ${sp.color}</li><li>⚙️ ${escapeHtml(sp.os)}</li><li>✨ ${sp.features.length?escapeHtml(sp.features.join(' · ')):'Tính năng cơ bản'}</li></ul>${tr.length?`<div class="trade">⚠️ ${escapeHtml(tr.slice(0,2).join(' '))}</div>`:''}<div class="links">${links.map((l,j)=>`<a class="link ${j===0?'main':''}" href="${escapeHtml(l[1])}" target="_blank" rel="noopener">${escapeHtml(l[0])} ↗</a>`).join('')}</div></article>`;
  }).join('');
