@@ -238,13 +238,20 @@ function sendResize(){
     document.body?.scrollHeight || 0,
     document.documentElement?.offsetHeight || 0,
     document.body?.offsetHeight || 0
-  ) + 8);
-  if (!Number.isFinite(height) || height < 260) return;
+  ) + 4);
+  const width = Math.max(window.innerWidth || 0, 320);
+  if (!Number.isFinite(height) || height < 220 || !Number.isFinite(width)) return;
+
+  // GitBook's webframe uses the aspect ratio (width / height) to size the
+  // iframe. Send the exact ratio so the frame shrinks as well as grows.
+  const aspectRatio = width / Math.min(Math.max(height, 260), 1800);
+
   try {
     window.parent.postMessage({
       action: {
         type: '@webframe.resize',
-        maxHeight: Math.min(Math.max(height, 320), 1800),
+        aspectRatio,
+        maxHeight: 1800,
       },
     }, '*');
   } catch (_) {}
