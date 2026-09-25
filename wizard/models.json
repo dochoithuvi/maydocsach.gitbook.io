@@ -1,25 +1,15 @@
 {
-  "schema_version": "2.0",
+  "schema_version": "2.1",
   "brand": "Wiki-eReader",
   "generated_at": "2026-09-25",
-  "engine_version": "2.0.0",
+  "engine_version": "2.2.0-price-vn-hard-budget",
   "selection_policy": {
-    "production_gate": "status=Wizard-ready AND critical_fields_ok=true",
-    "hard_features": [
-      "water",
-      "warm",
-      "buttons",
-      "android",
-      "pen",
-      "color",
-      "microsd"
-    ],
-    "night_often_requires": "front_light=true",
-    "budget_rule": "Use current VN numeric price as a hard ceiling only when min_vnd/max_vnd are populated. Otherwise budget_hint_vn is a soft signal only.",
-    "primary_use_rule": "fit[primary_use] weighted strongest; editorial fit is 0–5 and is not an objective quality score.",
-    "result_rule": "Return 3–5 strong candidates, cap repeated product family unless ecosystem choice makes repetition useful.",
-    "zero_result_rule": "Never silently violate hard requirements. Show near-matches separately with explicit misses.",
-    "commerce_rule": "Affiliate presence never influences ranking."
+    "candidate_gate": "status=Wizard-ready and critical_fields_ok=true",
+    "hard_filter": "Required features + night front-light requirement; budget is hard only when current numeric VN price is present.",
+    "ranking": "Primary-use fit + size fit + ecosystem + optional preferences + data confidence",
+    "results": "3–5 diverse candidates; near matches only when exact matches do not exist.",
+    "commerce": "Affiliate presence never changes eligibility or ranking.",
+    "budget_gate": "Exact matches require observed VN price; min_vnd must be <= selected budget cap. Ranges crossing the cap remain eligible but show a tradeoff."
   },
   "models": [
     {
@@ -61,10 +51,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "min_vnd": 990000,
+        "max_vnd": 1790000,
+        "current_or_from_vnd": 1190000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://www.mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND web lists from 1.19m; Metric snapshot of MND Shopee shows 990k–1.79m."
       },
       "fit": {
         "novel": 5,
@@ -84,7 +81,13 @@
       "source_secondary": [
         "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83"
       ],
-      "editorial_notes": "Model cũ phù hợp thị trường máy đã qua sử dụng; khả năng jailbreak phụ thuộc model/firmware."
+      "editorial_notes": "Model cũ phù hợp thị trường máy đã qua sử dụng; khả năng jailbreak phụ thuộc model/firmware.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "ppw4",
@@ -125,10 +128,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "min_vnd": 1290000,
+        "max_vnd": 2490000,
+        "current_or_from_vnd": 1490000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/huong-dan-chon-may",
+        "confidence": "high",
+        "note": "MND guide lists 1.49m; Metric shows MND variant range 1.29m–2.49m."
       },
       "fit": {
         "novel": 5,
@@ -148,7 +158,13 @@
       "source_secondary": [
         "https://comparisontabl.es/kindle-e-readers/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "ppw5",
@@ -189,10 +205,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "min_vnd": 1990000,
+        "max_vnd": 3990000,
+        "current_or_from_vnd": 2300000,
+        "condition": "mixed used/new variants",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/huong-dan-chon-may",
+        "confidence": "high",
+        "note": "MND guide lists 2.69m; Metric MND Shopee listing currently shows 2.3m with 1.99m–3.99m variants."
       },
       "fit": {
         "novel": 5,
@@ -212,7 +235,13 @@
       "source_secondary": [
         "https://comparisontabl.es/kindle-e-readers/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "basic11",
@@ -253,10 +282,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "min_vnd": 1790000,
+        "max_vnd": 3190000,
+        "current_or_from_vnd": 2190000,
+        "condition": "mixed used/new variants",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/huong-dan-chon-may",
+        "confidence": "high",
+        "note": "MND guide lists 2.19m; Metric MND Shopee listing shows 1.79m–3.19m variants."
       },
       "fit": {
         "novel": 5,
@@ -276,7 +312,13 @@
       "source_secondary": [
         "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "voyage",
@@ -317,10 +359,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "min_vnd": 1690000,
+        "max_vnd": 1990000,
+        "current_or_from_vnd": 1690000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND currently lists from 1.69m; Metric MND Shopee listing range 1.69m–1.99m."
       },
       "fit": {
         "novel": 5,
@@ -338,7 +387,13 @@
       "last_verified": "2026-09-25",
       "source_primary": "https://comparisontabl.es/kindle-e-readers/",
       "source_secondary": [],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "clarahd",
@@ -379,10 +434,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "min_vnd": 2290000,
+        "max_vnd": 2290000,
+        "current_or_from_vnd": 2290000,
+        "condition": "used",
+        "availability": "out_of_stock_primary",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "medium",
+        "note": "MND lists 2.29m but marks Kobo Clara HD out of stock."
       },
       "fit": {
         "novel": 5,
@@ -393,7 +455,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-tu-1-2-trieu",
-      "affiliate_url": "https://s.shopee.vn/6KwjiCV1Ed",
+      "affiliate_url": "https://s.shopee.vn/6L4iWSOhDo",
       "data_confidence": "medium",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -402,7 +464,11 @@
       "source_secondary": [
         "https://comparisontabl.es/kobo-e-readers/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": []
     },
     {
       "id": "kobo_clara_color",
@@ -443,10 +509,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "2to4",
       "price_vn": {
-        "min_vnd": null,
+        "min_vnd": 3790000,
         "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "current_or_from_vnd": 3790000,
+        "condition": "new/varies by seller",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND; HLAstore combined page",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND lists Clara Colour from 3.79m; HLA combined Clara BW/Colour page is 4.79m–5.39m."
       },
       "fit": {
         "novel": 5,
@@ -457,7 +530,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kobo",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/1Vz6EnFqMB",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -466,7 +539,11 @@
       "source_secondary": [
         "https://comparisontabl.es/kobo-e-readers/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": []
     },
     {
       "id": "kobo_clara_bw",
@@ -507,10 +584,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "2to4",
       "price_vn": {
-        "min_vnd": null,
+        "min_vnd": 3990000,
         "max_vnd": null,
-        "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "current_or_from_vnd": 3990000,
+        "condition": "new/varies by seller",
+        "availability": "out_of_stock_primary",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND; HLAstore combined page",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND lists Clara BW at 3.99m and marks it out of stock; HLA combined Clara BW/Colour page 4.79m–5.39m."
       },
       "fit": {
         "novel": 5,
@@ -521,7 +605,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kobo",
-      "affiliate_url": "https://s.shopee.vn/6KwjiCV1Ed",
+      "affiliate_url": "https://s.shopee.vn/7Kwt0HFoKB",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -530,7 +614,11 @@
       "source_secondary": [
         "https://comparisontabl.es/kobo-e-readers/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": []
     },
     {
       "id": "boox_go6",
@@ -549,7 +637,7 @@
       "color": false,
       "buttons": false,
       "waterproof": false,
-      "palm_sized": false,
+      "palm_sized": true,
       "front_light": true,
       "warm_light": true,
       "bluetooth_audio": true,
@@ -571,10 +659,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "2to4",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 3280000,
+        "max_vnd": 4890000,
+        "current_or_from_vnd": 3280000,
+        "condition": "mixed/variant dependent",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "Minh Nhật Digital / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "Metric snapshot of MND Shopee lists 3.28m with 3.28m–4.89m variants; MND website currently lists from 4.49m."
       },
       "fit": {
         "novel": 5,
@@ -585,7 +680,7 @@
         "web": 3
       },
       "wiki_url": null,
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/4AzrEYGIbp",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -594,7 +689,13 @@
       "source_secondary": [
         "https://shop.boox.com/products/go6gen2"
       ],
-      "editorial_notes": "Android/Google Play được dùng như lớp tùy biến, không phải proxy cho mọi định dạng. Cross-check eWritable: 6-inch Go 6 is not marked palm-sized; Wizard treats tiny preference by screen size."
+      "editorial_notes": "Android/Google Play được dùng như lớp tùy biến, không phải proxy cho mọi định dạng.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "wiki_link_pending"
+      ]
     },
     {
       "id": "kindle_pw_12",
@@ -635,10 +736,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 3090000,
+        "max_vnd": 4990000,
+        "current_or_from_vnd": 4140000,
+        "condition": "mixed/variant dependent",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "medium",
+        "note": "Mapped to Kindle Paperwhite 6 (12th gen, 2024). MND lists from 3.09m; Metric shows 3.89m–4.99m variants and current 4.14m."
       },
       "fit": {
         "novel": 5,
@@ -649,7 +757,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/1AIE1TCSZ",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -658,7 +766,13 @@
       "source_secondary": [
         "https://comparisontabl.es/kindle-e-readers/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "kindle_colorsoft_se",
@@ -699,10 +813,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 6690000,
+        "max_vnd": 7990000,
+        "current_or_from_vnd": 6690000,
+        "condition": "new/variant dependent",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND lists Colorsoft from 6.69m; Metric shows 6.99m–7.99m variants."
       },
       "fit": {
         "novel": 5,
@@ -713,7 +834,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/6AlIKIybZo",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -722,7 +843,13 @@
       "source_secondary": [
         "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "kindle_colorsoft_16",
@@ -763,10 +890,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 6690000,
+        "max_vnd": 7990000,
+        "current_or_from_vnd": 6690000,
+        "condition": "new/variant dependent",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND / Shopee snapshot (Metric)",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND listing is for Colorsoft family; exact 16GB variant not separately isolated on the indexed page."
       },
       "fit": {
         "novel": 5,
@@ -777,7 +911,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/AUuHUHe3qE",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -786,7 +920,13 @@
       "source_secondary": [
         "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "kindle_pw_se_12",
@@ -827,10 +967,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 4590000,
+        "max_vnd": 6590000,
+        "current_or_from_vnd": 4590000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "Kindle Hà Nội",
+        "source_url": "https://kindlehanoi.vn/danh-muc-san-pham/kindle-paperwhite/",
+        "confidence": "high",
+        "note": "Kindle Hà Nội lists Paperwhite 6 16GB/32GB Signature Edition from 4.59m with old price 6.59m."
       },
       "fit": {
         "novel": 5,
@@ -841,7 +988,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/AKarI0iHsH",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -850,7 +997,13 @@
       "source_secondary": [
         "https://comparisontabl.es/kindle-e-readers/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "kindle_2024",
@@ -891,10 +1044,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "2to4",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 3290000,
+        "max_vnd": 3790000,
+        "current_or_from_vnd": 3290000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "Kindle Hà Nội",
+        "source_url": "https://www.bigbuy360.vn/members/kindlehanoi.vn",
+        "confidence": "high",
+        "note": "Kindle Hà Nội Shopee listing shows Kindle Basic 2024 at 3.29m; range varies by variant."
       },
       "fit": {
         "novel": 5,
@@ -905,7 +1065,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/80CZwv18OA",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -914,7 +1074,13 @@
       "source_secondary": [
         "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "firmware_specific"
+      ]
     },
     {
       "id": "boox_palma2",
@@ -955,10 +1121,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 5700000,
+        "max_vnd": 5890000,
+        "current_or_from_vnd": 5700000,
+        "condition": "used/imported",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "TechReader Shopee; MND",
+        "source_url": "https://shopee.vn/M%C3%A1y-%C4%91%E1%BB%8Dc-s%C3%A1ch-Boox-P6-%28Boox-Palma-2%29-H%C3%A0ng-nh%E1%BA%ADp-kh%E1%BA%A9u-c%E1%BA%A5u-h%C3%ACnh-cao-i.5524067.40602058727",
+        "confidence": "high",
+        "note": "TechReader Shopee lists Boox Palma 2 at 5.7m; MND currently lists from 5.89m."
       },
       "fit": {
         "novel": 5,
@@ -969,7 +1142,7 @@
         "web": 5
       },
       "wiki_url": null,
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/8V9D6iS0LJ",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -978,7 +1151,13 @@
       "source_secondary": [
         "https://shop.boox.com/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "wiki_link_pending"
+      ]
     },
     {
       "id": "boox_go6_gen2",
@@ -1021,8 +1200,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "unknown"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 5,
@@ -1033,7 +1219,7 @@
         "web": 3
       },
       "wiki_url": null,
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/4AzrEYGIbp",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -1042,7 +1228,14 @@
       "source_secondary": [
         "https://shop.boox.com/collections/all-products/6-7"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "vn_price_refresh",
+        "wiki_link_pending"
+      ]
     },
     {
       "id": "boox_go7",
@@ -1083,10 +1276,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 7290000,
+        "max_vnd": 7290000,
+        "current_or_from_vnd": 7290000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND currently lists Boox Go 7 black-and-white from 7.29m."
       },
       "fit": {
         "novel": 5,
@@ -1106,7 +1306,13 @@
       "source_secondary": [
         "https://shop.boox.com/collections/goseries"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "wiki_link_pending"
+      ]
     },
     {
       "id": "boox_go_color7_gen2",
@@ -1147,10 +1353,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "min_vnd": 7190000,
+        "max_vnd": 7190000,
+        "current_or_from_vnd": 7190000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND currently lists Boox Go Color 7 Gen 2 from 7.19m."
       },
       "fit": {
         "novel": 5,
@@ -1170,7 +1383,13 @@
       "source_secondary": [
         "https://shop.boox.com/collections/goseries"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": 150,
+      "quality_flags": [
+        "wiki_link_pending"
+      ]
     },
     {
       "id": "boox_palma2_pro",
@@ -1213,8 +1432,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "unknown"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 5,
@@ -1225,7 +1451,7 @@
         "web": 5
       },
       "wiki_url": null,
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/AUuHUWpfYz",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -1234,7 +1460,14 @@
       "source_secondary": [
         "https://shop.boox.com/collections/all-products/6-7"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": 150,
+      "quality_flags": [
+        "vn_price_refresh",
+        "wiki_link_pending"
+      ]
     },
     {
       "id": "xteink_x3",
@@ -1277,8 +1510,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 4,
@@ -1289,7 +1529,7 @@
         "web": 2
       },
       "wiki_url": "https://www.xteink.com/products/xteink-x3",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/4LJHOE3gii",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -1298,7 +1538,13 @@
       "source_secondary": [
         "https://www.xteink.vn/products/xteink-x3/"
       ],
-      "editorial_notes": "Pocket-size is the core use case; fixed-layout PDF is not the target strength."
+      "editorial_notes": "Pocket-size is the core use case; fixed-layout PDF is not the target strength.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 250,
+      "ppi_color": null,
+      "quality_flags": [
+        "vn_price_refresh"
+      ]
     },
     {
       "id": "xteink_x4_classic",
@@ -1341,8 +1587,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "needs_vn_price_refresh"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 4,
@@ -1353,7 +1606,7 @@
         "web": 2
       },
       "wiki_url": "https://www.xteink.com/products/xteink-x4-classic-pocket-ereader",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/3qN0nHSoJW",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -1362,7 +1615,13 @@
       "source_secondary": [
         "https://www.xteink.com/pages/user-guide"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 219,
+      "ppi_color": null,
+      "quality_flags": [
+        "vn_price_refresh"
+      ]
     },
     {
       "id": "xteink_x4_pro",
@@ -1405,8 +1664,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "unknown"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 4,
@@ -1417,7 +1683,7 @@
         "web": 2
       },
       "wiki_url": "https://www.xteink.com/products/xteink-x4-pro-pocket-ereader",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/8AWMiHTZcP",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -1426,7 +1692,13 @@
       "source_secondary": [
         "https://www.xteink.com/"
       ],
-      "editorial_notes": ""
+      "editorial_notes": "",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 219,
+      "ppi_color": null,
+      "quality_flags": [
+        "vn_price_refresh"
+      ]
     },
     {
       "id": "kindle_scribe_2022",
@@ -1469,8 +1741,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "unknown"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 4,
@@ -1490,7 +1769,14 @@
       "source_secondary": [
         "https://digprjsurvey.amazon.com/csad/help/node/GK33S847NN4V6Y83"
       ],
-      "editorial_notes": "Nhánh ghi chú bằng bút và PDF khổ lớn; không chống nước."
+      "editorial_notes": "Nhánh ghi chú bằng bút và PDF khổ lớn; không chống nước.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "vn_price_refresh",
+        "firmware_specific"
+      ]
     },
     {
       "id": "kobo_libra_colour",
@@ -1531,10 +1817,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "unknown",
       "price_vn": {
-        "min_vnd": null,
+        "min_vnd": 4490000,
         "max_vnd": null,
-        "last_checked": null,
-        "status": "unknown"
+        "current_or_from_vnd": 4490000,
+        "condition": "new/variant dependent",
+        "availability": "listed",
+        "last_checked": "2026-09-25",
+        "status": "observed",
+        "source": "MND",
+        "source_url": "https://mnd.vn/san-pham",
+        "confidence": "high",
+        "note": "MND currently lists Kobo Libra Colour from 4.49m."
       },
       "fit": {
         "novel": 5,
@@ -1545,7 +1838,7 @@
         "web": 3
       },
       "wiki_url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kobo",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/gPzDjjQfb",
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -1554,7 +1847,11 @@
       "source_secondary": [
         "https://comparisontabl.es/kobo-e-readers/"
       ],
-      "editorial_notes": "Màn màu + nút chuyển trang + Kobo Stylus là nhánh quan trọng cho truyện tranh, màu và ghi chú."
+      "editorial_notes": "Màn màu + nút chuyển trang + Kobo Stylus là nhánh quan trọng cho truyện tranh, màu và ghi chú.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": []
     },
     {
       "id": "kobo_elipsa_2e",
@@ -1597,8 +1894,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "unknown"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 4,
@@ -1618,7 +1922,13 @@
       "source_secondary": [
         "https://comparisontabl.es/kobo-e-readers/"
       ],
-      "editorial_notes": "Kobo khổ lớn cho PDF/tài liệu và ghi chú; không chống nước."
+      "editorial_notes": "Kobo khổ lớn cho PDF/tài liệu và ghi chú; không chống nước.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 227,
+      "ppi_color": null,
+      "quality_flags": [
+        "vn_price_refresh"
+      ]
     },
     {
       "id": "boox_go10_gen2",
@@ -1661,8 +1971,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "unknown"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 4,
@@ -1682,7 +1999,14 @@
       "source_secondary": [
         "https://shop.boox.com/collections/goseries"
       ],
-      "editorial_notes": "10.3-inch monochrome, 64GB, multiple formats and stylus support; base Gen II has no front light."
+      "editorial_notes": "10.3-inch monochrome, 64GB, multiple formats and stylus support; base Gen II has no front light.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": null,
+      "quality_flags": [
+        "vn_price_refresh",
+        "wiki_link_pending"
+      ]
     },
     {
       "id": "boox_note_air5_c",
@@ -1725,8 +2049,15 @@
       "price_vn": {
         "min_vnd": null,
         "max_vnd": null,
+        "current_or_from_vnd": null,
+        "condition": null,
+        "availability": "unknown",
         "last_checked": null,
-        "status": "unknown"
+        "status": "unknown",
+        "source": null,
+        "source_url": null,
+        "confidence": null,
+        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
       },
       "fit": {
         "novel": 4,
@@ -1746,7 +2077,14 @@
       "source_secondary": [
         "https://shop.boox.com/collections/all-products/note-series"
       ],
-      "editorial_notes": "Màn màu 10.3 inch, bút, microSD và Android 15; phù hợp nhánh PDF/công việc/ghi chú."
+      "editorial_notes": "Màn màu 10.3 inch, bút, microSD và Android 15; phù hợp nhánh PDF/công việc/ghi chú.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 300,
+      "ppi_color": 150,
+      "quality_flags": [
+        "vn_price_refresh",
+        "wiki_link_pending"
+      ]
     }
   ],
   "reference_models": [
@@ -1874,5 +2212,6 @@
       "source_secondary": [],
       "editorial_notes": "Manual hãng xác nhận 7.8 inch, frontlight, microSD và dải định dạng rộng; cần hoàn thiện waterproof/buttons/warm để hard-filter đầy đủ."
     }
-  ]
+  ],
+  "affiliate_source_note": "Affiliate URLs supplied by site owner in Link aff.docx and Link-san-pham-affiliate.xlsx on 2026-09-25; aliases are retained at model level only when the current runtime model is explicit."
 }
