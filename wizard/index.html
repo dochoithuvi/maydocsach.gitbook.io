@@ -645,16 +645,11 @@ function sendResize(){
     const width = Math.max(1, window.innerWidth || 900);
     const aspectRatio = Math.min(Math.max(width / height, 0.12), 3);
 
+    window.parent.postMessage({ action: '@webframe.ready' }, '*');
     window.parent.postMessage({
-      action: '@webframe.ready'
-    }, '*');
-
-    window.parent.postMessage({
-      action: {
-        type: '@webframe.resize',
-        aspectRatio,
-        maxHeight: Math.max(height, 320)
-      }
+      action: '@webframe.resize',
+      aspectRatio,
+      maxHeight: Math.max(height, 320)
     }, '*');
   } catch (_) {}
 }
