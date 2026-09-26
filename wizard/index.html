@@ -103,13 +103,14 @@ h1{font-size:clamp(25px,4vw,38px);line-height:1.08;margin:0;font-weight:700;lett
 button{border:0;border-radius:8px;padding:9px 12px;font-weight:600;cursor:pointer}.primary{background:var(--accent);color:#fff}.primary:hover{background:var(--accent-hover)}.secondary{background:var(--button-muted);color:var(--button-muted-text)}button:disabled{opacity:.45;cursor:not-allowed}
 .results{display:none}.head{padding:18px;border-bottom:1px solid var(--border)}.head h2{font-size:23px;line-height:1.18;margin:3px 0 6px;font-weight:650;letter-spacing:-.02em}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 .chip{background:var(--accent-soft);color:var(--accent-hover);border-radius:999px;padding:5px 8px;font-size:10px;font-weight:600}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:16px}.card{border:1px solid var(--border);border-radius:11px;padding:14px;background:var(--surface);position:relative}.rank{position:absolute;top:11px;right:11px;background:var(--text);color:var(--surface);border-radius:999px;padding:3px 6px;font-size:9px;font-weight:700}.tag{display:inline-block;background:var(--accent-soft);color:var(--accent-hover);border-radius:999px;padding:4px 7px;font-size:9px;font-weight:650;margin-bottom:5px}.card h3{font-size:17px;line-height:1.2;margin:0 0 5px;font-weight:650;padding-right:40px}.score{font-size:10px;color:var(--text-soft);margin:0 0 8px}.specs{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;padding:0;margin:9px 0;list-style:none}.specs li{font-size:11px;color:var(--text-muted)}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:16px}.desktop-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding:16px}.card{border:1px solid var(--border);border-radius:11px;padding:14px;background:var(--surface);position:relative}.rank{position:absolute;top:11px;right:11px;background:var(--text);color:var(--surface);border-radius:999px;padding:3px 6px;font-size:9px;font-weight:700}.tag{display:inline-block;background:var(--accent-soft);color:var(--accent-hover);border-radius:999px;padding:4px 7px;font-size:9px;font-weight:650;margin-bottom:5px}.card h3{font-size:17px;line-height:1.2;margin:0 0 5px;font-weight:650;padding-right:40px}.score{font-size:10px;color:var(--text-soft);margin:0 0 8px}.specs{display:grid;grid-template-columns:1fr 1fr;gap:5px 10px;padding:0;margin:9px 0;list-style:none}.specs li{font-size:11px;color:var(--text-muted)}.mobile-results{display:none}.mini-card{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:6px 7px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}.mini-main{min-width:0}.mini-main strong{display:block;font-size:9px;color:var(--accent-hover);line-height:1}.mini-main h3{font-size:12px;line-height:1.1;margin:2px 0;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini-main span{display:block;font-size:8.5px;line-height:1;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini-link{flex:0 0 auto;text-decoration:none;border:1px solid var(--border);border-radius:7px;padding:4px 6px;color:var(--text);font-size:8.5px;font-weight:600}
 .why{background:var(--good);color:var(--good-text);padding:9px 10px;border-radius:9px;font-size:12px}.trade{background:var(--warn);color:var(--warn-text);padding:9px 10px;border-radius:9px;font-size:11px;margin-top:6px}.links{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.link{display:inline-block;text-decoration:none;border:1px solid var(--border);border-radius:8px;padding:7px 9px;color:var(--text);font-size:11px;font-weight:600;background:var(--surface)}.link.main{background:var(--accent);color:#fff;border-color:var(--accent)}
 .section{padding:0 16px 16px}.paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.path{border:1px solid var(--border);border-radius:10px;padding:9px;font-size:11px;color:var(--text-muted);background:var(--surface-soft)}.path strong{display:block;color:var(--text);margin-bottom:3px}.path a{color:var(--accent-hover)}.error{padding:18px}.status{display:none}
 html[data-embed="gitbook"] .intro{display:none}
 code{font-size:.92em;background:var(--acce@media(max-width:720px){
   .options{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .desktop-cards{display:none}
+  .mobile-results{display:flex;flex-direction:column;gap:5px;padding:6px}
   .paths{grid-template-columns:1fr}
   .intro{padding:2px 2px 6px}
   .intro-title{gap:7px}
@@ -142,6 +143,7 @@ code{font-size:.92em;background:var(--acce@media(max-width:720px){
   .results .section{display:none}
 }
 @media(max-width:430px){
+  .bar{display:none}
   .wrap{padding:1px 1px 7px}
   .intro-title .icon{font-size:22px}
   h1{font-size:22px}
@@ -596,8 +598,10 @@ function resultsPage(){
   document.getElementById('chips').innerHTML = chips;
 
   let cardsHtml = '';
+  let mobileCardsHtml = '';
   if (!picks.length) {
     cardsHtml = '<div class="error"><h2>Chưa có model khớp với bộ tiêu chí này</h2><p class="muted">Các yêu cầu bắt buộc hiện tại không tìm được model đủ dữ liệu. Anh có thể quay lại và nới một tiêu chí để Wizard mở rộng lựa chọn.</p></div>';
+    mobileCardsHtml = cardsHtml;
   } else {
     cardsHtml = picks.map(function(x){
       const m = x.m;
@@ -625,9 +629,25 @@ function resultsPage(){
       html += '</article>';
       return html;
     }).join('');
+
+    mobileCardsHtml = picks.map(function(x){
+      const m = x.m;
+      const p = priceInfo(m);
+      const sp = spec(m);
+      const wiki = m.wiki_url || '';
+      const price = p.main || 'Giá chưa xác minh';
+      const target = wiki || m.affiliate_url || '';
+      let html = '<article class="mini-card">';
+      html += '<div class="mini-main"><strong>' + escapeHtml(m.brand || 'eReader') + '</strong><h3>' + escapeHtml(m.model) + '</h3><span>' + escapeHtml(price) + ' · ' + escapeHtml(sp.screen) + '</span></div>';
+      if (target) html += '<a class="mini-link" href="' + escapeHtml(target) + '" target="_blank" rel="noopener">Xem ↗</a>';
+      html += '</article>';
+      return html;
+    }).join('');
   }
 
-  document.getElementById('cards').innerHTML = cardsHtml;
+  document.getElementById('cards').innerHTML =
+    '<div class="desktop-cards">' + cardsHtml + '</div>' +
+    '<div class="mobile-results">' + mobileCardsHtml + '</div>';
 
   const noteNode = document.querySelector('#results .head .budget-note');
   if (noteNode) noteNode.remove();
