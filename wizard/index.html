@@ -673,6 +673,23 @@ function escapeHtml(s){
   });
 }
 
+function sendAction(action){
+  if (window.parent === window) return;
+  try {
+    window.parent.postMessage({ action }, '*');
+  } catch (_) {}
+}
+
+let readySent = false;
+
+function sendReady(){
+  if (window.parent === window || readySent) return;
+  readySent = true;
+  sendAction({
+    action: '@webframe.ready'
+  });
+}
+
 function sendResize(){
   if (window.parent === window) return;
 
@@ -685,24 +702,26 @@ function sendResize(){
     body ? body.offsetHeight : 0,
     doc ? doc.clientHeight : 0,
     body ? body.clientHeight : 0
-  ) + 8);
+  ) + 2);
 
-  if (!Number.isFinite(height) || height < 260) return;
+  const width = Math.max(
+    1,
+    doc ? doc.clientWidth : 0,
+    body ? body.clientWidth : 0,
+    window.innerWidth || 0
+  );
 
-  try {
-    // Explicitly announce readiness before requesting a container resize.
-    // On mobile the wizard can become much taller after results stack vertically,
-    // so do not force a shallow aspect ratio or a low fixed height.
-    const width = Math.max(1, window.innerWidth || 900);
-    const aspectRatio = Math.min(Math.max(width / height, 0.12), 3);
+  if (!Number.isFinite(width) || !Number.isFinite(height) || height < 120) return;
 
-    window.parent.postMessage({ action: '@webframe.ready' }, '*');
-    window.parent.postMessage({
-      action: '@webframe.resize',
-      aspectRatio,
-      maxHeight: Math.max(height, 320)
-    }, '*');
-  } catch (_) {}
+  sendReady();
+
+  sendAction({
+    action: '@webframe.resize',
+    size: {
+      aspectRatio: width / height,
+      height
+    }
+  });
 }
 
 let resizeTimer;
