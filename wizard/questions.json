@@ -43,7 +43,7 @@
     {
       "key": "primary_use",
       "question": "📖 Bạn dùng máy chủ yếu để làm gì?",
-      "type": "single",
+      "type": "multi",
       "options": [
         [
           "novel",
@@ -75,7 +75,8 @@
           "Web / bài viết",
           "Ưu tiên khả năng hiển thị web và nhiều nguồn nội dung."
         ]
-      ]
+      ],
+      "hint": "Bạn có thể chọn nhiều nhu cầu nếu sử dụng máy cho nhiều mục đích."
     },
     {
       "key": "size",
