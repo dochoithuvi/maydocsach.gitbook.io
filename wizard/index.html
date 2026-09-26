@@ -624,15 +624,23 @@ function escapeHtml(s){
 
 function sendResize(){
   if (window.parent === window) return;
+
+  const doc = document.documentElement;
+  const body = document.body;
   const height = Math.ceil(Math.max(
-    document.documentElement && document.documentElement.scrollHeight || 0,
-    document.body && document.body.scrollHeight || 0,
-    document.documentElement && document.documentElement.offsetHeight || 0,
-    document.body && document.body.offsetHeight || 0
+    doc ? doc.scrollHeight : 0,
+    body ? body.scrollHeight : 0,
+    doc ? doc.offsetHeight : 0,
+    body ? body.offsetHeight : 0,
+    doc ? doc.clientHeight : 0,
+    body ? body.clientHeight : 0
   ) + 8);
 
   if (!Number.isFinite(height) || height < 260) return;
+
   try {
+    // Explicitly announce readiness before requesting a container resize.
+    window.parent.postMessage({ action: '@webframe.ready' }, '*');
     window.parent.postMessage({
       action: '@webframe.resize',
       aspectRatio: Math.max(0.45, Math.min((window.innerWidth || 900) / height, 3)),
@@ -652,7 +660,12 @@ const resizeObserver = typeof ResizeObserver !== 'undefined'
   : null;
 
 if (resizeObserver) resizeObserver.observe(document.documentElement);
-window.addEventListener('load', scheduleResize);
+window.addEventListener('load', function(){
+  scheduleResize();
+  [120, 350, 800, 1500].forEach(function(ms){
+    setTimeout(scheduleResize, ms);
+  });
+});
 window.addEventListener('resize', scheduleResize);
 
 async function boot(){
