@@ -640,11 +640,16 @@ function sendResize(){
 
   try {
     // Explicitly announce readiness before requesting a container resize.
+    // On mobile the wizard can become much taller after results stack vertically,
+    // so do not force a shallow aspect ratio or a low fixed height.
+    const width = Math.max(1, window.innerWidth || 900);
+    const aspectRatio = Math.min(Math.max(width / height, 0.12), 3);
+
     window.parent.postMessage({ action: '@webframe.ready' }, '*');
     window.parent.postMessage({
       action: '@webframe.resize',
-      aspectRatio: Math.max(0.45, Math.min((window.innerWidth || 900) / height, 3)),
-      maxHeight: Math.min(Math.max(height, 320), 1400)
+      aspectRatio,
+      maxHeight: Math.max(height, 320)
     }, '*');
   } catch (_) {}
 }
