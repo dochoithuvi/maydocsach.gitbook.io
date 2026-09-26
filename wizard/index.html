@@ -91,7 +91,7 @@ h1{font-size:clamp(25px,4vw,38px);line-height:1.08;margin:0;font-weight:700;lett
 .panel{background:var(--surface);border:1px solid var(--border);border-radius:11px;box-shadow:var(--shadow);overflow:hidden}
 .bar{padding:9px 13px;border-bottom:1px solid var(--border);background:var(--surface)}
 .dots{display:flex;gap:5px}.dot{height:5px;border-radius:99px;background:var(--border);flex:1}.dot.on{background:var(--accent)}
-.meta{display:flex;justify-content:space-between;gap:12px;margin-top:6px;color:var(--text-muted);font-size:11px}
+.meta{display:flex;justify-content:flex-end;gap:12px;margin-top:6px;color:var(--text-muted);font-size:11px}#label{display:none}
 .body{padding:15px 16px 16px}.body h2{font-size:22px;line-height:1.16;margin:0;font-weight:650;letter-spacing:-.02em}.body>.muted{margin-top:6px}
 .muted{color:var(--text-muted)}
 .options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:11px}
@@ -383,12 +383,15 @@ function score(m){
   }
 
   const fit = m.fit || {};
-  if (use && num(fit[use]) !== null) {
-    const f = Number(fit[use]);
-    add(f * 3);
-    if (f >= 5) reasons.push('Phù hợp tốt với nhu cầu ' + (USE_LABELS[use] || use) + '.');
-    else if (f >= 4) reasons.push('Có dữ liệu phù hợp với nhu cầu ' + (USE_LABELS[use] || use) + '.');
-  }
+  const uses = Array.isArray(use) ? use : (use ? [use] : []);
+  uses.forEach(function(u){
+    if (num(fit[u]) !== null) {
+      const f = Number(fit[u]);
+      add(f * 3);
+      if (f >= 5) reasons.push('Phù hợp tốt với nhu cầu ' + (USE_LABELS[u] || u) + '.');
+      else if (f >= 4) reasons.push('Có dữ liệu phù hợp với nhu cầu ' + (USE_LABELS[u] || u) + '.');
+    }
+  });
 
   const screen = num(m.screen_in);
 
@@ -467,7 +470,8 @@ function tradeoffs(m){
   const use = A.primary_use;
   const screen = num(m.screen_in);
 
-  if (use === 'pdf' && screen !== null && screen < 7) {
+  const uses = Array.isArray(use) ? use : (use ? [use] : []);
+  if (uses.includes('pdf') && screen !== null && screen < 7) {
     t.push('PDF trên màn hình nhỏ có thể kém thoải mái hơn.');
   }
   if (A.ecosystem === 'apps' && m.android !== true) {
@@ -496,7 +500,7 @@ function budgetNote(m){
   const st = budgetState(m);
   const p = priceInfo(m);
 
-  if (st === 'within') return '<div class="why">✓ ' + escapeHtml(p.main) + ' — trong trần ngân sách đã chọn.</div>';
+  if (st === 'within') return '<div class="why">✓ ' + escapeHtml(p.main) + ' — trong ngân sách đã chọn.</div>';
   if (st === 'range_tradeoff') return '<div class="trade">⚠️ ' + escapeHtml(p.main) + ' — một số mức giá quan sát có thể vượt trần ngân sách.</div>';
   if (st === 'over') return '<div class="trade">⚠️ Giá quan sát bắt đầu ở ' + escapeHtml(p.main.replace(/^từ /,'')) + ', cao hơn trần ngân sách.</div>';
   if (st === 'unknown') return '<div class="trade">⚠️ Chưa có giá VN được xác minh cho model này; cần kiểm tra trước khi mua.</div>';
