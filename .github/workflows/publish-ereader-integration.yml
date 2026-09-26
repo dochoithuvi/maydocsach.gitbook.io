@@ -1,5 +1,6 @@
 name: Publish MayDocSach E-Reader Integration
 
+# Automation check: publishing is triggered by changes under integration/** or this workflow.
 on:
   push:
     branches:
