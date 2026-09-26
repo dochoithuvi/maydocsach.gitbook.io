@@ -1,0 +1,58 @@
+name: Publish MayDocSach E-Reader Integration
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "integration/**"
+      - ".github/workflows/publish-ereader-integration.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: publish-ereader-integration
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: integration/package.json
+
+      - name: Install integration dependencies
+        working-directory: integration
+        run: npm install --no-audit --no-fund
+
+      - name: Install GitBook CLI
+        run: npm install --global @gitbook/cli
+
+      - name: Authenticate GitBook
+        env:
+          GITBOOK_API_TOKEN: ${{ secrets.GITBOOK_API_TOKEN }}
+        run: |
+          if [ -z "$GITBOOK_API_TOKEN" ]; then
+            echo "::error::Missing repository secret GITBOOK_API_TOKEN"
+            exit 1
+          fi
+          gitbook auth --token="$GITBOOK_API_TOKEN"
+
+      - name: Validate integration
+        working-directory: integration
+        run: npm run build
+
+      - name: Publish integration
+        working-directory: integration
+        run: npm run publish:gitbook
