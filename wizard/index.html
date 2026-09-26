@@ -166,85 +166,461 @@ code{font-size:.92em;background:var(--accent-soft);padding:.12em .3em;border-rad
   const theme = p.get('theme');
   if (theme === 'dark' || theme === 'light') document.documentElement.dataset.theme = theme;
 })();
-let Q=[], M=[], i=0, A={};
-const els={view:document.getElementById('view'),dots:document.getElementById('dots'),label:document.getElementById('label'),counter:document.getElementById('counter'),prev:document.getElementById('prev'),next:document.getElementById('next'),status:document.getElementById('status')};
-const labels={u1:'Dưới 1 triệu',one:'1–2 triệu','1to2':'1–2 triệu',two:'2–4 triệu','2to4':'2–4 triệu',four:'4–7 triệu','4to7':'4–7 triệu',sevenplus:'Trên 7 triệu',unknown:'Chưa xác định',novel:'Sách chữ',pdf:'PDF',manga:'Manga',color:'Màu',work:'Tài liệu công việc',web:'Web',tiny:'Ưu tiên siêu nhỏ','6':'Khoảng 6 inch','7':'Khoảng 7 inch',large:'Màn hình lớn',neutral:'Kích thước không quan trọng',often:'Đọc đêm thường xuyên',sometimes:'Đọc đêm thỉnh thoảng',rare:'Ít đọc ban đêm',water:'Chống nước',warm:'Đèn ấm',buttons:'Nút chuyển trang',android:'Android',pen:'Ghi chú bằng bút',microsd:'Khe microSD',amazon:'Amazon / Kindle',epub:'EPUB',many:'Nhiều nguồn',apps:'Nhiều ứng dụng',yes:'Quan tâm jailbreak/KOReader',maybe:'Có thể quan tâm',no:'Không cần tùy biến'};
 
-function answerValid(){const q=Q[i];const a=A[q.key];return q.type==='single'?!!a:Array.isArray(a)&&a.length>0}
+let Q = [], M = [], i = 0, A = {};
+
+const els = {
+  view: document.getElementById('view'),
+  dots: document.getElementById('dots'),
+  label: document.getElementById('label'),
+  counter: document.getElementById('counter'),
+  prev: document.getElementById('prev'),
+  next: document.getElementById('next'),
+  status: document.getElementById('status')
+};
+
+const labels = {
+  u1:'Dưới 1 triệu', one:'1–2 triệu', '1to2':'1–2 triệu', two:'2–4 triệu', '2to4':'2–4 triệu',
+  four:'4–7 triệu', '4to7':'4–7 triệu', sevenplus:'Trên 7 triệu', '7plus':'Trên 7 triệu',
+  unknown:'Chưa xác định',
+  novel:'Sách chữ', pdf:'PDF', manga:'Manga', color:'Màu', work:'Tài liệu công việc', web:'Web',
+  tiny:'Ưu tiên siêu nhỏ', '6':'Khoảng 6 inch', '7':'Khoảng 7 inch', large:'Màn hình lớn', neutral:'Kích thước không quan trọng',
+  often:'Đọc đêm thường xuyên', sometimes:'Đọc đêm thỉnh thoảng', rare:'Ít đọc ban đêm',
+  water:'Chống nước', warm:'Đèn ấm', buttons:'Nút chuyển trang', android:'Android', pen:'Ghi chú bằng bút', microsd:'Khe microSD',
+  amazon:'Amazon / Kindle', epub:'EPUB / thư viện cá nhân', many:'Nhiều nguồn', apps:'Nhiều ứng dụng',
+  yes:'Quan tâm jailbreak/KOReader', maybe:'Có thể quan tâm', no:'Không cần tùy biến'
+};
+
+const BUDGET_CAP = {
+  u1: 1000000,
+  one: 2000000,
+  '1to2': 2000000,
+  two: 4000000,
+  '2to4': 4000000,
+  four: 7000000,
+  '4to7': 7000000,
+  sevenplus: Infinity,
+  '7plus': Infinity
+};
+
+const USE_LABELS = {
+  novel:'sách chữ / tiểu thuyết',
+  pdf:'PDF / tài liệu',
+  manga:'manga / truyện tranh',
+  color:'nội dung màu',
+  work:'học tập / công việc',
+  web:'web / bài viết'
+};
+
+function answerValid(){
+  const q = Q[i];
+  const a = A[q.key];
+  return q && (q.type === 'single' ? !!a : Array.isArray(a) && a.length > 0);
+}
+
 function render(){
- const q=Q[i], a=A[q.key];
- els.dots.innerHTML=Q.map((_,n)=>`<div class="dot ${n<=i?'on':''}"></div>`).join('');
- els.label.textContent=q.question; els.counter.textContent=`Bước ${i+1}/${Q.length}`;
- let h=`<h2>${q.question}</h2>${q.hint?`<div class="muted">${q.hint}</div>`:''}<div class="options">`;
- q.options.forEach(([id,t,d])=>{const sel=q.type==='single'?a===id:Array.isArray(a)&&a.includes(id);h+=`<button type="button" class="option ${sel?'sel':''}" data-id="${id}"><strong>${t}</strong><span>${d}</span></button>`});
- h+='</div>';els.view.innerHTML=h;
- els.view.querySelectorAll('.option').forEach(b=>b.onclick=()=>{const id=b.dataset.id;if(q.type==='single')A[q.key]=id;else{A[q.key]=A[q.key]||[];A[q.key]=A[q.key].includes(id)?A[q.key].filter(x=>x!==id):[...A[q.key],id]}render()});
- els.prev.disabled=i===0;els.next.disabled=!answerValid();
- scheduleResize();
+  const q = Q[i], a = A[q.key];
+  els.dots.innerHTML = Q.map(function(_, n){
+    return '<div class="dot ' + (n <= i ? 'on' : '') + '"></div>';
+  }).join('');
+  els.label.textContent = q.question;
+  els.counter.textContent = 'Bước ' + (i + 1) + '/' + Q.length;
+
+  let h = '<h2>' + escapeHtml(q.question) + '</h2>';
+  if (q.hint) h += '<div class="muted">' + escapeHtml(q.hint) + '</div>';
+  h += '<div class="options">';
+
+  q.options.forEach(function(item){
+    const id = item[0], t = item[1], d = item[2];
+    const sel = q.type === 'single' ? a === id : Array.isArray(a) && a.includes(id);
+    h += '<button type="button" class="option ' + (sel ? 'sel' : '') + '" data-id="' + escapeHtml(id) + '">';
+    h += '<strong>' + escapeHtml(t) + '</strong><span>' + escapeHtml(d || '') + '</span></button>';
+  });
+
+  h += '</div>';
+  els.view.innerHTML = h;
+
+  els.view.querySelectorAll('.option').forEach(function(b){
+    b.onclick = function(){
+      const id = b.dataset.id;
+      if (q.type === 'single') {
+        A[q.key] = id;
+      } else {
+        A[q.key] = A[q.key] || [];
+        A[q.key] = A[q.key].includes(id)
+          ? A[q.key].filter(function(x){ return x !== id; })
+          : A[q.key].concat(id);
+      }
+      render();
+    };
+  });
+
+  els.prev.disabled = i === 0;
+  els.next.disabled = !answerValid();
+  scheduleResize();
 }
-function hasTag(m,t){return Array.isArray(m.tags)&&m.tags.includes(t)}
+
+function num(v){
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
+
+function formatMoney(v){
+  const n = num(v);
+  return n === null ? null : new Intl.NumberFormat('vi-VN').format(n) + ' đ';
+}
+
+function formatMillion(v){
+  const n = num(v);
+  if (n === null) return null;
+  const mil = n / 1000000;
+  return mil.toLocaleString('vi-VN', {maximumFractionDigits:2}) + ' triệu';
+}
+
+function priceInfo(m){
+  const p = m.price_vn || {};
+  const current = num(p.current_or_from_vnd);
+  const min = num(p.min_vnd);
+  const max = num(p.max_vnd);
+  const bits = [];
+
+  if (current !== null) {
+    bits.push('từ ' + formatMillion(current));
+  } else if (min !== null) {
+    bits.push('từ ' + formatMillion(min));
+  }
+
+  if (current !== null && min !== null && max !== null && max > min) {
+    bits.push('quan sát ' + formatMillion(min) + '–' + formatMillion(max));
+  } else if (current === null && min !== null && max !== null && max > min) {
+    bits.push('khoảng ' + formatMillion(min) + '–' + formatMillion(max));
+  }
+
+  return {
+    available: bits.length > 0,
+    main: bits.length ? bits[0] : 'Chưa có giá VN xác minh',
+    detail: bits.slice(1).join(' · '),
+    condition: p.condition || '',
+    availability: p.availability || '',
+    source: p.source || '',
+    sourceUrl: p.source_url || '',
+    lastChecked: p.last_checked || '',
+    note: p.note || ''
+  };
+}
+
+function budgetState(m){
+  const key = A.budget;
+  if (!key || key === 'unknown') return 'not_requested';
+
+  const cap = BUDGET_CAP[key];
+  const p = m.price_vn || {};
+  const min = num(p.min_vnd);
+
+  if (min === null) return 'unknown';
+
+  if (cap === Infinity) return 'within';
+
+  if (min <= cap) {
+    const current = num(p.current_or_from_vnd);
+    if (current !== null && current > cap) return 'range_tradeoff';
+    return 'within';
+  }
+
+  return 'over';
+}
+
+function hardPass(m){
+  if (A.night === 'often' && m.front_light !== true) return false;
+
+  const features = Array.isArray(A.features) ? A.features : [];
+  for (const f of features) {
+    if (f === 'water' && m.waterproof !== true) return false;
+    if (f === 'warm' && m.warm_light !== true) return false;
+    if (f === 'buttons' && m.buttons !== true) return false;
+    if (f === 'android' && m.android !== true) return false;
+    if (f === 'pen' && !(m.stylus === true && m.note_taking === true)) return false;
+    if (f === 'color' && m.color !== true) return false;
+    if (f === 'microsd' && m.microsd !== true) return false;
+  }
+
+  if (A.ecosystem === 'amazon' && m.brand !== 'Kindle') return false;
+  if (A.ecosystem === 'epub' && m.native_epub !== true) return false;
+  if (A.ecosystem === 'apps' && m.android !== true) return false;
+  if (A.ecosystem === 'many') {
+    const flexible = (num(m.format_flexibility) || 0) >= 4 ||
+      (num(m.multi_source_fit) || 0) >= 4 ||
+      m.android === true;
+    if (!flexible) return false;
+  }
+
+  return true;
+}
+
 function score(m){
- let s=0, reasons=[], vals=Object.values(A).flat(), features=A.features||[];
- const add=(n,reason)=>{s+=n;if(reason)reasons.push(reason)};
- if(A.budget&&A.budget!=='unknown'){if(m.budget===A.budget)add(4,'Ngân sách nằm trong nhóm dữ liệu của model.');else if(m.budget)add(1)}
- if(A.content){A.content.forEach(c=>{if((m.content||[]).includes(c))add(3)})}
- if(A.size==='tiny'){if(m.screen<=4.5||hasTag(m,'ultra_compact')||hasTag(m,'pocket'))add(7,'Ưu tiên máy nhỏ/gọn khớp với model.');else if(m.screen<=6.2)add(1)}
- if(A.size==='6'&&m.screen>=5.5&&m.screen<=6.5)add(4,'Kích thước gần 6 inch.');
- if(A.size==='7'&&m.screen>6.5&&m.screen<=7.5)add(4,'Kích thước gần 7 inch.');
- if(A.size==='large'&&m.screen>=7.5)add(6,'Màn hình lớn phù hợp PDF/tài liệu.');
- if(A.night==='often'){if(m.warm||hasTag(m,'warm_light'))add(4,'Có đèn ấm/đèn trước trong dữ liệu.')}else if(A.night==='sometimes'&&(m.warm||hasTag(m,'warm_light')))add(2);
- features.forEach(f=>{
-   if(f==='water'&&m.waterproof)add(4);
-   if(f==='warm'&&(m.warm||hasTag(m,'warm_light')))add(4);
-   if(f==='buttons'&&(m.buttons||hasTag(m,'buttons')))add(4);
-   if(f==='android'&&m.android)add(5);
-   if(f==='color'&&m.color)add(6,'Có màn hình màu.');
-   if(f==='microsd'&&m.microsd)add(4);
-   if(f==='pen' && (hasTag(m,'pen')||hasTag(m,'note')||m.screen>=10))add(2);
- });
- if(A.ecosystem==='amazon'&&m.brand==='Kindle')add(5,'Thuộc hệ sinh thái Kindle.');
- if(A.ecosystem==='epub'&&m.brand==='Kobo')add(5,'Thuộc hệ sinh thái Kobo.');
- if(A.ecosystem==='apps'&&m.android)add(5,'Android phù hợp nhu cầu cài ứng dụng.');
- if(A.ecosystem==='many'&&(m.android||m.brand==='Kobo'))add(2);
- if(A.custom==='yes'){if(m.brand==='Kindle')add(3,'Có đường Wiki liên quan Kindle/tùy biến trong hệ thống.');else if(m.android)add(1)}
- if(A.custom==='maybe'){if(m.brand==='Kindle')add(1)}
- return {s,reasons};
+  let s = 0;
+  const reasons = [];
+  const use = A.primary_use;
+  const features = Array.isArray(A.features) ? A.features : [];
+
+  function add(n, reason){
+    s += n;
+    if (reason && reasons.indexOf(reason) === -1) reasons.push(reason);
+  }
+
+  const fit = m.fit || {};
+  if (use && num(fit[use]) !== null) {
+    const f = Number(fit[use]);
+    add(f * 3);
+    if (f >= 5) reasons.push('Phù hợp tốt với nhu cầu ' + (USE_LABELS[use] || use) + '.');
+    else if (f >= 4) reasons.push('Có dữ liệu phù hợp với nhu cầu ' + (USE_LABELS[use] || use) + '.');
+  }
+
+  const screen = num(m.screen_in);
+
+  if (A.size === 'tiny') {
+    if (m.palm_sized === true || (screen !== null && screen <= 5)) add(7, 'Ưu tiên máy nhỏ/gọn khớp với model.');
+    else if (screen !== null && screen <= 6.2) add(2);
+  }
+  if (A.size === '6' && screen !== null && screen >= 5.5 && screen <= 6.5) add(4, 'Kích thước gần 6 inch.');
+  if (A.size === '7' && screen !== null && screen > 6.5 && screen <= 7.5) add(4, 'Kích thước gần 7 inch.');
+  if (A.size === 'large' && screen !== null && screen >= 7.5) add(6, 'Màn hình lớn phù hợp PDF/tài liệu.');
+
+  if (A.night === 'often' && m.warm_light === true) add(3, 'Có đèn ấm, phù hợp đọc ban đêm.');
+  if (A.night === 'sometimes' && m.warm_light === true) add(2);
+
+  features.forEach(function(f){
+    if (f === 'water' && m.waterproof === true) add(2);
+    if (f === 'warm' && m.warm_light === true) add(2);
+    if (f === 'buttons' && m.buttons === true) add(2);
+    if (f === 'android' && m.android === true) add(3, 'Có Android.');
+    if (f === 'color' && m.color === true) add(3, 'Có màn hình màu.');
+    if (f === 'microsd' && m.microsd === true) add(2, 'Có khe microSD.');
+    if (f === 'pen' && m.stylus === true && m.note_taking === true) add(3, 'Có hỗ trợ bút và ghi chú.');
+  });
+
+  if (A.ecosystem === 'amazon' && m.brand === 'Kindle') add(5, 'Thuộc hệ sinh thái Kindle.');
+  if (A.ecosystem === 'epub' && m.native_epub === true) add(5, 'Hỗ trợ EPUB trực tiếp.');
+  if (A.ecosystem === 'many') {
+    if ((num(m.multi_source_fit) || 0) >= 4) add(4, 'Phù hợp nguồn sách đa dạng.');
+    if ((num(m.format_flexibility) || 0) >= 4) add(3);
+  }
+  if (A.ecosystem === 'apps' && m.android === true) add(5, 'Android phù hợp nhu cầu cài ứng dụng.');
+
+  if (A.custom === 'yes') {
+    if (m.koreader_status && m.koreader_status !== 'not_verified') add(4, 'Có thông tin hỗ trợ KOReader/tùy biến.');
+    else if (m.jailbreak_status && m.jailbreak_status !== 'not_applicable') add(3);
+  }
+  if (A.custom === 'maybe') {
+    if (m.koreader_status && m.koreader_status !== 'not_verified') add(2);
+  }
+
+  const bs = budgetState(m);
+  if (bs === 'within') add(4, 'Giá quan sát phù hợp với trần ngân sách đã chọn.');
+  if (bs === 'range_tradeoff') add(1, 'Giá tối thiểu nằm trong ngân sách nhưng một số mức giá có thể vượt trần.');
+  if (bs === 'unknown') add(-5, 'Chưa có giá VN được xác minh.');
+
+  const confidence = m.data_confidence;
+  if (confidence === 'high') add(1);
+  else if (confidence === 'medium') add(0.5);
+
+  return { s: s, reasons: reasons };
 }
+
 function spec(m){
- const screen=m.screen?`${m.screen}"`:'—';
- const color=m.color?'Màu':'Đen trắng';const os=m.os||'—';
- const features=[];if(m.waterproof)features.push('chống nước');if(m.warm||hasTag(m,'warm_light'))features.push('đèn ấm');if(m.buttons||hasTag(m,'buttons'))features.push('nút trang');if(m.android)features.push('Android');if(m.microsd)features.push('microSD');
- return {screen,color,os,features:features.slice(0,4)};
+  const screen = num(m.screen_in);
+  const color = m.color === true ? 'Màu' : 'Đen trắng';
+  const os = m.os || '—';
+  const features = [];
+
+  if (m.waterproof === true) features.push('chống nước');
+  if (m.warm_light === true) features.push('đèn ấm');
+  if (m.buttons === true) features.push('nút trang');
+  if (m.android === true) features.push('Android');
+  if (m.microsd === true) features.push('microSD');
+  if (m.stylus === true && m.note_taking === true) features.push('bút/ghi chú');
+
+  return {
+    screen: screen === null ? '—' : screen.toString().replace('.', ',') + '"',
+    color: color,
+    os: os,
+    features: features.slice(0, 4)
+  };
 }
-function tradeoffs(m){const t=[];if(A.pdf&&m.screen<7)t.push('PDF trên màn hình nhỏ có thể kém thoải mái hơn.');if(featuresSelected('android')&&!m.android)t.push('Không phải Android, nên khả năng cài app hạn chế hơn.');if(featuresSelected('color')&&!m.color)t.push('Không có màn hình màu.');if(A.size==='tiny'&&m.screen>5)t.push('Không thuộc nhóm máy siêu nhỏ.');if(A.features?.includes('water')&&!m.waterproof)t.push('Dữ liệu hiện tại không ghi nhận chống nước.');return t}
-function featuresSelected(x){return Array.isArray(A.features)&&A.features.includes(x)}
-function escapeHtml(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+
+function tradeoffs(m){
+  const t = [];
+  const use = A.primary_use;
+  const screen = num(m.screen_in);
+
+  if (use === 'pdf' && screen !== null && screen < 7) {
+    t.push('PDF trên màn hình nhỏ có thể kém thoải mái hơn.');
+  }
+  if (A.ecosystem === 'apps' && m.android !== true) {
+    t.push('Không phải Android nên khả năng cài app hạn chế hơn.');
+  }
+  if (A.ecosystem === 'color' && m.color !== true) {
+    t.push('Không có màn hình màu.');
+  }
+  if (A.size === 'tiny' && screen !== null && screen > 5) {
+    t.push('Không thuộc nhóm máy siêu nhỏ.');
+  }
+  if (featuresSelected('water') && m.waterproof !== true) {
+    t.push('Không ghi nhận chống nước trong dữ liệu hiện tại.');
+  }
+  if (featuresSelected('warm') && m.warm_light !== true) {
+    t.push('Không có đèn ấm theo dữ liệu hiện tại.');
+  }
+  return t;
+}
+
+function featuresSelected(x){
+  return Array.isArray(A.features) && A.features.includes(x);
+}
+
+function budgetNote(m){
+  const st = budgetState(m);
+  const p = priceInfo(m);
+
+  if (st === 'within') return '<div class="why">✓ ' + escapeHtml(p.main) + ' — trong trần ngân sách đã chọn.</div>';
+  if (st === 'range_tradeoff') return '<div class="trade">⚠️ ' + escapeHtml(p.main) + ' — một số mức giá quan sát có thể vượt trần ngân sách.</div>';
+  if (st === 'over') return '<div class="trade">⚠️ Giá quan sát bắt đầu ở ' + escapeHtml(p.main.replace(/^từ /,'')) + ', cao hơn trần ngân sách.</div>';
+  if (st === 'unknown') return '<div class="trade">⚠️ Chưa có giá VN được xác minh cho model này; cần kiểm tra trước khi mua.</div>';
+  return '';
+}
+
+function priceBlock(m){
+  const p = priceInfo(m);
+  let h = '<div class="specs">';
+  h += '<li>💰 ' + escapeHtml(p.main) + '</li>';
+  h += '<li>📐 ' + escapeHtml(spec(m).screen) + '</li>';
+  h += '<li>🖥 ' + escapeHtml(spec(m).color) + '</li>';
+  h += '<li>⚙️ ' + escapeHtml(spec(m).os) + '</li>';
+  h += '</div>';
+
+  if (p.detail) h += '<div class="muted" style="font-size:10px;margin-top:-5px;margin-bottom:7px">' + escapeHtml(p.detail) + '</div>';
+  if (p.condition || p.availability || p.lastChecked) {
+    const meta = [];
+    if (p.condition) meta.push(p.condition);
+    if (p.availability) meta.push(p.availability.replaceAll('_',' '));
+    if (p.lastChecked) meta.push('kiểm tra ' + p.lastChecked);
+    h += '<div class="muted" style="font-size:10px;margin-bottom:7px">' + escapeHtml(meta.join(' · ')) + '</div>';
+  }
+  if (p.sourceUrl) {
+    h += '<div class="muted" style="font-size:10px;margin-bottom:7px">Nguồn giá: <a href="' + escapeHtml(p.sourceUrl) + '" target="_blank" rel="noopener">' + escapeHtml(p.source || 'nguồn') + ' ↗</a></div>';
+  }
+  return h;
+}
+
+function exactBudgetCandidates(list){
+  return list.filter(function(m){
+    const st = budgetState(m);
+    return st === 'within' || st === 'range_tradeoff';
+  });
+}
+
 function resultsPage(){
- const ranked=M.map(m=>({m,...score(m)})).sort((a,b)=>b.s-a.s);
- const positive=ranked.filter(x=>x.s>0);const picks=(positive.length?positive:ranked).slice(0,6);
- document.getElementById('chips').innerHTML=Object.values(A).flat().slice(0,12).map(x=>`<span class="chip">${escapeHtml(labels[x]||x)}</span>`).join('');
- document.getElementById('cards').innerHTML=picks.map((x,n)=>{
-   const m=x.m, sp=spec(m), tr=tradeoffs(m);
-   const reason=x.reasons.slice(0,2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí bạn đã chọn.';
-   const links=[]; if(m.wiki)links.push([`📚 Bài Wiki`,m.wiki]); if(m.affiliate)links.push([`🛒 Xem giá / link`,m.affiliate]);
-   return `<article class="card"><span class="rank">#${n+1}</span><span class="tag">${escapeHtml(m.brand||'eReader')}</span><h3>${escapeHtml(m.model)}</h3><div class="score">Mức khớp theo bộ lọc: ${x.s}</div><div class="why">${escapeHtml(reason)}</div><ul class="specs"><li>📐 ${sp.screen}</li><li>🖥 ${sp.color}</li><li>⚙️ ${escapeHtml(sp.os)}</li><li>✨ ${sp.features.length?escapeHtml(sp.features.join(' · ')):'Tính năng cơ bản'}</li></ul>${tr.length?`<div class="trade">⚠️ ${escapeHtml(tr.slice(0,2).join(' '))}</div>`:''}<div class="links">${links.map((l,j)=>`<a class="link ${j===0?'main':''}" href="${escapeHtml(l[1])}" target="_blank" rel="noopener">${escapeHtml(l[0])} ↗</a>`).join('')}</div></article>`;
- }).join('');
- document.getElementById('wizard').style.display='none';document.getElementById('results').style.display='block';scheduleResize();window.scrollTo({top:document.getElementById('results').offsetTop-10,behavior:'smooth'});
+  const strict = M.filter(hardPass);
+  let pool = strict;
+  let budgetMessage = '';
+
+  if (A.budget && A.budget !== 'unknown') {
+    const budgeted = exactBudgetCandidates(strict);
+    if (budgeted.length) {
+      pool = budgeted;
+      budgetMessage = 'Ưu tiên các model có giá VN đã quan sát và nằm trong/giáp ngân sách bạn chọn.';
+    } else {
+      pool = strict;
+      budgetMessage = 'Chưa có model đủ dữ liệu giá VN để khớp ngân sách này; Wizard hiển thị các model gần tiêu chí nhất và đánh dấu giá cần kiểm tra.';
+    }
+  }
+
+  const ranked = pool.map(function(m){
+    const scored = score(m);
+    return {m:m, s:scored.s, reasons:scored.reasons};
+  }).sort(function(a,b){ return b.s - a.s; });
+
+  const picks = ranked.slice(0, 5);
+
+  const chips = Object.values(A).flat().slice(0, 12).map(function(x){
+    return '<span class="chip">' + escapeHtml(labels[x] || x) + '</span>';
+  }).join('');
+  document.getElementById('chips').innerHTML = chips;
+
+  let cardsHtml = '';
+  if (!picks.length) {
+    cardsHtml = '<div class="error"><h2>Chưa có model khớp với bộ tiêu chí này</h2><p class="muted">Các yêu cầu bắt buộc hiện tại không tìm được model đủ dữ liệu. Anh có thể quay lại và nới một tiêu chí để Wizard mở rộng lựa chọn.</p></div>';
+  } else {
+    cardsHtml = picks.map(function(x){
+      const m = x.m;
+      const sp = spec(m);
+      const tr = tradeoffs(m);
+      const reason = x.reasons.slice(0, 2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí bạn đã chọn.';
+      const links = [];
+      if (m.wiki_url) links.push(['📚 Bài Wiki', m.wiki_url]);
+      if (m.affiliate_url) links.push(['🛒 Xem giá / link', m.affiliate_url]);
+
+      let html = '<article class="card">';
+      html += '<span class="tag">' + escapeHtml(m.brand || 'eReader') + '</span>';
+      html += '<h3>' + escapeHtml(m.model) + '</h3>';
+      html += '<div class="score">' + escapeHtml(reason) + '</div>';
+      html += priceBlock(m);
+      html += budgetNote(m);
+      html += '<div class="why" style="margin-top:6px">' + escapeHtml(reason) + '</div>';
+      if (tr.length) html += '<div class="trade">⚠️ ' + escapeHtml(tr.slice(0,2).join(' ')) + '</div>';
+      if (links.length) {
+        html += '<div class="links">';
+        links.forEach(function(l,j){
+          html += '<a class="link ' + (j === 0 ? 'main' : '') + '" href="' + escapeHtml(l[1]) + '" target="_blank" rel="noopener">' + escapeHtml(l[0]) + ' ↗</a>';
+        });
+        html += '</div>';
+      }
+      html += '</article>';
+      return html;
+    }).join('');
+  }
+
+  document.getElementById('cards').innerHTML = cardsHtml;
+
+  const noteNode = document.querySelector('#results .head .budget-note');
+  if (noteNode) noteNode.remove();
+
+  if (budgetMessage) {
+    const note = document.createElement('p');
+    note.className = 'muted budget-note';
+    note.style.margin = '8px 0 0';
+    note.style.fontSize = '11px';
+    note.textContent = budgetMessage;
+    document.querySelector('#results .head').appendChild(note);
+  }
+
+  document.getElementById('wizard').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  scheduleResize();
+  window.scrollTo({top:document.getElementById('results').offsetTop - 10, behavior:'smooth'});
 }
+
+function escapeHtml(s){
+  return String(s == null ? '' : s).replace(/[&<>'"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];
+  });
+}
+
 function sendResize(){
   if (window.parent === window) return;
   const height = Math.ceil(Math.max(
-    document.documentElement?.scrollHeight || 0,
-    document.body?.scrollHeight || 0,
-    document.documentElement?.offsetHeight || 0,
-    document.body?.offsetHeight || 0
+    document.documentElement && document.documentElement.scrollHeight || 0,
+    document.body && document.body.scrollHeight || 0,
+    document.documentElement && document.documentElement.offsetHeight || 0,
+    document.body && document.body.offsetHeight || 0
   ) + 8);
+
   if (!Number.isFinite(height) || height < 260) return;
   try {
     window.parent.postMessage({
       action: '@webframe.resize',
       aspectRatio: Math.max(0.45, Math.min((window.innerWidth || 900) / height, 3)),
-      maxHeight: Math.min(Math.max(height, 320), 1400),
+      maxHeight: Math.min(Math.max(height, 320), 1400)
     }, '*');
   } catch (_) {}
 }
@@ -252,29 +628,70 @@ function sendResize(){
 let resizeTimer;
 function scheduleResize(){
   clearTimeout(resizeTimer);
-  resizeTimer=setTimeout(sendResize, 40);
+  resizeTimer = setTimeout(sendResize, 40);
 }
 
 const resizeObserver = typeof ResizeObserver !== 'undefined'
   ? new ResizeObserver(scheduleResize)
   : null;
+
 if (resizeObserver) resizeObserver.observe(document.documentElement);
 window.addEventListener('load', scheduleResize);
 window.addEventListener('resize', scheduleResize);
 
 async function boot(){
- try{
-  const [qRes,mRes]=await Promise.all([fetch('./questions.json'),fetch('./models.json')]);
-  if(!qRes.ok||!mRes.ok)throw new Error('Không tải được dữ liệu.');
-  Q=(await qRes.json()).questions;M=(await mRes.json()).models.filter(m=>m.status==='Wizard-ready'||!m.status);
-  els.status.textContent=`Đã tải ${M.length} model Wizard-ready.`;render();
- }catch(e){
-  els.status.textContent='Lỗi tải dữ liệu.';document.getElementById('wizard').innerHTML=`<div class="error"><h2>Không tải được dữ liệu Wizard</h2><p class="muted">Hãy kiểm tra GitHub Pages đã publish đủ <code>index.html</code>, <code>questions.json</code> và <code>models.json</code> chưa.</p></div>`;
- }
+  try {
+    const cacheBust = '?v=' + Date.now();
+    const [qRes, mRes] = await Promise.all([
+      fetch('./questions.json' + cacheBust, {cache:'no-store'}),
+      fetch('./models.json' + cacheBust, {cache:'no-store'})
+    ]);
+
+    if (!qRes.ok || !mRes.ok) throw new Error('Không tải được dữ liệu.');
+
+    Q = (await qRes.json()).questions || [];
+    const modelPayload = await mRes.json();
+    M = (modelPayload.models || []).filter(function(m){
+      return m.status === 'Wizard-ready' || !m.status;
+    });
+
+    els.status.textContent = 'Đã tải ' + M.length + ' model Wizard-ready.';
+    render();
+  } catch (e) {
+    els.status.textContent = 'Lỗi tải dữ liệu.';
+    document.getElementById('wizard').innerHTML =
+      '<div class="error"><h2>Không tải được dữ liệu Wizard</h2>' +
+      '<p class="muted">Hãy kiểm tra GitHub Pages đã publish đủ <code>index.html</code>, <code>questions.json</code> và <code>models.json</code> chưa.</p></div>';
+  }
 }
-els.next.onclick=()=>{if(!answerValid())return;if(i<Q.length-1){i++;render()}else resultsPage()};
-els.prev.onclick=()=>{if(i>0){i--;render()}};
-document.getElementById('restart').onclick=()=>{A={};i=0;document.getElementById('results').style.display='none';document.getElementById('wizard').style.display='block';render();scheduleResize();window.scrollTo({top:0,behavior:'smooth'})};
+
+els.next.onclick = function(){
+  if (!answerValid()) return;
+  if (i < Q.length - 1) {
+    i++;
+    render();
+  } else {
+    resultsPage();
+  }
+};
+
+els.prev.onclick = function(){
+  if (i > 0) {
+    i--;
+    render();
+  }
+};
+
+document.getElementById('restart').onclick = function(){
+  A = {};
+  i = 0;
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('wizard').style.display = 'block';
+  render();
+  scheduleResize();
+  window.scrollTo({top:0, behavior:'smooth'});
+};
+
 boot();
 </script>
 </body>
