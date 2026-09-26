@@ -282,28 +282,42 @@ function priceInfo(m){
   const current = num(p.current_or_from_vnd);
   const min = num(p.min_vnd);
   const max = num(p.max_vnd);
-  const bits = [];
 
-  if (current !== null) {
-    bits.push('từ ' + formatMillion(current));
-  } else if (min !== null) {
-    bits.push('từ ' + formatMillion(min));
+  function conditionLabel(v){
+    const map = {
+      'used':'Đã qua sử dụng',
+      'new':'Mới',
+      'mixed used/new variants':'Nhiều biến thể cũ/mới',
+      'new/varies by seller':'Mới / tùy người bán',
+      'new/variant dependent':'Mới / tùy biến thể'
+    };
+    return map[v] || String(v || '');
   }
 
-  if (current !== null && min !== null && max !== null && max > min) {
-    bits.push('quan sát ' + formatMillion(min) + '–' + formatMillion(max));
-  } else if (current === null && min !== null && max !== null && max > min) {
-    bits.push('khoảng ' + formatMillion(min) + '–' + formatMillion(max));
+  function availabilityLabel(v){
+    const map = {
+      'listed':'Đang được niêm yết',
+      'out_of_stock_primary':'Hết hàng tại nguồn chính',
+      'unknown':'Chưa xác định'
+    };
+    return map[v] || String(v || '').replaceAll('_',' ');
+  }
+
+  let main = 'Chưa có giá VN xác minh';
+
+  if (min !== null && max !== null && max > min) {
+    main = 'Giá từ: ' + formatMillion(min) + ' – ' + formatMillion(max);
+  } else if (current !== null) {
+    main = 'Giá từ: ' + formatMillion(current);
+  } else if (min !== null) {
+    main = 'Giá từ: ' + formatMillion(min);
   }
 
   return {
-    available: bits.length > 0,
-    main: bits.length ? bits[0] : 'Chưa có giá VN xác minh',
-    detail: bits.slice(1).join(' · '),
-    condition: p.condition || '',
-    availability: p.availability || '',
-    source: p.source || '',
-    sourceUrl: p.source_url || '',
+    available: main !== 'Chưa có giá VN xác minh',
+    main: main,
+    condition: conditionLabel(p.condition),
+    availability: availabilityLabel(p.availability),
     lastChecked: p.last_checked || '',
     note: p.note || ''
   };
@@ -491,24 +505,23 @@ function budgetNote(m){
 
 function priceBlock(m){
   const p = priceInfo(m);
+  const sp = spec(m);
+
   let h = '<div class="specs">';
   h += '<li>💰 ' + escapeHtml(p.main) + '</li>';
-  h += '<li>📐 ' + escapeHtml(spec(m).screen) + '</li>';
-  h += '<li>🖥 ' + escapeHtml(spec(m).color) + '</li>';
-  h += '<li>⚙️ ' + escapeHtml(spec(m).os) + '</li>';
+  h += '<li>📐 ' + escapeHtml(sp.screen) + '</li>';
+  h += '<li>🖥 ' + escapeHtml(sp.color) + '</li>';
+  h += '<li>⚙️ ' + escapeHtml(sp.os) + '</li>';
   h += '</div>';
 
-  if (p.detail) h += '<div class="muted" style="font-size:10px;margin-top:-5px;margin-bottom:7px">' + escapeHtml(p.detail) + '</div>';
   if (p.condition || p.availability || p.lastChecked) {
     const meta = [];
     if (p.condition) meta.push(p.condition);
-    if (p.availability) meta.push(p.availability.replaceAll('_',' '));
-    if (p.lastChecked) meta.push('kiểm tra ' + p.lastChecked);
+    if (p.availability) meta.push(p.availability);
+    if (p.lastChecked) meta.push('Kiểm tra ' + p.lastChecked);
     h += '<div class="muted" style="font-size:10px;margin-bottom:7px">' + escapeHtml(meta.join(' · ')) + '</div>';
   }
-  if (p.sourceUrl) {
-    h += '<div class="muted" style="font-size:10px;margin-bottom:7px">Nguồn giá: <a href="' + escapeHtml(p.sourceUrl) + '" target="_blank" rel="noopener">' + escapeHtml(p.source || 'nguồn') + ' ↗</a></div>';
-  }
+
   return h;
 }
 
@@ -528,7 +541,7 @@ function resultsPage(){
     const budgeted = exactBudgetCandidates(strict);
     if (budgeted.length) {
       pool = budgeted;
-      budgetMessage = 'Ưu tiên các model có giá VN đã quan sát và nằm trong/giáp ngân sách bạn chọn.';
+      budgetMessage = 'Ưu tiên các model có giá VN đã ghi nhận và nằm trong/giáp ngân sách bạn chọn.';
     } else {
       pool = strict;
       budgetMessage = 'Chưa có model đủ dữ liệu giá VN để khớp ngân sách này; Wizard hiển thị các model gần tiêu chí nhất và đánh dấu giá cần kiểm tra.';
@@ -557,13 +570,12 @@ function resultsPage(){
       const tr = tradeoffs(m);
       const reason = x.reasons.slice(0, 2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí bạn đã chọn.';
       const links = [];
-      if (m.wiki_url) links.push(['📚 Bài Wiki', m.wiki_url]);
-      if (m.affiliate_url) links.push(['🛒 Xem giá / link', m.affiliate_url]);
+      if (m.wiki_url) links.push(['📚 Bài Wiki', m.wiki_url, false]);
+      if (m.affiliate_url) links.push(['Kiểm tra giá ↗', m.affiliate_url, true]);
 
       let html = '<article class="card">';
       html += '<span class="tag">' + escapeHtml(m.brand || 'eReader') + '</span>';
       html += '<h3>' + escapeHtml(m.model) + '</h3>';
-      html += '<div class="score">' + escapeHtml(reason) + '</div>';
       html += priceBlock(m);
       html += budgetNote(m);
       html += '<div class="why" style="margin-top:6px">' + escapeHtml(reason) + '</div>';
@@ -571,7 +583,7 @@ function resultsPage(){
       if (links.length) {
         html += '<div class="links">';
         links.forEach(function(l,j){
-          html += '<a class="link ' + (j === 0 ? 'main' : '') + '" href="' + escapeHtml(l[1]) + '" target="_blank" rel="noopener">' + escapeHtml(l[0]) + ' ↗</a>';
+          html += '<a class="link ' + (l[2] ? 'main' : '') + '" href="' + escapeHtml(l[1]) + '" target="_blank" rel="noopener">' + escapeHtml(l[0]) + '</a>';
         });
         html += '</div>';
       }
