@@ -1,6 +1,6 @@
 name: Publish MayDocSach E-Reader Integration
 
-# Automation check: publishing is triggered by changes under integration/** or this workflow.
+# Automation check: publishing is triggered by changes under integration/** or this workflow (token recheck).
 on:
   push:
     branches:
