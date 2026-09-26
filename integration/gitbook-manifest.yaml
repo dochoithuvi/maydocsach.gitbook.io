@@ -1,0 +1,25 @@
+name: maydocsach-ereader-wizard
+title: MayDocSach E-Reader Wizard
+description: Nhúng E-Reader Wizard của MayDocSach trực tiếp vào GitBook.
+summary: |
+  # MayDocSach E-Reader Wizard
+
+  Nhúng công cụ chọn máy đọc sách của MayDocSach trực tiếp vào trang GitBook.
+
+  Wizard có source trên GitHub Pages, nhưng được Integration proxy qua publicContentEndpoint để GitBook nhận đúng cơ chế webframe resize.
+organization: maydocsach
+visibility: private
+scopes: []
+script: src/index.tsx
+blocks:
+  - id: embed
+    title: E-Reader Wizard
+    description: Nhúng E-Reader Wizard của MayDocSach vào trang GitBook.
+    icon: compass
+    urlUnfurl:
+      - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard
+      - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/
+      - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/**
+externalLinks:
+  - url: https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/
+    label: E-Reader Wizard
