@@ -33,7 +33,7 @@ jobs:
 
       - name: Install integration dependencies
         working-directory: integration
-        run: npm ci --no-audit --no-fund
+        run: npm install --no-audit --no-fund
 
       - name: Install GitBook CLI
         run: npm install --global @gitbook/cli
