@@ -192,7 +192,7 @@ const labels = {
   novel:'Sách chữ', pdf:'PDF', manga:'Manga', color:'Màu', work:'Tài liệu công việc', web:'Web',
   tiny:'Ưu tiên siêu nhỏ', '6':'Khoảng 6 inch', '7':'Khoảng 7 inch', large:'Màn hình lớn', neutral:'Kích thước không quan trọng',
   often:'Đọc đêm thường xuyên', sometimes:'Đọc đêm thỉnh thoảng', rare:'Ít đọc ban đêm',
-  water:'Chống nước', warm:'Đèn ấm', buttons:'Nút chuyển trang', android:'Android', pen:'Ghi chú bằng bút', microsd:'Khe microSD',
+  water:'Chống nước', warm:'Đèn ấm', buttons:'Nút chuyển trang', android:'Android', pen:'Ghi chú bằng bút', microsd:'Thẻ nhớ gắn ngoài',
   amazon:'Amazon / Kindle', epub:'EPUB / thư viện cá nhân', many:'Nhiều nguồn', apps:'Nhiều ứng dụng',
   yes:'Quan tâm jailbreak/KOReader', maybe:'Có thể quan tâm', no:'Không cần tùy biến'
 };
@@ -442,11 +442,15 @@ function score(m){
   if (A.ecosystem === 'apps' && m.android === true) add(5, 'Android phù hợp nhu cầu cài ứng dụng.');
 
   if (A.custom === 'yes') {
-    if (m.koreader_status && m.koreader_status !== 'not_verified') add(4, 'Có thông tin hỗ trợ KOReader/tùy biến.');
+    if (m.brand === 'Kobo') add(4, 'Kobo có thể dùng KOReader theo hướng cài đặt/tùy biến cộng đồng; không cần jailbreak cho nhu cầu này.');
+    else if (m.brand === 'BOOX') add(4, 'BOOX chạy Android nên KOReader có thể dùng như ứng dụng, không cần jailbreak.');
+    else if (m.koreader_status && m.koreader_status !== 'not_verified') add(4, 'Có thông tin hỗ trợ KOReader/tùy biến.');
     else if (m.jailbreak_status && m.jailbreak_status !== 'not_applicable') add(3);
   }
   if (A.custom === 'maybe') {
-    if (m.koreader_status && m.koreader_status !== 'not_verified') add(2);
+    if (m.brand === 'Kobo') add(2, 'Kobo có hệ sinh thái tùy biến/KOReader cộng đồng.');
+    else if (m.brand === 'BOOX') add(2, 'BOOX dùng Android nên có thể cài KOReader như ứng dụng.');
+    else if (m.koreader_status && m.koreader_status !== 'not_verified') add(2);
   }
 
   const bs = budgetState(m);
@@ -471,7 +475,7 @@ function spec(m){
   if (m.warm_light === true) features.push('đèn ấm');
   if (m.buttons === true) features.push('nút trang');
   if (m.android === true) features.push('Android');
-  if (m.microsd === true) features.push('microSD');
+  if (m.microsd === true) features.push('thẻ nhớ gắn ngoài');
   if (m.stylus === true && m.note_taking === true) features.push('bút/ghi chú');
 
   return {
