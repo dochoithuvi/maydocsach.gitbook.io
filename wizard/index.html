@@ -625,20 +625,34 @@ function resultsPage(){
 }
 
 function modelImage(m){
-  const images = {
-    ppw5: 'https://cdn.cimri.io/image/1200x1200/amazon-kindle-6-8-paperwhite-5-warmlight-2021-siyah-8-gb-reklamli-e-kitap-okuyucu_661729270.jpg',
-    basic11: 'https://static.independent.co.uk/2022/09/14/12/Kindle%202022.png',
-    kobo_clara_color: 'https://gl.kobobooks.com/cdn/shop/files/4-Lying-Global_1080x1080_aff99b17-1524-4590-a8be-0a7f920e2ab6_1078x1078.png?v=1757383678',
-    kobo_clara_bw: 'https://sg.kobobooks.com/cdn/shop/products/2-Spa-BW-EN-Device_Angled_1080x1080_f7e96270-7ffb-43a5-bfe2-77b019167495_700x700.png?v=1710271894',
-    kobo_libra_colour: 'https://it.kobobooks.com/cdn/shop/files/5-Monza-Black-Lying-IT-Device_1080x1080_87222136-990c-4887-9b1c-57e55b4cc3e6_700x700.png?v=1758133211',
-    boox_go10_gen2: 'https://img.shoplineapp.com/media/image_clips/69b5280873f4c8214449e434/original.jpg?1773479944=&owner_id=5ce61e4e76420a00018b917e',
-    boox_note_air5_c: 'https://altitude.ph/cdn/shop/files/S2_-_Note_Air_5_C_E-ink_Device_Tablet_1200x.jpg?v=1763024636'
+  const colors = {
+    Kindle:'#111827',
+    Kobo:'#2f855a',
+    BOOX:'#4b5563',
+    Xteink:'#6b7280'
   };
-  const src = images[m.id];
-  if (!src) return '';
-  return '<img class="model-thumb" src="' + escapeHtml(src) + '" alt="' + escapeHtml(m.model || 'Máy đọc sách') + '" loading="lazy" decoding="async">';
-}
+  const accent = colors[m.brand] || '#6b7280';
+  const short = String(m.model || 'eReader')
+    .replace(/Kindle|Kobo|BOOX|Xteink/gi,'')
+    .trim()
+    .split(/\\s+/)
+    .slice(0,2)
+    .map(function(x){ return x.charAt(0); })
+    .join('')
+    .toUpperCase()
+    .slice(0,2);
 
+  return '<svg class="model-thumb" viewBox="0 0 76 76" role="img" aria-label="' +
+    escapeHtml(m.model || 'Máy đọc sách') + '" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect x="15" y="5" width="46" height="66" rx="5" fill="' + accent + '"/>' +
+    '<rect x="19" y="9" width="38" height="52" rx="2" fill="#f8fafc"/>' +
+    '<rect x="23" y="13" width="30" height="44" rx="1.5" fill="#e5e7eb"/>' +
+    '<path d="M27 21h22M27 27h22M27 33h18M27 39h20M27 45h15" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>' +
+    '<circle cx="38" cy="66" r="2" fill="#d1d5db"/>' +
+    '<text x="38" y="53" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#6b7280">' +
+    escapeHtml(short || 'E') + '</text>' +
+    '</svg>';
+}
 function escapeHtml(s){
   return String(s == null ? '' : s).replace(/[&<>'"]/g, function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c];
