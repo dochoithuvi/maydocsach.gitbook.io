@@ -634,33 +634,21 @@ function resultsPage(){
 }
 
 function modelImage(m){
-  const colors = {
-    Kindle:'#111827',
-    Kobo:'#2f855a',
-    BOOX:'#4b5563',
-    Xteink:'#6b7280'
+  const images={
+    ppw5:'https://static.nationalcreditdirect.com/common/images/products/BBY-large_front-e65cdbb7-7c1b-46fa-9397-6e24fbc3e37a.jpg',
+    basic11:'https://static.independent.co.uk/2022/09/14/12/Kindle%202022.png',
+    kobo_clara_color:'https://gl.kobobooks.com/cdn/shop/files/1-Spa-Colour-EN-Device_Front_1080x1080_07801ff1-4021-4bab-a615-36f27924cdaa_1078x1078.png?v=1711471672',
+    kobo_clara_bw:'https://sg.kobobooks.com/cdn/shop/products/2-Spa-BW-EN-Device_Angled_1080x1080_f7e96270-7ffb-43a5-bfe2-77b019167495_700x700.png?v=1710271894',
+    kobo_libra_colour:'https://ca.kobobooks.com/cdn/shop/files/5-Monza-Black-Lying-EN-Device_1080x1080_ce6c03de-5cfc-431c-9f66-a34216735e98_1078x1078.png?v=1711471683',
+    boox_go10_gen2:'https://img.shoplineapp.com/media/image_clips/69b5280873f4c8214449e434/original.jpg?1773479944=&owner_id=5ce61e4e76420a00018b917e',
+    boox_note_air5_c:'https://altitude.ph/cdn/shop/files/S2_-_Note_Air_5_C_E-ink_Device_Tablet_1200x.jpg?v=1763024636',
+    ireader_color7:'https://img14.360buyimg.com/pop/jfs/t1/227561/17/13645/41532/65dc04ceF606f56ca/0a6447ba60b9e618.png',
+    ireader_ocean4_2025:'https://img.bestdealplus.com/ae01/kf/Sdaa614e4f0ef470a8e92c9fc57d985259.jpg',
+    ireader_ocean4_turbo_2025:'https://img.bestdealplus.com/ae01/kf/Sdaa614e4f0ef470a8e92c9fc57d985259.jpg'
   };
-  const accent = colors[m.brand] || '#6b7280';
-  const short = String(m.model || 'eReader')
-    .replace(/Kindle|Kobo|BOOX|Xteink/gi,'')
-    .trim()
-    .split(/\s+/)
-    .slice(0,2)
-    .map(function(x){ return x.charAt(0); })
-    .join('')
-    .toUpperCase()
-    .slice(0,2);
-
-  return '<svg class="model-thumb" viewBox="0 0 76 76" role="img" aria-label="' +
-    escapeHtml(m.model || 'Máy đọc sách') + '" data-model="' + escapeHtml(m.model || 'Máy đọc sách') + '" xmlns="http://www.w3.org/2000/svg">' +
-    '<rect x="15" y="5" width="46" height="66" rx="5" fill="' + accent + '"/>' +
-    '<rect x="19" y="9" width="38" height="52" rx="2" fill="#f8fafc"/>' +
-    '<rect x="23" y="13" width="30" height="44" rx="1.5" fill="#e5e7eb"/>' +
-    '<path d="M27 21h22M27 27h22M27 33h18M27 39h20M27 45h15" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/>' +
-    '<circle cx="38" cy="66" r="2" fill="#d1d5db"/>' +
-    '<text x="38" y="53" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" font-weight="700" fill="#6b7280">' +
-    escapeHtml(short || 'E') + '</text>' +
-    '</svg>';
+  const src=images[m.id];
+  if(!src) return '';
+  return '<img class="model-thumb" src="'+escapeHtml(src)+'" alt="'+escapeHtml(m.model||'Máy đọc sách')+'" data-model="'+escapeHtml(m.model||'Máy đọc sách')+'" loading="lazy" decoding="async">';
 }
 function bindModelImageViewer(){
   document.querySelectorAll('.model-thumb').forEach(function(img){
