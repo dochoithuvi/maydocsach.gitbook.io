@@ -2,7 +2,7 @@
   "schema_version": "2.1",
   "brand": "Wiki-eReader",
   "generated_at": "2026-09-27",
-  "engine_version": "2.3.0-budget-usbc-images",
+  "engine_version": "2.3.1-strict-budget-prices",
   "selection_policy": {
     "candidate_gate": "status=Wizard-ready and critical_fields_ok=true",
     "hard_filter": "Required features + night front-light requirement; budget is hard only when current numeric VN price is present.",
@@ -285,17 +285,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": 1790000,
-        "max_vnd": 3190000,
-        "current_or_from_vnd": 2190000,
-        "condition": "mixed used/new variants",
+        "min_vnd": 2090000,
+        "max_vnd": 3850000,
+        "current_or_from_vnd": 2690000,
+        "condition": "new/used",
         "availability": "listed",
-        "last_checked": "2026-09-25",
+        "last_checked": "2026-09-27",
         "status": "observed",
-        "source": "MND / Shopee snapshot (Metric)",
-        "source_url": "https://mnd.vn/huong-dan-chon-may",
-        "confidence": "high",
-        "note": "MND guide lists 2.19m; Metric MND Shopee listing shows 1.79m–3.19m variants."
+        "source": "Shopee / Dinhtoan snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Giá tham khảo tại thời điểm kiểm tra; có thể thay đổi theo tình trạng, dung lượng và người bán."
       },
       "fit": {
         "novel": 5,
@@ -363,17 +363,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": 1690000,
-        "max_vnd": 1990000,
-        "current_or_from_vnd": 1690000,
+        "min_vnd": 1150000,
+        "max_vnd": 1400000,
+        "current_or_from_vnd": 1200000,
         "condition": "used",
         "availability": "listed",
-        "last_checked": "2026-09-25",
+        "last_checked": "2026-09-27",
         "status": "observed",
-        "source": "MND / Shopee snapshot (Metric)",
-        "source_url": "https://mnd.vn/san-pham",
-        "confidence": "high",
-        "note": "MND currently lists from 1.69m; Metric MND Shopee listing range 1.69m–1.99m."
+        "source": "Chợ Tốt snapshot",
+        "source_url": "https://www.chotot.com/mua-ban-may-tinh-bang-amazon-kindle-voyage-sdtd18tl221",
+        "confidence": "medium",
+        "note": "Giá tham khảo tại thời điểm kiểm tra; có thể thay đổi theo tình trạng, dung lượng và người bán."
       },
       "fit": {
         "novel": 5,
@@ -439,17 +439,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": 2290000,
-        "max_vnd": 2290000,
-        "current_or_from_vnd": 2290000,
-        "condition": "used",
-        "availability": "out_of_stock_primary",
-        "last_checked": "2026-09-25",
+        "min_vnd": 3289000,
+        "max_vnd": 3289000,
+        "current_or_from_vnd": 3289000,
+        "condition": "used/new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
         "status": "observed",
-        "source": "MND",
-        "source_url": "https://mnd.vn/san-pham",
+        "source": "Websosanh / Akishop snapshot",
+        "source_url": "https://websosanh.vn/",
         "confidence": "medium",
-        "note": "MND lists 2.29m but marks Kobo Clara HD out of stock."
+        "note": "Giá tham khảo tại thời điểm kiểm tra; có thể thay đổi theo tình trạng, dung lượng và người bán."
       },
       "fit": {
         "novel": 5,
@@ -745,17 +745,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": 3090000,
-        "max_vnd": 4990000,
-        "current_or_from_vnd": 4140000,
-        "condition": "mixed/variant dependent",
+        "min_vnd": 3500000,
+        "max_vnd": 6390000,
+        "current_or_from_vnd": 3500000,
+        "condition": "used/new",
         "availability": "listed",
-        "last_checked": "2026-09-25",
+        "last_checked": "2026-09-27",
         "status": "observed",
-        "source": "MND / Shopee snapshot (Metric)",
-        "source_url": "https://mnd.vn/san-pham",
+        "source": "Chợ Tốt / Kindle Saigon snapshot",
+        "source_url": "https://www.kindlesaigon.vn/collections/kindle-paperwhite/products/may-doc-sach-kindle-paperwhite-6-12th-2024-32gb-signature",
         "confidence": "medium",
-        "note": "Mapped to Kindle Paperwhite 6 (12th gen, 2024). MND lists from 3.09m; Metric shows 3.89m–4.99m variants and current 4.14m."
+        "note": "Giá tham khảo tại thời điểm kiểm tra; có thể thay đổi theo tình trạng, dung lượng và người bán."
       },
       "fit": {
         "novel": 5,
@@ -979,17 +979,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": 4590000,
-        "max_vnd": 6590000,
-        "current_or_from_vnd": 4590000,
+        "min_vnd": 6390000,
+        "max_vnd": 7249000,
+        "current_or_from_vnd": 6390000,
         "condition": "new",
         "availability": "listed",
-        "last_checked": "2026-09-25",
+        "last_checked": "2026-09-27",
         "status": "observed",
-        "source": "Kindle Hà Nội",
-        "source_url": "https://kindlehanoi.vn/danh-muc-san-pham/kindle-paperwhite/",
-        "confidence": "high",
-        "note": "Kindle Hà Nội lists Paperwhite 6 16GB/32GB Signature Edition from 4.59m with old price 6.59m."
+        "source": "Kindle Saigon / Websosanh snapshot",
+        "source_url": "https://www.kindlesaigon.vn/collections/kindle-paperwhite/products/may-doc-sach-kindle-paperwhite-6-12th-2024-32gb-signature",
+        "confidence": "medium",
+        "note": "Giá tham khảo tại thời điểm kiểm tra; có thể thay đổi theo tình trạng, dung lượng và người bán."
       },
       "fit": {
         "novel": 5,
@@ -1527,17 +1527,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": 1640000,
-        "max_vnd": 2350000,
-        "current_or_from_vnd": 1640000,
-        "condition": "new/used",
+        "min_vnd": 1620000,
+        "max_vnd": 1990000,
+        "current_or_from_vnd": 1620000,
+        "condition": "new",
         "availability": "listed",
         "last_checked": "2026-09-27",
         "status": "observed",
-        "source": "Shopee snapshot",
-        "source_url": "https://shopee.vn/",
+        "source": "XTEINK official Vietnam / Shopee snapshot",
+        "source_url": "https://shopee.vn/xteink.vn",
         "confidence": "medium",
-        "note": "Khoảng 1,64–2,35 triệu tùy phiên bản/người bán."
+        "note": "Giá tham khảo tại thời điểm kiểm tra; có thể thay đổi theo tình trạng, dung lượng và người bán."
       },
       "fit": {
         "novel": 4,
@@ -1605,17 +1605,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": 1600000,
-        "max_vnd": 1665000,
-        "current_or_from_vnd": 1600000,
+        "min_vnd": 1665000,
+        "max_vnd": 2350000,
+        "current_or_from_vnd": 1665000,
         "condition": "new",
         "availability": "listed",
         "last_checked": "2026-09-27",
         "status": "observed",
         "source": "Shopee snapshot",
-        "source_url": "https://shopee.vn/",
+        "source_url": "https://shopee.vn/list/xteink",
         "confidence": "medium",
-        "note": "Khoảng 1,60–1,665 triệu."
+        "note": "Giá tham khảo tại thời điểm kiểm tra; có thể thay đổi theo tình trạng, dung lượng và người bán."
       },
       "fit": {
         "novel": 4,
