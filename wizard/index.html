@@ -352,11 +352,13 @@ function budgetState(m){
   if (min === null && current === null) return 'unknown';
   if (cap === Infinity) return 'within';
 
-  // Với ngân sách, dùng mức giá đang/được niêm yết từ để tránh
-  // đưa máy "đôi khi có thể gặp dưới trần" vào nhóm khớp chính xác.
+  // Ngân sách là trần cứng: nếu khoảng giá của model vượt trần,
+  // không đưa model đó vào nhóm kết quả khớp ngân sách.
+  const max = num(p.max_vnd);
   const anchor = current !== null ? current : min;
+  if (anchor === null) return 'unknown';
+  if (max !== null && max > cap) return 'over';
   if (anchor > cap) return 'over';
-  if (min !== null && min <= cap && num(p.max_vnd) !== null && num(p.max_vnd) > cap) return 'range_tradeoff';
   return 'within';
 }
 
@@ -644,6 +646,12 @@ function resultsPage(){
 
 function modelImage(m){
   const images={
+    xteink_x3:'https://gagadget.com/media/uploads2/18901765295137pichd_rOSC0ct.jpg',
+    kindle_pw_se_12:'https://medias.fortress.com.hk/publishing/FTRHK-13536947-FRONT-4MxAjsP7-zoom.png?version=1773161402',
+    kindle_pw_12:'https://www.trajektorija.lt/1257211-thickbox_default/czytnik-ebook-kindle-paperwhite-12-generacji-2024.jpg',
+    clarahd:'https://img1.kakaku.k-img.com/Images/news_icv/1200x630/2018053/20180530112601_263_.jpg',
+    voyage:'https://down-th.img.susercontent.com/file/sg-11134201-7rd75-m7xk28fzpvhl8d',
+    basic11:'https://reimg-teknosa-cloud-prod.mncdn.com/mnresize/600/600/productimage/786240119/786240119_0_MC/ad97031a79164e53884329859e792ec4.jpg',
     ppw1:'https://images.prom.ua/1224562156_elektronnaya-kniga-amazon.jpg',
     ppw2:'https://www.dhresource.com/webp/m/450x450/f3/albu/km/o/20/34c1289f-bf46-4824-bb11-eb945066725e.jpg',
     ppw3:'https://www.purepc.pl/files/Image/artykul_zdjecia/2015/kindle_paperwhite_3/kindle_paperwhite_3_test_19.png',
