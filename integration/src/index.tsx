@@ -118,7 +118,6 @@ const embedBlock = createComponent<EmbedProps>({
             <block>
                 <webframe
                     source={{ url: webframeURL.toString() }}
-                    aspectRatio={1}
                 />
             </block>
         );
