@@ -2,14 +2,14 @@
   "schema_version": "2.1",
   "brand": "Wiki-eReader",
   "generated_at": "2026-09-27",
-  "engine_version": "2.3.1-strict-budget-prices",
+  "engine_version": "2.4.0-average-budget-filter",
   "selection_policy": {
     "candidate_gate": "status=Wizard-ready and critical_fields_ok=true",
-    "hard_filter": "Required features + night front-light requirement; budget is hard only when current numeric VN price is present.",
+    "hard_filter": "Required features + night front-light requirement; budget is a hard filter using the representative VN price.",
     "ranking": "Primary-use fit + size fit + ecosystem + optional preferences + data confidence",
     "results": "3–5 diverse candidates; near matches only when exact matches do not exist.",
     "commerce": "Affiliate presence never changes eligibility or ranking.",
-    "budget_gate": "Exact matches require observed VN price; min_vnd must be <= selected budget cap. Ranges crossing the cap remain eligible but show a tradeoff."
+    "budget_gate": "Budget uses the average of min_vnd and max_vnd when both are available; otherwise current_or_from_vnd or the available single price. A representative price above the selected cap is excluded."
   },
   "models": [
     {
