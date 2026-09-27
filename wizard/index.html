@@ -639,25 +639,12 @@ function sendReady(){
 function sendResize(){
   if (window.parent === window) return;
 
-  const doc = document.documentElement;
-  const body = document.body;
-  const height = Math.ceil(Math.max(
-    doc ? doc.scrollHeight : 0,
-    body ? body.scrollHeight : 0,
-    doc ? doc.offsetHeight : 0,
-    body ? body.offsetHeight : 0,
-    doc ? doc.clientHeight : 0,
-    body ? body.clientHeight : 0
-  ) + 2);
-
-  const width = Math.max(
-    1,
-    doc ? doc.clientWidth : 0,
-    body ? body.clientWidth : 0,
-    window.innerWidth || 0
-  );
-
-  if (!Number.isFinite(width) || !Number.isFinite(height) || height < 120) return;
+  // Keep the outer GitBook block height stable.
+  // This prevents GitBook page scroll anchoring/layout jumps when
+  // the Wizard changes between questions and the final results.
+  const mobile = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
+  const height = mobile ? 1900 : 1300;
+  const width = Math.max(1, window.innerWidth || document.documentElement.clientWidth || 1);
 
   sendReady();
 
@@ -666,28 +653,21 @@ function sendResize(){
     size: {
       aspectRatio: width / height,
       height
-    }
+    },
+    maxHeight: height
   });
 }
 
-let resizeTimer;
+let resizeSent = false;
 function scheduleResize(){
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(sendResize, 40);
+  if (resizeSent) return;
+  resizeSent = true;
+  sendResize();
 }
 
-const resizeObserver = typeof ResizeObserver !== 'undefined'
-  ? new ResizeObserver(scheduleResize)
-  : null;
-
-if (resizeObserver) resizeObserver.observe(document.documentElement);
-window.addEventListener('load', function(){
-  scheduleResize();
-  [120, 350, 800, 1500].forEach(function(ms){
-    setTimeout(scheduleResize, ms);
-  });
-});
-window.addEventListener('resize', scheduleResize);
+if (typeof window !== 'undefined') {
+  window.addEventListener('load', scheduleResize, { once: true });
+}
 
 async function boot(){
   try {
