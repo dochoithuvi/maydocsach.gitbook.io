@@ -613,7 +613,6 @@ function resultsPage(){
   document.getElementById('wizard').style.display = 'none';
   document.getElementById('results').style.display = 'block';
   scheduleResize();
-  window.scrollTo({top:document.getElementById('results').offsetTop - 10, behavior:'smooth'});
 }
 
 function escapeHtml(s){
@@ -742,7 +741,6 @@ document.getElementById('restart').onclick = function(){
   document.getElementById('wizard').style.display = 'block';
   render();
   scheduleResize();
-  window.scrollTo({top:0, behavior:'smooth'});
 };
 
 boot();
