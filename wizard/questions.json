@@ -170,8 +170,23 @@
         ],
         [
           "microsd",
-          "Khe microSD",
+          "Thẻ nhớ gắn ngoài",
           ""
+        ],
+        [
+          "audio",
+          "Nghe audiobook / âm thanh",
+          "Bluetooth hoặc loa tích hợp."
+        ],
+        [
+          "usb_c",
+          "Cổng USB-C",
+          ""
+        ],
+        [
+          "rotation",
+          "Tự xoay màn hình",
+          "Hữu ích khi đọc tài liệu hoặc dùng ngang/dọc."
         ]
       ]
     },
