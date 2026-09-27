@@ -230,12 +230,12 @@
         [
           "yes",
           "Có, quan trọng",
-          "Ưu tiên model có đường tùy biến phù hợp và dữ liệu hỗ trợ rõ ràng."
+          "Kindle: xét jailbreak/KOReader; Kobo: xét khả năng tùy biến và KOReader; BOOX: xét Android/cài KOReader, không coi jailbreak là bắt buộc."
         ],
         [
           "maybe",
           "Có, nhưng không bắt buộc",
-          "Tùy biến là điểm cộng."
+          "Tùy biến, KOReader hoặc Android là điểm cộng tùy hệ máy."
         ],
         [
           "no",
