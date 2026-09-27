@@ -347,19 +347,28 @@ function budgetState(m){
   const cap = BUDGET_CAP[key];
   const p = m.price_vn || {};
   const min = num(p.min_vnd);
+  const max = num(p.max_vnd);
   const current = num(p.current_or_from_vnd);
 
-  if (min === null && current === null) return 'unknown';
+  if (min === null && max === null && current === null) return 'unknown';
   if (cap === Infinity) return 'within';
 
-  // Ngân sách là trần cứng: nếu khoảng giá của model vượt trần,
-  // không đưa model đó vào nhóm kết quả khớp ngân sách.
-  const max = num(p.max_vnd);
-  const anchor = current !== null ? current : min;
-  if (anchor === null) return 'unknown';
-  if (max !== null && max > cap) return 'over';
-  if (anchor > cap) return 'over';
-  return 'within';
+  // Dùng giá trung bình của khoảng giá làm giá đại diện cho bộ lọc ngân sách.
+  // Nếu chỉ có một mức giá thì dùng mức đó. Không dùng max_vnd để loại cứng,
+  // vì max thường phản ánh biến thể/tình trạng khác nhau trên thị trường.
+  let representative = null;
+  if (min !== null && max !== null) {
+    representative = (min + max) / 2;
+  } else if (current !== null) {
+    representative = current;
+  } else if (min !== null) {
+    representative = min;
+  } else if (max !== null) {
+    representative = max;
+  }
+
+  if (representative === null) return 'unknown';
+  return representative <= cap ? 'within' : 'over';
 }
 
 function hardPass(m){
@@ -458,7 +467,7 @@ function score(m){
 
   const bs = budgetState(m);
   if (bs === 'within') add(4, 'Giá quan sát phù hợp với trần ngân sách đã chọn.');
-  if (bs === 'range_tradeoff') add(1, 'Giá tối thiểu nằm trong ngân sách nhưng một số mức giá có thể vượt trần.');
+  
   if (bs === 'unknown') add(-5, 'Chưa có giá VN được xác minh.');
 
   const confidence = m.data_confidence;
@@ -529,7 +538,7 @@ function budgetNote(m){
   const p = priceInfo(m);
 
   if (st === 'within') return '<div class="why">✓ ' + escapeHtml(p.main) + ' — trong ngân sách đã chọn.</div>';
-  if (st === 'range_tradeoff') return '<div class="trade">⚠️ ' + escapeHtml(p.main) + ' — một số mức giá quan sát có thể vượt trần ngân sách.</div>';
+  
   if (st === 'over') return '<div class="trade">⚠️ Giá quan sát bắt đầu ở ' + escapeHtml(p.main.replace(/^từ /,'')) + ', cao hơn trần ngân sách.</div>';
   if (st === 'unknown') return '<div class="trade">⚠️ Chưa có giá VN được xác minh cho model này; cần kiểm tra trước khi mua.</div>';
   return '';
@@ -560,7 +569,7 @@ function priceBlock(m){
 function exactBudgetCandidates(list){
   return list.filter(function(m){
     const st = budgetState(m);
-    return st === 'within' || st === 'range_tradeoff';
+    return st === 'within';
   });
 }
 
@@ -573,7 +582,7 @@ function resultsPage(){
     const budgeted = exactBudgetCandidates(strict);
     if (budgeted.length) {
       pool = budgeted;
-      budgetMessage = 'Ưu tiên các model có giá VN đã ghi nhận và nằm trong/giáp ngân sách bạn chọn.';
+      budgetMessage = 'Lọc ngân sách theo giá trung bình của khoảng giá quan sát; model có giá đại diện vượt trần sẽ không được đưa vào kết quả.';
     } else {
       pool = strict;
       budgetMessage = 'Chưa có model đủ dữ liệu giá VN để khớp ngân sách này; Wizard hiển thị các model gần tiêu chí nhất và đánh dấu giá cần kiểm tra.';
