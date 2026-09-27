@@ -2,7 +2,7 @@
   "schema_version": "2.1",
   "brand": "Wiki-eReader",
   "generated_at": "2026-09-27",
-  "engine_version": "2.2.0-price-vn-hard-budget",
+  "engine_version": "2.3.0-budget-usbc-images",
   "selection_policy": {
     "candidate_gate": "status=Wizard-ready and critical_fields_ok=true",
     "hard_filter": "Required features + night front-light requirement; budget is hard only when current numeric VN price is present.",
@@ -51,17 +51,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": 990000,
-        "max_vnd": 1790000,
-        "current_or_from_vnd": 1190000,
+        "min_vnd": 1350000,
+        "max_vnd": 2090000,
+        "current_or_from_vnd": 1450000,
         "condition": "used",
         "availability": "listed",
-        "last_checked": "2026-09-25",
+        "last_checked": "2026-09-27",
         "status": "observed",
-        "source": "MND / Shopee snapshot (Metric)",
-        "source_url": "https://www.mnd.vn/san-pham",
+        "source": "Kindle Hà Nội / Shopee snapshot",
+        "source_url": "https://kindlehanoi.vn/san-pham/used-may-doc-sach-kindle-paperwhite-gen-3-7th-ppw3/",
         "confidence": "high",
-        "note": "MND web lists from 1.19m; Metric snapshot of MND Shopee shows 990k–1.79m."
+        "note": "Kindle Hà Nội hiện có các mức khoảng 1,59–2,09 triệu; chương trình/biến thể khác có thể từ khoảng 1,35 triệu."
       },
       "fit": {
         "novel": 5,
@@ -87,7 +87,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": false
     },
     {
       "id": "ppw4",
@@ -164,7 +165,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": false
     },
     {
       "id": "ppw5",
@@ -241,7 +243,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "basic11",
@@ -318,7 +321,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "voyage",
@@ -393,7 +397,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": false
     },
     {
       "id": "clarahd",
@@ -468,7 +473,8 @@
       "brand_name": "Wiki-eReader",
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "usb_c": false
     },
     {
       "id": "kobo_clara_color",
@@ -543,7 +549,8 @@
       "brand_name": "Wiki-eReader",
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "usb_c": true
     },
     {
       "id": "kobo_clara_bw",
@@ -618,7 +625,8 @@
       "brand_name": "Wiki-eReader",
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "usb_c": true
     },
     {
       "id": "boox_go6",
@@ -695,7 +703,8 @@
       "ppi_color": null,
       "quality_flags": [
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "kindle_pw_12",
@@ -772,7 +781,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "kindle_colorsoft_se",
@@ -849,7 +859,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "kindle_colorsoft_16",
@@ -926,7 +937,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "kindle_pw_se_12",
@@ -1003,7 +1015,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "kindle_2024",
@@ -1080,7 +1093,8 @@
       "ppi_color": null,
       "quality_flags": [
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "boox_palma2",
@@ -1157,7 +1171,8 @@
       "ppi_color": null,
       "quality_flags": [
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "boox_go6_gen2",
@@ -1198,17 +1213,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "2to4",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 6090000,
+        "max_vnd": 6090000,
+        "current_or_from_vnd": 6090000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Shopee snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Giá quan sát khoảng 6,09 triệu."
       },
       "fit": {
         "novel": 5,
@@ -1235,7 +1250,8 @@
       "quality_flags": [
         "vn_price_refresh",
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "boox_go7",
@@ -1312,7 +1328,8 @@
       "ppi_color": null,
       "quality_flags": [
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "boox_go_color7_gen2",
@@ -1389,7 +1406,8 @@
       "ppi_color": 150,
       "quality_flags": [
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "boox_palma2_pro",
@@ -1430,17 +1448,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "4to7",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 10790000,
+        "max_vnd": 10790000,
+        "current_or_from_vnd": 10790000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Shopee snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Giá quan sát khoảng 10,79 triệu."
       },
       "fit": {
         "novel": 5,
@@ -1467,7 +1485,8 @@
       "quality_flags": [
         "vn_price_refresh",
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "xteink_x3",
@@ -1508,17 +1527,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 1640000,
+        "max_vnd": 2350000,
+        "current_or_from_vnd": 1640000,
+        "condition": "new/used",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Shopee snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Khoảng 1,64–2,35 triệu tùy phiên bản/người bán."
       },
       "fit": {
         "novel": 4,
@@ -1544,7 +1563,8 @@
       "ppi_color": null,
       "quality_flags": [
         "vn_price_refresh"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "xteink_x4_classic",
@@ -1585,17 +1605,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 1600000,
+        "max_vnd": 1665000,
+        "current_or_from_vnd": 1600000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Shopee snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Khoảng 1,60–1,665 triệu."
       },
       "fit": {
         "novel": 4,
@@ -1621,7 +1641,8 @@
       "ppi_color": null,
       "quality_flags": [
         "vn_price_refresh"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "xteink_x4_pro",
@@ -1662,17 +1683,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 2299000,
+        "max_vnd": 2320000,
+        "current_or_from_vnd": 2299000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Shopee snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Khoảng 2,299–2,32 triệu."
       },
       "fit": {
         "novel": 4,
@@ -1698,7 +1719,8 @@
       "ppi_color": null,
       "quality_flags": [
         "vn_price_refresh"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "kindle_scribe_2022",
@@ -1739,17 +1761,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "unknown",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 6999000,
+        "max_vnd": 7000000,
+        "current_or_from_vnd": 6999000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Shopee / Chợ Tốt snapshot",
+        "source_url": "https://shopee.vn/may-tinh-bang-cat.11036030.11036041.11036046",
+        "confidence": "high",
+        "note": "Shopee có Kindle Scribe 2022 like new 6.999.000đ; Chợ Tốt có máy gen 1 64GB khoảng 7 triệu."
       },
       "fit": {
         "novel": 4,
@@ -1776,7 +1798,8 @@
       "quality_flags": [
         "vn_price_refresh",
         "firmware_specific"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "kobo_libra_colour",
@@ -1851,7 +1874,8 @@
       "brand_name": "Wiki-eReader",
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "usb_c": true
     },
     {
       "id": "kobo_elipsa_2e",
@@ -1892,17 +1916,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "unknown",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 11000000,
+        "max_vnd": 12390000,
+        "current_or_from_vnd": 11000000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "VN marketplace snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Khoảng 11–12,39 triệu."
       },
       "fit": {
         "novel": 4,
@@ -1928,7 +1952,8 @@
       "ppi_color": null,
       "quality_flags": [
         "vn_price_refresh"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "boox_go10_gen2",
@@ -1969,17 +1994,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "unknown",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 14890000,
+        "max_vnd": 14890000,
+        "current_or_from_vnd": 14890000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "VN marketplace snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Giá quan sát khoảng 14,89 triệu."
       },
       "fit": {
         "novel": 4,
@@ -2006,7 +2031,8 @@
       "quality_flags": [
         "vn_price_refresh",
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "boox_note_air5_c",
@@ -2047,17 +2073,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "unknown",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "No current VN price from the checked sellers was found; exclude from exact budget matches."
+        "min_vnd": 14590000,
+        "max_vnd": 16480000,
+        "current_or_from_vnd": 14590000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "VN marketplace snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Khoảng 14,59–16,48 triệu tùy cấu hình/người bán."
       },
       "fit": {
         "novel": 4,
@@ -2084,7 +2110,8 @@
       "quality_flags": [
         "vn_price_refresh",
         "wiki_link_pending"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "ireader_color7",
@@ -2148,8 +2175,8 @@
       "wiki_url": null,
       "affiliate_url": null,
       "data_confidence": "high",
-      "critical_fields_ok": true,
-      "status": "Wizard-ready",
+      "critical_fields_ok": false,
+      "status": "Reference",
       "last_verified": "2026-09-27",
       "source_primary": "https://www.ireader.com/",
       "source_secondary": [
@@ -2160,8 +2187,10 @@
       "ppi_bw": 300,
       "ppi_color": 150,
       "quality_flags": [
-        "vn_price_refresh"
-      ]
+        "vn_price_refresh",
+        "vn_price_needed"
+      ],
+      "usb_c": true
     },
     {
       "id": "ireader_ocean4_2025",
@@ -2202,17 +2231,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "Chưa có giá VN hiện tại đủ tin cậy trong dữ liệu Wizard."
+        "min_vnd": 7650000,
+        "max_vnd": 7650000,
+        "current_or_from_vnd": 7650000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "VN marketplace snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Giá quan sát khoảng 7,65 triệu."
       },
       "fit": {
         "novel": 5,
@@ -2238,7 +2267,8 @@
       "ppi_color": null,
       "quality_flags": [
         "vn_price_refresh"
-      ]
+      ],
+      "usb_c": true
     },
     {
       "id": "ireader_ocean4_turbo_2025",
@@ -2279,17 +2309,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "1to2",
       "price_vn": {
-        "min_vnd": null,
-        "max_vnd": null,
-        "current_or_from_vnd": null,
-        "condition": null,
-        "availability": "unknown",
-        "last_checked": null,
-        "status": "unknown",
-        "source": null,
-        "source_url": null,
-        "confidence": null,
-        "note": "Chưa có giá VN hiện tại đủ tin cậy trong dữ liệu Wizard."
+        "min_vnd": 4650000,
+        "max_vnd": 6720000,
+        "current_or_from_vnd": 4650000,
+        "condition": "new",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Shopee snapshot",
+        "source_url": "https://shopee.vn/",
+        "confidence": "medium",
+        "note": "Khoảng 4,65–6,72 triệu tùy cấu hình/người bán."
       },
       "fit": {
         "novel": 5,
@@ -2315,7 +2345,384 @@
       "ppi_color": null,
       "quality_flags": [
         "vn_price_refresh"
-      ]
+      ],
+      "usb_c": true
+    },
+    {
+      "id": "ppw1",
+      "brand": "Kindle",
+      "model": "Kindle Paperwhite 1 (PPW1)",
+      "family": "Paperwhite",
+      "release_year": 2012,
+      "lifecycle": "Used / discontinued",
+      "screen_in": 6,
+      "ppi": 212,
+      "display_type": "E Ink Pearl",
+      "storage_gb": 2,
+      "weight_g": 213,
+      "os": "KindleOS",
+      "android": false,
+      "color": false,
+      "buttons": false,
+      "waterproof": false,
+      "palm_sized": false,
+      "front_light": true,
+      "warm_light": false,
+      "bluetooth_audio": false,
+      "speakers": false,
+      "microphone": false,
+      "microsd": false,
+      "native_epub": false,
+      "native_pdf": true,
+      "stylus": false,
+      "note_taking": false,
+      "play_store": false,
+      "format_flexibility": 2,
+      "ecosystem": "kindle",
+      "local_library_fit": 2,
+      "multi_source_fit": 2,
+      "customization_fit": 3,
+      "koreader_status": "community",
+      "jailbreak_status": "firmware-dependent",
+      "jailbreak_fw_scope": "Not evaluated by Wizard; check current model/firmware support.",
+      "budget_hint_vn": "1to2",
+      "price_vn": {
+        "min_vnd": 900000,
+        "max_vnd": 1250000,
+        "current_or_from_vnd": 1200000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Kindle Hà Nội / Điện Máy Xanh snapshot",
+        "source_url": "https://kindlehanoi.vn/danh-muc-san-pham/kindle-sale/",
+        "confidence": "high",
+        "note": "Các mức đang niêm yết quanh 1,2–1,25 triệu; một số tin máy cũ có thể thấp hơn."
+      },
+      "fit": {
+        "novel": 5,
+        "pdf": 3,
+        "manga": 3,
+        "color": 0,
+        "work": 2,
+        "web": 2
+      },
+      "wiki_url": "https://maydocsach.gitbook.io/",
+      "affiliate_url": null,
+      "data_confidence": "medium",
+      "critical_fields_ok": true,
+      "status": "Wizard-ready",
+      "last_verified": "2026-09-27",
+      "source_primary": "https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-duoi-1-trieu",
+      "source_secondary": [
+        "https://sieuthidienmayxanh.vn/san-pham/may-doc-sach-kindle-paperwhite-1-5th-kindle-ppw1-co-den-nen-man-hinh-6-212ppi-2gb-luu-tru-tren-2000-ebook-l-82642"
+      ],
+      "editorial_notes": "PPW1 là máy đời cũ; phù hợp thị trường máy đã qua sử dụng.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 212,
+      "ppi_color": null,
+      "quality_flags": [],
+      "usb_c": false
+    },
+    {
+      "id": "ppw2",
+      "brand": "Kindle",
+      "model": "Kindle Paperwhite 2 (PPW2)",
+      "family": "Paperwhite",
+      "release_year": 2013,
+      "lifecycle": "Used / discontinued",
+      "screen_in": 6,
+      "ppi": 212,
+      "display_type": "E Ink Carta",
+      "storage_gb": 2,
+      "weight_g": 210,
+      "os": "KindleOS",
+      "android": false,
+      "color": false,
+      "buttons": false,
+      "waterproof": false,
+      "palm_sized": false,
+      "front_light": true,
+      "warm_light": false,
+      "bluetooth_audio": false,
+      "speakers": false,
+      "microphone": false,
+      "microsd": false,
+      "native_epub": false,
+      "native_pdf": true,
+      "stylus": false,
+      "note_taking": false,
+      "play_store": false,
+      "format_flexibility": 2,
+      "ecosystem": "kindle",
+      "local_library_fit": 2,
+      "multi_source_fit": 2,
+      "customization_fit": 3,
+      "koreader_status": "community",
+      "jailbreak_status": "firmware-dependent",
+      "jailbreak_fw_scope": "Not evaluated by Wizard; check current model/firmware support.",
+      "budget_hint_vn": "1to2",
+      "price_vn": {
+        "min_vnd": 1200000,
+        "max_vnd": 1890000,
+        "current_or_from_vnd": 1200000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Kindle Hà Nội / Shopee snapshot",
+        "source_url": "https://kindlehanoi.vn/san-pham/may-doc-sach-kindle-paperwhite-gen-2-6th-ppw2-used/",
+        "confidence": "high",
+        "note": "Kindle Hà Nội đang niêm yết khoảng 1,2–1,35 triệu; Shopee có biến thể cao hơn."
+      },
+      "fit": {
+        "novel": 5,
+        "pdf": 3,
+        "manga": 3,
+        "color": 0,
+        "work": 2,
+        "web": 2
+      },
+      "wiki_url": "https://maydocsach.gitbook.io/",
+      "affiliate_url": null,
+      "data_confidence": "medium",
+      "critical_fields_ok": true,
+      "status": "Wizard-ready",
+      "last_verified": "2026-09-27",
+      "source_primary": "https://kindlehanoi.vn/san-pham/may-doc-sach-kindle-paperwhite-gen-2-6th-ppw2-used/",
+      "source_secondary": [],
+      "editorial_notes": "PPW2 thuộc nhóm máy cũ; giá thực tế phụ thuộc dung lượng và tình trạng.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 212,
+      "ppi_color": null,
+      "quality_flags": [],
+      "usb_c": false
+    },
+    {
+      "id": "basic8",
+      "brand": "Kindle",
+      "model": "Kindle Basic 8th Gen (2016)",
+      "family": "Basic",
+      "release_year": 2016,
+      "lifecycle": "Used / discontinued",
+      "screen_in": 6,
+      "ppi": 167,
+      "display_type": "E Ink Pearl",
+      "storage_gb": 4,
+      "weight_g": 161,
+      "os": "KindleOS",
+      "android": false,
+      "color": false,
+      "buttons": false,
+      "waterproof": false,
+      "palm_sized": false,
+      "front_light": false,
+      "warm_light": false,
+      "bluetooth_audio": false,
+      "speakers": false,
+      "microphone": false,
+      "microsd": false,
+      "native_epub": false,
+      "native_pdf": true,
+      "stylus": false,
+      "note_taking": false,
+      "play_store": false,
+      "format_flexibility": 2,
+      "ecosystem": "kindle",
+      "local_library_fit": 2,
+      "multi_source_fit": 2,
+      "customization_fit": 2,
+      "koreader_status": "community",
+      "jailbreak_status": "firmware-dependent",
+      "jailbreak_fw_scope": "Not evaluated by Wizard; check current model/firmware support.",
+      "budget_hint_vn": "u1",
+      "price_vn": {
+        "min_vnd": 990000,
+        "max_vnd": 1200000,
+        "current_or_from_vnd": 990000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Kindle Hà Nội snapshot",
+        "source_url": "https://kindlehanoi.vn/danh-muc-san-pham/kindle-sale/",
+        "confidence": "high",
+        "note": "Có niêm yết Used Very Good 990.000đ; các biến thể khác có thể quanh 1,2 triệu."
+      },
+      "fit": {
+        "novel": 5,
+        "pdf": 2,
+        "manga": 2,
+        "color": 0,
+        "work": 2,
+        "web": 2
+      },
+      "wiki_url": "https://maydocsach.gitbook.io/",
+      "affiliate_url": null,
+      "data_confidence": "medium",
+      "critical_fields_ok": true,
+      "status": "Wizard-ready",
+      "last_verified": "2026-09-27",
+      "source_primary": "https://kindlehanoi.vn/danh-muc-san-pham/kindle-sale/",
+      "source_secondary": [],
+      "editorial_notes": "Không có front light; nếu chọn đọc đêm thường xuyên Wizard sẽ loại model này.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 167,
+      "ppi_color": null,
+      "quality_flags": [],
+      "usb_c": false
+    },
+    {
+      "id": "kindle_keyboard3",
+      "brand": "Kindle",
+      "model": "Kindle Keyboard 3",
+      "family": "Keyboard",
+      "release_year": 2010,
+      "lifecycle": "Used / discontinued",
+      "screen_in": 6,
+      "ppi": 167,
+      "display_type": "E Ink Pearl",
+      "storage_gb": 4,
+      "weight_g": 247,
+      "os": "KindleOS",
+      "android": false,
+      "color": false,
+      "buttons": true,
+      "waterproof": false,
+      "palm_sized": false,
+      "front_light": false,
+      "warm_light": false,
+      "bluetooth_audio": true,
+      "speakers": false,
+      "microphone": false,
+      "microsd": false,
+      "native_epub": false,
+      "native_pdf": true,
+      "stylus": false,
+      "note_taking": false,
+      "play_store": false,
+      "format_flexibility": 2,
+      "ecosystem": "kindle",
+      "local_library_fit": 2,
+      "multi_source_fit": 2,
+      "customization_fit": 3,
+      "koreader_status": "community",
+      "jailbreak_status": "firmware-dependent",
+      "jailbreak_fw_scope": "Not evaluated by Wizard; check current model/firmware support.",
+      "budget_hint_vn": "u1",
+      "price_vn": {
+        "min_vnd": 500000,
+        "max_vnd": 1000000,
+        "current_or_from_vnd": 1000000,
+        "condition": "used",
+        "availability": "listed",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Chợ Tốt / Kindle Hà Nội / Shopee snapshot",
+        "source_url": "https://kindlehanoi.vn/danh-muc-san-pham/kindle-sale/",
+        "confidence": "high",
+        "note": "Có các tin máy cũ khoảng 500.000–1.000.000đ; tình trạng máy ảnh hưởng mạnh đến giá."
+      },
+      "fit": {
+        "novel": 5,
+        "pdf": 2,
+        "manga": 2,
+        "color": 0,
+        "work": 2,
+        "web": 2
+      },
+      "wiki_url": "https://maydocsach.gitbook.io/",
+      "affiliate_url": null,
+      "data_confidence": "medium",
+      "critical_fields_ok": true,
+      "status": "Wizard-ready",
+      "last_verified": "2026-09-27",
+      "source_primary": "https://kindlehanoi.vn/danh-muc-san-pham/kindle-sale/",
+      "source_secondary": [
+        "https://www.chotot.com/tags/mua-ban-may-tinh-bang/may-doc-sach-gia-duoi-1-trieu"
+      ],
+      "editorial_notes": "Máy rất cũ, có bàn phím vật lý; cần kiểm tra pin, màn hình và tình trạng đăng nhập trước khi mua.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 167,
+      "ppi_color": null,
+      "quality_flags": [],
+      "usb_c": false
+    },
+    {
+      "id": "kobo_touch",
+      "brand": "Kobo",
+      "model": "Kobo Touch",
+      "family": "Touch",
+      "release_year": 2011,
+      "lifecycle": "Used / discontinued",
+      "screen_in": 6,
+      "ppi": 167,
+      "display_type": "E Ink Pearl",
+      "storage_gb": 2,
+      "weight_g": 185,
+      "os": "KindleOS",
+      "android": false,
+      "color": false,
+      "buttons": true,
+      "waterproof": false,
+      "palm_sized": false,
+      "front_light": false,
+      "warm_light": false,
+      "bluetooth_audio": false,
+      "speakers": false,
+      "microphone": false,
+      "microsd": false,
+      "native_epub": true,
+      "native_pdf": true,
+      "stylus": false,
+      "note_taking": false,
+      "play_store": false,
+      "format_flexibility": 4,
+      "ecosystem": "kobo",
+      "local_library_fit": 5,
+      "multi_source_fit": 5,
+      "customization_fit": 4,
+      "koreader_status": "community",
+      "jailbreak_status": "not_required_for_koreader",
+      "jailbreak_fw_scope": "Không cần jailbreak cho hướng tùy biến/KOReader cộng đồng được Wizard mô tả.",
+      "budget_hint_vn": "u1",
+      "price_vn": {
+        "min_vnd": 480000,
+        "max_vnd": 1000000,
+        "current_or_from_vnd": 680000,
+        "condition": "used",
+        "availability": "marketplace",
+        "last_checked": "2026-09-27",
+        "status": "observed",
+        "source": "Chợ Tốt / nguồn máy cũ",
+        "source_url": "https://www.chotot.com/tags/mua-ban-may-tinh-bang-kobo-rakuten-gia-duoi-2-trieu-tp-ho-chi-minh-sfuQusmDYcqbLy",
+        "confidence": "medium",
+        "note": "Các tin gần đây/đã hết hạn ghi nhận khoảng 480.000–1.000.000đ; giá phụ thuộc tình trạng và phụ kiện."
+      },
+      "fit": {
+        "novel": 5,
+        "pdf": 2,
+        "manga": 2,
+        "color": 0,
+        "work": 2,
+        "web": 2
+      },
+      "wiki_url": "https://maydocsach.gitbook.io/",
+      "affiliate_url": null,
+      "data_confidence": "medium",
+      "critical_fields_ok": true,
+      "status": "Wizard-ready",
+      "last_verified": "2026-09-27",
+      "source_primary": "https://www.chotot.com/tags/mua-ban-may-tinh-bang-kobo-rakuten-gia-duoi-2-trieu-tp-ho-chi-minh-sfuQusmDYcqbLy",
+      "source_secondary": [
+        "https://maydocsach.gitbook.io/guide/lua-chon-may-doc-sach-phu-hop/may-doc-sach-gia-duoi-1-trieu"
+      ],
+      "editorial_notes": "Không có front light; bù lại hỗ trợ EPUB và thẻ nhớ gắn ngoài.",
+      "brand_name": "Wiki-eReader",
+      "ppi_bw": 167,
+      "ppi_color": null,
+      "quality_flags": [],
+      "usb_c": false
     }
   ],
   "reference_models": [
