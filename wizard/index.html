@@ -635,7 +635,7 @@ function modelImage(m){
   const short = String(m.model || 'eReader')
     .replace(/Kindle|Kobo|BOOX|Xteink/gi,'')
     .trim()
-    .split(/\\s+/)
+    .split(/\s+/)
     .slice(0,2)
     .map(function(x){ return x.charAt(0); })
     .join('')
