@@ -192,7 +192,7 @@ const labels = {
   novel:'Sách chữ', pdf:'PDF', manga:'Manga', color:'Màu', work:'Tài liệu công việc', web:'Web',
   tiny:'Ưu tiên siêu nhỏ', '6':'Khoảng 6 inch', '7':'Khoảng 7 inch', large:'Màn hình lớn', neutral:'Kích thước không quan trọng',
   often:'Đọc đêm thường xuyên', sometimes:'Đọc đêm thỉnh thoảng', rare:'Ít đọc ban đêm',
-  water:'Chống nước', warm:'Đèn ấm', buttons:'Nút chuyển trang', android:'Android', pen:'Ghi chú bằng bút', microsd:'Thẻ nhớ gắn ngoài',
+  water:'Chống nước', warm:'Đèn ấm', buttons:'Nút chuyển trang', android:'Android', pen:'Ghi chú bằng bút', microsd:'Thẻ nhớ gắn ngoài', usb_c:'Cổng USB-C',
   amazon:'Amazon / Kindle', epub:'EPUB / thư viện cá nhân', many:'Nhiều nguồn', apps:'Nhiều ứng dụng',
   yes:'Quan tâm jailbreak/KOReader', maybe:'Có thể quan tâm', no:'Không cần tùy biến'
 };
@@ -347,18 +347,17 @@ function budgetState(m){
   const cap = BUDGET_CAP[key];
   const p = m.price_vn || {};
   const min = num(p.min_vnd);
+  const current = num(p.current_or_from_vnd);
 
-  if (min === null) return 'unknown';
-
+  if (min === null && current === null) return 'unknown';
   if (cap === Infinity) return 'within';
 
-  if (min <= cap) {
-    const current = num(p.current_or_from_vnd);
-    if (current !== null && current > cap) return 'range_tradeoff';
-    return 'within';
-  }
-
-  return 'over';
+  // Với ngân sách, dùng mức giá đang/được niêm yết từ để tránh
+  // đưa máy "đôi khi có thể gặp dưới trần" vào nhóm khớp chính xác.
+  const anchor = current !== null ? current : min;
+  if (anchor > cap) return 'over';
+  if (min !== null && min <= cap && num(p.max_vnd) !== null && num(p.max_vnd) > cap) return 'range_tradeoff';
+  return 'within';
 }
 
 function hardPass(m){
@@ -373,6 +372,7 @@ function hardPass(m){
     if (f === 'pen' && !(m.stylus === true && m.note_taking === true)) return false;
     if (f === 'color' && m.color !== true) return false;
     if (f === 'microsd' && m.microsd !== true) return false;
+    if (f === 'usb_c' && m.usb_c !== true) return false;
   }
 
   if (A.ecosystem === 'amazon' && m.brand !== 'Kindle') return false;
@@ -429,7 +429,8 @@ function score(m){
     if (f === 'buttons' && m.buttons === true) add(2);
     if (f === 'android' && m.android === true) add(3, 'Có Android.');
     if (f === 'color' && m.color === true) add(3, 'Có màn hình màu.');
-    if (f === 'microsd' && m.microsd === true) add(2, 'Có khe microSD.');
+    if (f === 'microsd' && m.microsd === true) add(2, 'Có thẻ nhớ gắn ngoài.');
+    if (f === 'usb_c' && m.usb_c === true) add(2, 'Có cổng USB-C.');
     if (f === 'pen' && m.stylus === true && m.note_taking === true) add(3, 'Có hỗ trợ bút và ghi chú.');
   });
 
@@ -476,6 +477,7 @@ function spec(m){
   if (m.buttons === true) features.push('nút trang');
   if (m.android === true) features.push('Android');
   if (m.microsd === true) features.push('thẻ nhớ gắn ngoài');
+  if (m.usb_c === true) features.push('USB-C');
   if (m.stylus === true && m.note_taking === true) features.push('bút/ghi chú');
 
   return {
@@ -509,6 +511,9 @@ function tradeoffs(m){
   }
   if (featuresSelected('warm') && m.warm_light !== true) {
     t.push('Không có đèn ấm theo dữ liệu hiện tại.');
+  }
+  if (featuresSelected('usb_c') && m.usb_c !== true) {
+    t.push('Không có cổng USB-C theo dữ liệu hiện tại.');
   }
   return t;
 }
@@ -639,12 +644,18 @@ function resultsPage(){
 
 function modelImage(m){
   const images={
+    ppw1:'https://images.prom.ua/1224562156_elektronnaya-kniga-amazon.jpg',
+    ppw2:'https://www.dhresource.com/webp/m/450x450/f3/albu/km/o/20/34c1289f-bf46-4824-bb11-eb945066725e.jpg',
+    ppw3:'https://www.purepc.pl/files/Image/artykul_zdjecia/2015/kindle_paperwhite_3/kindle_paperwhite_3_test_19.png',
+    basic8:'https://d3gqasl9vmjfd8.cloudfront.net/7adfe04c-9577-40fc-aff8-67dbca28b9eb.png',
+    kindle_keyboard3:'https://d3nevzfk7ii3be.cloudfront.net/igi/S1ujeUQRPQLIEYL1.large',
+    kobo_touch:'https://image.coolblue.be/max/394xauto/products/145889',
     ppw4:'https://iprofishop.ru/upload/iblock/33f/623gd6nk3vhi4f0w0dqqg7i9gbve4dw2.jpg',
     ppw5:'https://cdn.cimri.io/image/1200x1200/amazon-kindle-6-8-paperwhite-5-warmlight-2021-siyah-8-gb-reklamli-e-kitap-okuyucu_661729270.jpg',
     kindle_colorsoft_se:'https://gadgetnutz.com/wp-content/uploads/2024/10/kindle-colorsoft.jpg',
     kindle_colorsoft_16:'https://gadgetnutz.com/wp-content/uploads/2024/10/kindle-colorsoft.jpg',
     kindle_2024:'https://cf.shopee.co.th/file/th-11134207-7rask-m2xg4t2xfo7g0d',
-    kindle_scribe_2022:'https://www.anhoch.com/storage/media/scribe_tung_2024.jpg',
+    kindle_scribe_2022:'https://static01.galaxus.com/productimages/7/3/6/6/4/1/9/5/777415_01.jpg_sea.jpeg',
     kobo_clara_color:'https://gl.kobobooks.com/cdn/shop/files/1-Spa-Colour-EN-Device_Front_1080x1080_07801ff1-4021-4bab-a615-36f27924cdaa_1078x1078.png?v=1711471672',
     kobo_clara_bw:'https://sg.kobobooks.com/cdn/shop/products/2-Spa-BW-EN-Device_Angled_1080x1080_f7e96270-7ffb-43a5-bfe2-77b019167495_700x700.png?v=1710271894',
     kobo_libra_colour:'https://ca.kobobooks.com/cdn/shop/files/5-Monza-Black-Lying-EN-Device_1080x1080_ce6c03de-5cfc-431c-9f66-a34216735e98_1078x1078.png?v=1711471683',
