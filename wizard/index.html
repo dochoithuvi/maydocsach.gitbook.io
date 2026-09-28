@@ -561,6 +561,7 @@ function resultsPage(){
   const strict = M.filter(hardPass);
   let pool = strict;
   let budgetMessage = '';
+  let referenceMode = false;
 
   if (A.budget && A.budget !== 'unknown') {
     const budgeted = exactBudgetCandidates(strict);
@@ -568,10 +569,24 @@ function resultsPage(){
       pool = budgeted;
       budgetMessage = 'Lọc ngân sách theo giá trung bình của khoảng giá quan sát; model có giá đại diện vượt trần sẽ không được đưa vào kết quả.';
     } else {
-      // Ngân sách là bộ lọc cứng: không được fallback sang model vượt ngân sách.
-      pool = [];
-      budgetMessage = 'Không có model vừa các tiêu chí bắt buộc trong ngân sách đã chọn.';
+      // Không nới ngân sách. Nếu tiêu chí quá hẹp, mở rộng các tiêu chí khác
+      // nhưng vẫn giữ trần ngân sách để luôn đưa ra vài phương án tham khảo.
+      pool = exactBudgetCandidates(M.filter(function(m){
+        return m.status === 'Wizard-ready' && m.critical_fields_ok === true;
+      }));
+      referenceMode = pool.length > 0;
+      budgetMessage = referenceMode
+        ? 'Chưa có model đáp ứng toàn bộ tiêu chí. Dưới đây là các máy tham khảo vẫn nằm trong ngân sách bạn chọn; hãy xem phần lưu ý của từng máy.'
+        : 'Chưa có model đủ dữ liệu trong ngân sách đã chọn.';
     }
+  } else if (!strict.length) {
+    pool = M.filter(function(m){
+      return m.status === 'Wizard-ready' && m.critical_fields_ok === true;
+    });
+    referenceMode = pool.length > 0;
+    budgetMessage = referenceMode
+      ? 'Chưa có model đáp ứng toàn bộ tiêu chí. Dưới đây là các máy tham khảo để bạn cân nhắc.'
+      : 'Chưa có model đủ dữ liệu để tham khảo.';
   }
 
   const ranked = pool.map(function(m){
@@ -600,11 +615,14 @@ function resultsPage(){
       if (m.affiliate_url) links.push(['Kiểm tra giá ↗', m.affiliate_url, true]);
 
       let html = '<article class="card">';
-      html += '<span class="tag">' + escapeHtml(m.brand || 'eReader') + '</span>';
+      html += '<span class="tag">' + escapeHtml(referenceMode ? 'Tham khảo · ' + (m.brand || 'eReader') : (m.brand || 'eReader')) + '</span>';
       html += '<div class="model-title"><h3>' + escapeHtml(m.model) + '</h3>' + modelImage(m) + '</div>';
       html += priceBlock(m);
       html += budgetNote(m);
       html += '<div class="why" style="margin-top:6px">' + escapeHtml(reason) + '</div>';
+      if (referenceMode) {
+        html += '<div class="trade">💡 Máy này nằm trong ngân sách nhưng chưa khớp đầy đủ mọi tiêu chí bạn chọn. Hãy xem như một phương án tham khảo.</div>';
+      }
       if (tr.length) html += '<div class="trade">⚠️ ' + escapeHtml(tr.slice(0,2).join(' ')) + '</div>';
       if (links.length) {
         html += '<div class="links">';
