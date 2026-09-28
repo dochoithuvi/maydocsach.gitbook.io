@@ -384,6 +384,8 @@ function hardPass(m){
     if (f === 'color' && m.color !== true) return false;
     if (f === 'microsd' && m.microsd !== true) return false;
     if (f === 'usb_c' && m.usb_c !== true) return false;
+    if (f === 'audio' && !(m.bluetooth_audio === true || m.speakers === true)) return false;
+    if (f === 'rotation' && m.auto_rotation !== true) return false;
   }
 
   if (A.ecosystem === 'amazon' && m.brand !== 'Kindle') return false;
@@ -442,6 +444,8 @@ function score(m){
     if (f === 'color' && m.color === true) add(3, 'Có màn hình màu.');
     if (f === 'microsd' && m.microsd === true) add(2, 'Có thẻ nhớ gắn ngoài.');
     if (f === 'usb_c' && m.usb_c === true) add(2, 'Có cổng USB-C.');
+    if (f === 'audio' && (m.bluetooth_audio === true || m.speakers === true)) add(2, 'Có hỗ trợ audiobook/âm thanh.');
+    if (f === 'rotation' && m.auto_rotation === true) add(2, 'Có tự xoay màn hình.');
     if (f === 'pen' && m.stylus === true && m.note_taking === true) add(3, 'Có hỗ trợ bút và ghi chú.');
   });
 
@@ -489,6 +493,8 @@ function spec(m){
   if (m.android === true) features.push('Android');
   if (m.microsd === true) features.push('thẻ nhớ gắn ngoài');
   if (m.usb_c === true) features.push('USB-C');
+  if (m.auto_rotation === true) features.push('tự xoay');
+  if (m.bluetooth_audio === true || m.speakers === true) features.push('âm thanh');
   if (m.stylus === true && m.note_taking === true) features.push('bút/ghi chú');
 
   return {
@@ -525,6 +531,12 @@ function tradeoffs(m){
   }
   if (featuresSelected('usb_c') && m.usb_c !== true) {
     t.push('Không có cổng USB-C theo dữ liệu hiện tại.');
+  }
+  if (featuresSelected('audio') && !(m.bluetooth_audio === true || m.speakers === true)) {
+    t.push('Không ghi nhận hỗ trợ audiobook/âm thanh trong dữ liệu hiện tại.');
+  }
+  if (featuresSelected('rotation') && m.auto_rotation !== true) {
+    t.push('Không có tự xoay màn hình theo dữ liệu hiện tại.');
   }
   return t;
 }
@@ -812,10 +824,10 @@ async function boot(){
     Q = (await qRes.json()).questions || [];
     const modelPayload = await mRes.json();
     M = (modelPayload.models || []).filter(function(m){
-      return m.status === 'Wizard-ready' || !m.status;
+      return m.status === 'Wizard-ready' && m.critical_fields_ok === true;
     });
 
-    els.status.textContent = 'Đã tải ' + M.length + ' model Wizard-ready.';
+    els.status.textContent = 'Đã tải ' + M.length + ' model Wizard-ready đủ dữ liệu.';
     render();
   } catch (e) {
     els.status.textContent = 'Lỗi tải dữ liệu.';
