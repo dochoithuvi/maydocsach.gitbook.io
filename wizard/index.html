@@ -198,15 +198,14 @@ const labels = {
 };
 
 const BUDGET_CAP = {
-  u1: 1000000,
-  one: 2000000,
+  under1: 1000000,
   '1to2': 2000000,
-  two: 4000000,
-  '2to4': 4000000,
-  four: 7000000,
-  '4to7': 7000000,
-  sevenplus: Infinity,
-  '7plus': Infinity
+  '2to3': 3000000,
+  '3to4': 4000000,
+  '4to5': 5000000,
+  '5to6': 6000000,
+  over6: Infinity,
+  unknown: null
 };
 
 const USE_LABELS = {
@@ -341,24 +340,24 @@ function priceInfo(m){
 }
 
 function budgetState(m){
-  const key = A.budget;
-  if (!key || key === 'unknown') return 'not_requested';
-
-  const cap = BUDGET_CAP[key];
-  const p = m.price_vn || {};
-  const min = num(p.min_vnd);
-  const max = num(p.max_vnd);
-  const current = num(p.current_or_from_vnd);
-
-  if (min === null && max === null && current === null) return 'unknown';
-  if (cap === Infinity) return 'within';
-
-  // Dùng giá trung bình của khoảng giá làm giá đại diện cho bộ lọc ngân sách.
-  // Nếu chỉ có một mức giá thì dùng mức đó. Không dùng max_vnd để loại cứng,
-  // vì max thường phản ánh biến thể/tình trạng khác nhau trên thị trường.
-  let representative = null;
-  if (min !== null && max !== null) {
-    representative = (min + max) / 2;
+    const key = A.budget;
+    if (!key || key === 'unknown') return 'not_requested';
+    if (key === 'unknown_price') return 'unknown';
+    const cap = BUDGET_CAP[key];
+    const p = m.price_vn || {};
+    const min = num(p.min_vnd);
+    const max = num(p.max_vnd);
+    const current = num(p.current_or_from_vnd);
+    if (min === null && max === null && current === null) return 'unknown';
+    if (key === 'over6') return 'within';
+    if (cap === null) return 'unknown';
+    let representative = null;
+    if (min !== null && max !== null) representative = (min + max) / 2;
+    else if (current !== null) representative = current;
+    else if (min !== null) representative = min;
+    else if (max !== null) representative = max;
+    if (representative === null) return 'unknown';
+    return representative <= cap ? 'within' : 'over';
   } else if (current !== null) {
     representative = current;
   } else if (min !== null) {
