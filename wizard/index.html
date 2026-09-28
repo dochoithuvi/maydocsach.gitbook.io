@@ -189,7 +189,7 @@ const labels = {
   u1:'Dưới 1 triệu', one:'1–2 triệu', '1to2':'1–2 triệu', two:'2–4 triệu', '2to4':'2–4 triệu',
   four:'4–7 triệu', '4to7':'4–7 triệu', sevenplus:'Trên 7 triệu', '7plus':'Trên 7 triệu',
   unknown:'Chưa xác định',
-  novel:'Sách chữ', pdf:'PDF', manga:'Manga', color:'Màu', work:'Tài liệu công việc', web:'Web',
+  novel:'Ebook chữ', pdf:'PDF', manga:'Manga', color:'Màu', work:'Tài liệu công việc', web:'Web',
   tiny:'Ưu tiên siêu nhỏ', '6':'Khoảng 6 inch', '7':'Khoảng 7 inch', large:'Màn hình lớn', neutral:'Kích thước không quan trọng',
   often:'Đọc đêm thường xuyên', sometimes:'Đọc đêm thỉnh thoảng', rare:'Ít đọc ban đêm',
   amazon:'Amazon / Kindle', epub:'EPUB / thư viện cá nhân', many:'Nhiều nguồn', apps:'Nhiều ứng dụng',
@@ -208,7 +208,7 @@ const BUDGET_CAP = {
 };
 
 const USE_LABELS = {
-  novel:'sách chữ / tiểu thuyết',
+  novel:'Ebook chữ / tiểu thuyết',
   pdf:'PDF / tài liệu',
   manga:'manga / truyện tranh',
   color:'nội dung màu',
@@ -432,8 +432,8 @@ function score(m){
   if (A.ecosystem === 'amazon' && m.brand === 'Kindle') add(6, 'Thuộc hệ sinh thái Kindle.');
   if (A.ecosystem === 'epub' && m.native_epub === true) add(6, 'Hỗ trợ EPUB trực tiếp.');
   if (A.ecosystem === 'many') {
-    if ((num(m.multi_source_fit) || 0) >= 4) add(5, 'Phù hợp nguồn sách đa dạng.');
-    if ((num(m.format_flexibility) || 0) >= 4) add(3, 'Hỗ trợ nhiều định dạng và nguồn sách.');
+    if ((num(m.multi_source_fit) || 0) >= 4) add(5, 'Phù hợp nguồn Ebook đa dạng.');
+    if ((num(m.format_flexibility) || 0) >= 4) add(3, 'Hỗ trợ nhiều định dạng và nguồn Ebook.');
   }
   if (A.ecosystem === 'apps' && m.android === true) add(7, 'Android phù hợp nhu cầu dùng nhiều ứng dụng.');
 
@@ -588,7 +588,7 @@ function resultsPage(){
 
   let cardsHtml = '';
   if (!picks.length) {
-    cardsHtml = '<div class="error"><h2>Chưa có model khớp với bộ tiêu chí này</h2><p class="muted">' + escapeHtml(budgetMessage || 'Các yêu cầu bắt buộc hiện tại không tìm được model đủ dữ liệu.') + ' Anh có thể quay lại và nới một tiêu chí để Wizard mở rộng lựa chọn.</p></div>';
+    cardsHtml = '<div class="error"><h2>Chưa có model khớp với bộ tiêu chí này</h2><p class="muted">' + escapeHtml(budgetMessage || 'Các yêu cầu bắt buộc hiện tại không tìm được model đủ dữ liệu.') + ' Bạn có thể quay lại và nới một tiêu chí để Wizard mở rộng lựa chọn.</p></div>';
   } else {
     cardsHtml = picks.map(function(x){
       const m = x.m;
