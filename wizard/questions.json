@@ -144,7 +144,7 @@
     },
     {
       "key": "ecosystem",
-      "question": "📚 Bạn muốn cách dùng sách như thế nào?",
+      "question": "📚 Bạn muốn cách dùng Ebook như thế nào?",
       "type": "single",
       "options": [
         [
