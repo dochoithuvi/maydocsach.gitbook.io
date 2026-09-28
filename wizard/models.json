@@ -2,15 +2,15 @@
   "schema_version": "2.1",
   "brand": "Wiki-eReader",
   "generated_at": "2026-09-28",
-  "engine_version": "2.5.1-expanded-catalog-data-fix",
+  "engine_version": "2.6.0-schema-audit",
   "selection_policy": {
     "candidate_gate": "status=Wizard-ready and critical_fields_ok=true",
-    "hard_filter": "Required features + night front-light requirement; budget is a hard filter using the representative VN price.",
+    "hard_filter": "Required features + night front-light requirement + audio/rotation when selected; budget is a hard filter using the representative VN price.",
     "ranking": "Primary-use fit + size fit + ecosystem + optional preferences + data confidence",
     "results": "3–5 diverse candidates; near matches only when exact matches do not exist.",
     "commerce": "Affiliate presence never changes eligibility or ranking.",
     "budget_gate": "Budget uses the average of min_vnd and max_vnd when both are available; otherwise current_or_from_vnd or the available single price. A representative price above the selected cap is excluded.",
-    "catalog_update": "Added Kindle Oasis 1/2/3, current Kindle Scribe releases, Kobo Sage, BOOX Go 10.3 (Gen II) Lumi, and the 9 Meebook models sold/listed in Vietnam. Wizard-ready requires price, core specs, and a real product image. Data fields for new Kindle/Kobo entries were normalized to the correct OS and ecosystem."
+    "catalog_update": "Added Kindle Oasis 1/2/3, current Kindle Scribe releases, Kobo Sage, BOOX Go 10.3 (Gen II) Lumi, and the 9 Meebook models sold/listed in Vietnam. Wizard-ready requires price, core specs, and a real product image. Data fields for new Kindle/Kobo entries were normalized to the correct OS and ecosystem. Added a normalized auto_rotation field and corrected verified metadata during the full 52-model audit. Audio and rotation selections are now enforced as hard filters."
   },
   "models": [
     {
@@ -89,7 +89,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "ppw4",
@@ -167,7 +168,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "ppw5",
@@ -206,7 +208,7 @@
       "koreader_status": "community",
       "jailbreak_status": "firmware-dependent",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "1to2",
+      "budget_hint_vn": "2to4",
       "price_vn": {
         "min_vnd": 1990000,
         "max_vnd": 3990000,
@@ -245,7 +247,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "basic11",
@@ -284,7 +287,7 @@
       "koreader_status": "community",
       "jailbreak_status": "firmware-dependent",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "1to2",
+      "budget_hint_vn": "2to4",
       "price_vn": {
         "min_vnd": 2090000,
         "max_vnd": 3850000,
@@ -323,7 +326,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "voyage",
@@ -399,7 +403,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "clarahd",
@@ -438,7 +443,7 @@
       "koreader_status": "community",
       "jailbreak_status": "not_required_for_koreader",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "1to2",
+      "budget_hint_vn": "2to4",
       "price_vn": {
         "min_vnd": 3289000,
         "max_vnd": 3289000,
@@ -475,7 +480,8 @@
       "ppi_bw": 300,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "kobo_clara_color",
@@ -551,7 +557,8 @@
       "ppi_bw": 300,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kobo_clara_bw",
@@ -627,7 +634,8 @@
       "ppi_bw": 300,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "boox_go6",
@@ -650,13 +658,13 @@
       "front_light": true,
       "warm_light": true,
       "bluetooth_audio": true,
-      "speakers": true,
+      "speakers": false,
       "microphone": true,
       "microsd": true,
       "native_epub": true,
       "native_pdf": true,
-      "stylus": true,
-      "note_taking": true,
+      "stylus": false,
+      "note_taking": false,
       "play_store": true,
       "format_flexibility": 5,
       "ecosystem": "android",
@@ -666,7 +674,7 @@
       "koreader_status": "android_app",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "2to4",
+      "budget_hint_vn": "4to7",
       "price_vn": {
         "min_vnd": 3280000,
         "max_vnd": 4890000,
@@ -705,7 +713,8 @@
       "quality_flags": [
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kindle_pw_12",
@@ -783,7 +792,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kindle_colorsoft_se",
@@ -822,7 +832,7 @@
       "koreader_status": "community",
       "jailbreak_status": "firmware-dependent",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "4to7",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 6690000,
         "max_vnd": 7990000,
@@ -861,7 +871,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kindle_colorsoft_16",
@@ -900,7 +911,7 @@
       "koreader_status": "community",
       "jailbreak_status": "firmware-dependent",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "4to7",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 6690000,
         "max_vnd": 7990000,
@@ -939,7 +950,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kindle_pw_se_12",
@@ -1017,7 +1029,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kindle_2024",
@@ -1095,7 +1108,8 @@
       "quality_flags": [
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "boox_palma2",
@@ -1173,7 +1187,8 @@
       "quality_flags": [
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": true
     },
     {
       "id": "boox_go6_gen2",
@@ -1212,7 +1227,7 @@
       "koreader_status": "android_app",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "2to4",
+      "budget_hint_vn": "4to7",
       "price_vn": {
         "min_vnd": 6090000,
         "max_vnd": 6090000,
@@ -1252,7 +1267,8 @@
         "vn_price_refresh",
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "boox_go7",
@@ -1291,7 +1307,7 @@
       "koreader_status": "android_app",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "4to7",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 7290000,
         "max_vnd": 7290000,
@@ -1330,7 +1346,8 @@
       "quality_flags": [
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": true
     },
     {
       "id": "boox_go_color7_gen2",
@@ -1369,7 +1386,7 @@
       "koreader_status": "android_app",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "4to7",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 7190000,
         "max_vnd": 7190000,
@@ -1408,7 +1425,8 @@
       "quality_flags": [
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": true
     },
     {
       "id": "boox_palma2_pro",
@@ -1447,7 +1465,7 @@
       "koreader_status": "android_app",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "4to7",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 10790000,
         "max_vnd": 10790000,
@@ -1487,7 +1505,8 @@
         "vn_price_refresh",
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": true
     },
     {
       "id": "xteink_x3",
@@ -1565,7 +1584,8 @@
       "quality_flags": [
         "vn_price_refresh"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "xteink_x4_classic",
@@ -1604,7 +1624,7 @@
       "koreader_status": "not_verified",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "1to2",
+      "budget_hint_vn": "2to4",
       "price_vn": {
         "min_vnd": 1665000,
         "max_vnd": 2350000,
@@ -1643,7 +1663,8 @@
       "quality_flags": [
         "vn_price_refresh"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "xteink_x4_pro",
@@ -1682,7 +1703,7 @@
       "koreader_status": "not_verified",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "1to2",
+      "budget_hint_vn": "2to4",
       "price_vn": {
         "min_vnd": 2299000,
         "max_vnd": 2320000,
@@ -1721,7 +1742,8 @@
       "quality_flags": [
         "vn_price_refresh"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kindle_scribe_2022",
@@ -1760,7 +1782,7 @@
       "koreader_status": "community",
       "jailbreak_status": "firmware-dependent",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "unknown",
+      "budget_hint_vn": "4to7",
       "price_vn": {
         "min_vnd": 6999000,
         "max_vnd": 7000000,
@@ -1800,7 +1822,8 @@
         "vn_price_refresh",
         "firmware_specific"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kobo_libra_colour",
@@ -1839,7 +1862,7 @@
       "koreader_status": "community",
       "jailbreak_status": "not_required_for_koreader",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "unknown",
+      "budget_hint_vn": "4to7",
       "price_vn": {
         "min_vnd": 4490000,
         "max_vnd": null,
@@ -1876,7 +1899,8 @@
       "ppi_bw": 300,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "kobo_elipsa_2e",
@@ -1915,7 +1939,7 @@
       "koreader_status": "community",
       "jailbreak_status": "not_required_for_koreader",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "unknown",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 11000000,
         "max_vnd": 12390000,
@@ -1954,7 +1978,8 @@
       "quality_flags": [
         "vn_price_refresh"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "boox_go10_gen2",
@@ -1993,7 +2018,7 @@
       "koreader_status": "android_app",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "unknown",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 14890000,
         "max_vnd": 14890000,
@@ -2033,7 +2058,8 @@
         "vn_price_refresh",
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": true
     },
     {
       "id": "boox_note_air5_c",
@@ -2072,7 +2098,7 @@
       "koreader_status": "android_app",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "unknown",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 14590000,
         "max_vnd": 16480000,
@@ -2112,7 +2138,8 @@
         "vn_price_refresh",
         "wiki_link_pending"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": true
     },
     {
       "id": "ireader_color7",
@@ -2230,7 +2257,7 @@
       "koreader_status": "not_verified",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "1to2",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 7650000,
         "max_vnd": 7650000,
@@ -2269,7 +2296,8 @@
       "quality_flags": [
         "vn_price_refresh"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "ireader_ocean4_turbo_2025",
@@ -2308,7 +2336,7 @@
       "koreader_status": "not_verified",
       "jailbreak_status": "not_applicable",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
-      "budget_hint_vn": "1to2",
+      "budget_hint_vn": "4to7",
       "price_vn": {
         "min_vnd": 4650000,
         "max_vnd": 6720000,
@@ -2347,7 +2375,8 @@
       "quality_flags": [
         "vn_price_refresh"
       ],
-      "usb_c": true
+      "usb_c": true,
+      "auto_rotation": false
     },
     {
       "id": "ppw1",
@@ -2423,7 +2452,8 @@
       "ppi_bw": 212,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "ppw2",
@@ -2497,7 +2527,8 @@
       "ppi_bw": 212,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "basic8",
@@ -2536,7 +2567,7 @@
       "koreader_status": "community",
       "jailbreak_status": "firmware-dependent",
       "jailbreak_fw_scope": "Not evaluated by Wizard; check current model/firmware support.",
-      "budget_hint_vn": "u1",
+      "budget_hint_vn": "1to2",
       "price_vn": {
         "min_vnd": 990000,
         "max_vnd": 1200000,
@@ -2571,7 +2602,8 @@
       "ppi_bw": 167,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "kindle_keyboard3",
@@ -2647,7 +2679,8 @@
       "ppi_bw": 167,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "id": "kobo_touch",
@@ -2661,7 +2694,7 @@
       "display_type": "E Ink Pearl",
       "storage_gb": 2,
       "weight_g": 185,
-      "os": "KindleOS",
+      "os": "KoboOS",
       "android": false,
       "color": false,
       "buttons": true,
@@ -2723,7 +2756,8 @@
       "ppi_bw": 167,
       "ppi_color": null,
       "quality_flags": [],
-      "usb_c": false
+      "usb_c": false,
+      "auto_rotation": false
     },
     {
       "ecosystem": "kindle",
@@ -2800,7 +2834,8 @@
         "firmware_specific",
         "used_market"
       ],
-      "os": "KindleOS"
+      "os": "KindleOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "kindle",
@@ -2849,7 +2884,7 @@
       "display_type": "E Ink Carta",
       "storage_gb": 8,
       "weight_g": 194,
-      "budget_hint_vn": "2to4",
+      "budget_hint_vn": "4to7",
       "price_vn": {
         "min_vnd": 3390000,
         "max_vnd": 5490000,
@@ -2877,7 +2912,8 @@
         "firmware_specific",
         "used_market"
       ],
-      "os": "KindleOS"
+      "os": "KindleOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "kindle",
@@ -2926,7 +2962,7 @@
       "display_type": "E Ink Carta",
       "storage_gb": 8,
       "weight_g": 188,
-      "budget_hint_vn": "2to4",
+      "budget_hint_vn": "4to7",
       "price_vn": {
         "min_vnd": 3990000,
         "max_vnd": 4590000,
@@ -2954,7 +2990,8 @@
         "firmware_specific",
         "used_market"
       ],
-      "os": "KindleOS"
+      "os": "KindleOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "kindle",
@@ -3028,7 +3065,8 @@
       "ppi_bw": 300,
       "ppi_color": null,
       "quality_flags": [],
-      "os": "KindleOS"
+      "os": "KindleOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "kindle",
@@ -3102,7 +3140,8 @@
       "ppi_bw": 300,
       "ppi_color": null,
       "quality_flags": [],
-      "os": "KindleOS"
+      "os": "KindleOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "kindle",
@@ -3179,7 +3218,8 @@
       "quality_flags": [
         "no_front_light"
       ],
-      "os": "KindleOS"
+      "os": "KindleOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "kindle",
@@ -3253,7 +3293,8 @@
       "ppi_bw": 300,
       "ppi_color": 150,
       "quality_flags": [],
-      "os": "KindleOS"
+      "os": "KindleOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "kobo",
@@ -3302,7 +3343,7 @@
       "display_type": "E Ink Carta 1200",
       "storage_gb": 32,
       "weight_g": 240,
-      "budget_hint_vn": "4to7",
+      "budget_hint_vn": "7plus",
       "price_vn": {
         "min_vnd": 6990000,
         "max_vnd": 8490000,
@@ -3328,7 +3369,8 @@
       "ppi_bw": 300,
       "ppi_color": null,
       "quality_flags": [],
-      "os": "KoboOS"
+      "os": "KoboOS",
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -3402,7 +3444,9 @@
       "usb_c": true,
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "auto_rotation": true,
+      "os": "Android 15"
     },
     {
       "ecosystem": "android",
@@ -3443,7 +3487,7 @@
       "brand": "Meebook",
       "lifecycle": "Current",
       "os": "Android 11",
-      "budget_hint_vn": "2to4",
+      "budget_hint_vn": "4to7",
       "condition": "new",
       "availability": "listed",
       "last_checked": "2026-09-28",
@@ -3480,7 +3524,8 @@
       "image_url": "https://shop.nu.nl/cdn/shop/files/cmr3c32hh0te106uqrlwh2f1q.png?v=1783039533&width=1440",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": null
+      "ppi_color": null,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -3558,7 +3603,8 @@
       "image_url": "https://www1.yohohongkong.com/images/202306/goods_img/1_P_1686942575675.png",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": null
+      "ppi_color": null,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -3599,7 +3645,7 @@
       "brand": "Meebook",
       "lifecycle": "Current",
       "os": "Android 11",
-      "budget_hint_vn": "2to4",
+      "budget_hint_vn": "4to7",
       "condition": "new",
       "availability": "listed",
       "last_checked": "2026-09-28",
@@ -3636,7 +3682,8 @@
       "image_url": "https://u-mercari-images.mercdn.net/photos/m95851671182_3.jpg",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": 150
+      "ppi_color": 150,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -3677,7 +3724,7 @@
       "brand": "Meebook",
       "lifecycle": "Current",
       "os": "Android 11",
-      "budget_hint_vn": "2to4",
+      "budget_hint_vn": "4to7",
       "condition": "new",
       "availability": "listed",
       "last_checked": "2026-09-28",
@@ -3714,7 +3761,8 @@
       "image_url": "https://img.pchome.com.tw/cs/items/DCBR17A900GRVM4/l000001_1725193785.jpg",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": null
+      "ppi_color": null,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -3792,7 +3840,8 @@
       "image_url": "https://down-th.img.susercontent.com/file/th-11134207-81ztg-mk3wqek59erm6a",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": null
+      "ppi_color": null,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -3833,7 +3882,7 @@
       "brand": "Meebook",
       "lifecycle": "Current",
       "os": "Android 14",
-      "budget_hint_vn": "4to7",
+      "budget_hint_vn": "7plus",
       "condition": "new",
       "availability": "listed",
       "last_checked": "2026-09-28",
@@ -3870,7 +3919,8 @@
       "image_url": "https://down-th.img.susercontent.com/file/th-11134207-81ztn-mmpq1gqlgp3a7d",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": 150
+      "ppi_color": 150,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -3948,7 +3998,8 @@
       "image_url": "https://cf.shopee.co.th/file/th-11134207-7rash-m2c15ibu57z8d9",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": null
+      "ppi_color": null,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -4026,7 +4077,8 @@
       "image_url": "https://manuals.plus/ae/1005008162919811/images/S8d42f734c0244fb2b6d25269e4f4c2e2n.png",
       "usb_c": true,
       "ppi_bw": 300,
-      "ppi_color": 150
+      "ppi_color": 150,
+      "auto_rotation": false
     },
     {
       "ecosystem": "android",
@@ -4104,7 +4156,8 @@
       "image_url": "https://wayoza.com/_next/image?q=75&url=https%3A%2F%2Fdown-th.img.susercontent.com%2Ffile%2Fth-11134207-7r992-lw1ehionw0q8ea&w=1080",
       "usb_c": true,
       "ppi_bw": 227,
-      "ppi_color": null
+      "ppi_color": null,
+      "auto_rotation": false
     }
   ],
   "reference_models": [
