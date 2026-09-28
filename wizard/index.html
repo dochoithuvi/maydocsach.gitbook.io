@@ -584,8 +584,9 @@ function resultsPage(){
       pool = budgeted;
       budgetMessage = 'Lọc ngân sách theo giá trung bình của khoảng giá quan sát; model có giá đại diện vượt trần sẽ không được đưa vào kết quả.';
     } else {
-      pool = strict;
-      budgetMessage = 'Chưa có model đủ dữ liệu giá VN để khớp ngân sách này; Wizard hiển thị các model gần tiêu chí nhất và đánh dấu giá cần kiểm tra.';
+      // Ngân sách là bộ lọc cứng: không được fallback sang model vượt ngân sách.
+      pool = [];
+      budgetMessage = 'Không có model vừa các tiêu chí bắt buộc trong ngân sách đã chọn.';
     }
   }
 
@@ -603,7 +604,7 @@ function resultsPage(){
 
   let cardsHtml = '';
   if (!picks.length) {
-    cardsHtml = '<div class="error"><h2>Chưa có model khớp với bộ tiêu chí này</h2><p class="muted">Các yêu cầu bắt buộc hiện tại không tìm được model đủ dữ liệu. Anh có thể quay lại và nới một tiêu chí để Wizard mở rộng lựa chọn.</p></div>';
+    cardsHtml = '<div class="error"><h2>Chưa có model khớp với bộ tiêu chí này</h2><p class="muted">' + escapeHtml(budgetMessage || 'Các yêu cầu bắt buộc hiện tại không tìm được model đủ dữ liệu.') + ' Anh có thể quay lại và nới một tiêu chí để Wizard mở rộng lựa chọn.</p></div>';
   } else {
     cardsHtml = picks.map(function(x){
       const m = x.m;
