@@ -41,12 +41,12 @@
         [
           "over6",
           "Trên 6 triệu",
-          "Không đặt trần ngân sách; ưu tiên nhu cầu sử dụng."
+          "Không đặt trần ngân ebook; ưu tiên nhu cầu sử dụng."
         ],
         [
           "unknown",
           "Chưa xác định",
-          "Wizard ưu tiên nhu cầu trước, chưa dùng ngân sách để loại máy."
+          "Wizard ưu tiên nhu cầu trước, chưa dùng ngân ebook để loại máy."
         ]
       ]
     },
@@ -57,7 +57,7 @@
       "options": [
         [
           "novel",
-          "Đọc sách chữ / tiểu thuyết",
+          "Đọc Ebook / tiểu thuyết",
           "Đọc lâu, gọn nhẹ và dễ chịu cho mắt."
         ],
         [
@@ -86,11 +86,11 @@
           "Cần sự linh hoạt khi đọc nhiều nguồn nội dung."
         ]
       ],
-      "hint": "Chọn tất cả những cách anh dự định sử dụng máy thường xuyên."
+      "hint": "Chọn tất cả những cách bạn dự định sử dụng máy thường xuyên."
     },
     {
       "key": "size",
-      "question": "🪶 Anh thích trải nghiệm cầm máy như thế nào?",
+      "question": "🪶 Bạn thích trải nghiệm cầm máy như thế nào?",
       "type": "single",
       "options": [
         [
@@ -122,7 +122,7 @@
     },
     {
       "key": "night",
-      "question": "🌙 Thói quen đọc của anh thế nào?",
+      "question": "🌙 Thói quen đọc của bạn thế nào?",
       "type": "single",
       "options": [
         [
@@ -144,27 +144,27 @@
     },
     {
       "key": "ecosystem",
-      "question": "📚 Anh muốn cách dùng sách như thế nào?",
+      "question": "📚 Bạn muốn cách dùng sách như thế nào?",
       "type": "single",
       "options": [
         [
           "amazon",
-          "Chủ yếu dùng sách trong hệ Kindle / Amazon",
+          "Chủ yếu dùng ebook trong hệ Kindle / Amazon",
           "Ưu tiên sự thuận tiện của hệ sinh thái Kindle."
         ],
         [
           "epub",
-          "Có thư viện EPUB riêng",
+          "Có thư viện Ebook EPUB riêng",
           "Ưu tiên máy hỗ trợ EPUB và quản lý thư viện cá nhân tốt."
         ],
         [
           "many",
-          "Có sách từ nhiều nguồn khác nhau",
+          "Có ebook từ nhiều nguồn khác nhau",
           "Ưu tiên máy linh hoạt với nhiều nguồn và định dạng."
         ],
         [
           "apps",
-          "Muốn đọc sách bằng nhiều ứng dụng",
+          "Muốn đọc ebook bằng nhiều ứng dụng",
           "Ưu tiên máy có khả năng cài ứng dụng, thường là Android."
         ],
         [
@@ -176,7 +176,7 @@
     },
     {
       "key": "notes",
-      "question": "✍️ Khi đọc, anh có cần ghi chú trực tiếp lên tài liệu không?",
+      "question": "✍️ Khi đọc, bạn có cần ghi chú trực tiếp lên tài liệu không?",
       "type": "single",
       "options": [
         [
