@@ -194,4 +194,23 @@ Nếu thiếu một trong các phần trên, model không nên tự động chuy
 | Bigme | Bigme B6 Color | Thiếu một số trường quan trọng để hard-filter |
 | PocketBook | InkPad Color 3 | Thiếu một số trường quan trọng để hard-filter |
 
+## 12. Kiểm tra nhất quán schema — 2026-09-28
+
+Đợt audit toàn bộ 52 model Wizard-ready đã kiểm tra các trường dùng trực tiếp cho bộ lọc và xếp hạng.
+
+| Hạng mục | Kết quả |
+|---|---|
+| Wizard-ready có giá VN | 52/52 |
+| Wizard-ready có ảnh | 51/52; còn thiếu ảnh thật: **Xteink X4 Classic (X4 V2)** |
+| OS / ecosystem | Đã chuẩn hóa các model mới; sửa Kobo Touch về KoboOS và BOOX Lumi về Android 15 |
+| Bút / ghi chú | Đã sửa BOOX Go 6: không có bút/ghi chú tích hợp trong dữ liệu Wizard |
+| Tự xoay | Thêm trường `auto_rotation`; chỉ đánh dấu true khi dữ liệu xác nhận có cảm biến/tính năng tự xoay |
+| Âm thanh | Tiêu chí `audio` nay được áp dụng như yêu cầu bắt buộc khi người dùng chọn |
+| Tự xoay | Tiêu chí `rotation` nay được áp dụng như yêu cầu bắt buộc khi người dùng chọn |
+| Candidate gate | Wizard chỉ nạp model có cả `status=Wizard-ready` và `critical_fields_ok=true` |
+| Ngân sách | `budget_hint_vn` được đồng bộ theo giá đại diện; bộ lọc cứng vẫn dùng công thức giá trung bình |
+
+**Lưu ý về dữ liệu:** Các trường chưa có nguồn xác nhận đủ chắc không được tự động nâng thành `true`. Đây là nguyên tắc bảo thủ để tránh Wizard đề xuất nhầm tính năng.
+
+**Nguồn kiểm tra đại diện:** Amazon xác nhận các thế hệ Kindle Scribe hiện tại và đặc điểm front light/pen; Kobo xác nhận Sage 8 inch, 32GB, USB-C, chống nước và ComfortLight PRO; BOOX xác nhận Android, front light, stylus, microSD, audio và auto-rotation trên các model tương ứng; Meebook Việt Nam xác nhận 9 model và giá niêm yết hiện tại. citeturn709113search0turn709113search2turn709113search6turn278082search1turn297759search0turn225140search0
 
