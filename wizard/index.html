@@ -192,9 +192,8 @@ const labels = {
   novel:'Sách chữ', pdf:'PDF', manga:'Manga', color:'Màu', work:'Tài liệu công việc', web:'Web',
   tiny:'Ưu tiên siêu nhỏ', '6':'Khoảng 6 inch', '7':'Khoảng 7 inch', large:'Màn hình lớn', neutral:'Kích thước không quan trọng',
   often:'Đọc đêm thường xuyên', sometimes:'Đọc đêm thỉnh thoảng', rare:'Ít đọc ban đêm',
-  water:'Chống nước', warm:'Đèn ấm', buttons:'Nút chuyển trang', android:'Android', pen:'Ghi chú bằng bút', microsd:'Thẻ nhớ gắn ngoài', usb_c:'Cổng USB-C',
   amazon:'Amazon / Kindle', epub:'EPUB / thư viện cá nhân', many:'Nhiều nguồn', apps:'Nhiều ứng dụng',
-  yes:'Quan tâm jailbreak/KOReader', maybe:'Có thể quan tâm', no:'Không cần tùy biến'
+  important:'Ghi chú là nhu cầu quan trọng', sometimes:'Đọc tối thỉnh thoảng', no:'Không cần ghi chú'
 };
 
 const BUDGET_CAP = {
@@ -371,22 +370,6 @@ function budgetState(m){
 }
 
 function hardPass(m){
-  if (A.night === 'often' && m.front_light !== true) return false;
-
-  const features = Array.isArray(A.features) ? A.features : [];
-  for (const f of features) {
-    if (f === 'water' && m.waterproof !== true) return false;
-    if (f === 'warm' && m.warm_light !== true) return false;
-    if (f === 'buttons' && m.buttons !== true) return false;
-    if (f === 'android' && m.android !== true) return false;
-    if (f === 'pen' && !(m.stylus === true && m.note_taking === true)) return false;
-    if (f === 'color' && m.color !== true) return false;
-    if (f === 'microsd' && m.microsd !== true) return false;
-    if (f === 'usb_c' && m.usb_c !== true) return false;
-    if (f === 'audio' && !(m.bluetooth_audio === true || m.speakers === true)) return false;
-    if (f === 'rotation' && m.auto_rotation !== true) return false;
-  }
-
   if (A.ecosystem === 'amazon' && m.brand !== 'Kindle') return false;
   if (A.ecosystem === 'epub' && m.native_epub !== true) return false;
   if (A.ecosystem === 'apps' && m.android !== true) return false;
@@ -404,7 +387,6 @@ function score(m){
   let s = 0;
   const reasons = [];
   const use = A.primary_use;
-  const features = Array.isArray(A.features) ? A.features : [];
 
   function add(n, reason){
     s += n;
@@ -432,21 +414,15 @@ function score(m){
   if (A.size === '7' && screen !== null && screen > 6.5 && screen <= 7.5) add(4, 'Kích thước gần 7 inch.');
   if (A.size === 'large' && screen !== null && screen >= 7.5) add(6, 'Màn hình lớn phù hợp PDF/tài liệu.');
 
-  if (A.night === 'often' && m.warm_light === true) add(3, 'Có đèn ấm, phù hợp đọc ban đêm.');
-  if (A.night === 'sometimes' && m.warm_light === true) add(2);
+  if (A.night === 'often' && m.front_light === true) add(3, 'Có đèn đọc, phù hợp thói quen đọc ban đêm.');
+  if (A.night === 'often' && m.warm_light === true) add(2, 'Có đèn ấm, phù hợp đọc ban đêm.');
+  if (A.night === 'sometimes' && m.front_light === true) add(1);
 
-  features.forEach(function(f){
-    if (f === 'water' && m.waterproof === true) add(2);
-    if (f === 'warm' && m.warm_light === true) add(2);
-    if (f === 'buttons' && m.buttons === true) add(2);
-    if (f === 'android' && m.android === true) add(3, 'Có Android.');
-    if (f === 'color' && m.color === true) add(3, 'Có màn hình màu.');
-    if (f === 'microsd' && m.microsd === true) add(2, 'Có thẻ nhớ gắn ngoài.');
-    if (f === 'usb_c' && m.usb_c === true) add(2, 'Có cổng USB-C.');
-    if (f === 'audio' && (m.bluetooth_audio === true || m.speakers === true)) add(2, 'Có hỗ trợ audiobook/âm thanh.');
-    if (f === 'rotation' && m.auto_rotation === true) add(2, 'Có tự xoay màn hình.');
-    if (f === 'pen' && m.stylus === true && m.note_taking === true) add(3, 'Có hỗ trợ bút và ghi chú.');
-  });
+  if (A.notes === 'important' && m.stylus === true && m.note_taking === true) {
+    add(5, 'Có bút và ghi chú, phù hợp nhu cầu ghi chú trực tiếp.');
+  } else if (A.notes === 'sometimes' && m.stylus === true && m.note_taking === true) {
+    add(2, 'Có bút và ghi chú như một điểm cộng.');
+  }
 
   if (A.ecosystem === 'amazon' && m.brand === 'Kindle') add(5, 'Thuộc hệ sinh thái Kindle.');
   if (A.ecosystem === 'epub' && m.native_epub === true) add(5, 'Hỗ trợ EPUB trực tiếp.');
@@ -455,18 +431,6 @@ function score(m){
     if ((num(m.format_flexibility) || 0) >= 4) add(3);
   }
   if (A.ecosystem === 'apps' && m.android === true) add(5, 'Android phù hợp nhu cầu cài ứng dụng.');
-
-  if (A.custom === 'yes') {
-    if (m.brand === 'Kobo') add(4, 'Kobo có thể dùng KOReader theo hướng cài đặt/tùy biến cộng đồng; không cần jailbreak cho nhu cầu này.');
-    else if (m.brand === 'BOOX') add(4, 'BOOX chạy Android nên KOReader có thể dùng như ứng dụng, không cần jailbreak.');
-    else if (m.koreader_status && m.koreader_status !== 'not_verified') add(4, 'Có thông tin hỗ trợ KOReader/tùy biến.');
-    else if (m.jailbreak_status && m.jailbreak_status !== 'not_applicable') add(3);
-  }
-  if (A.custom === 'maybe') {
-    if (m.brand === 'Kobo') add(2, 'Kobo có hệ sinh thái tùy biến/KOReader cộng đồng.');
-    else if (m.brand === 'BOOX') add(2, 'BOOX dùng Android nên có thể cài KOReader như ứng dụng.');
-    else if (m.koreader_status && m.koreader_status !== 'not_verified') add(2);
-  }
 
   const bs = budgetState(m);
   if (bs === 'within') add(4, 'Giá quan sát phù hợp với trần ngân sách đã chọn.');
@@ -522,20 +486,8 @@ function tradeoffs(m){
   if (A.size === 'tiny' && screen !== null && screen > 5) {
     t.push('Không thuộc nhóm máy siêu nhỏ.');
   }
-  if (featuresSelected('water') && m.waterproof !== true) {
-    t.push('Không ghi nhận chống nước trong dữ liệu hiện tại.');
-  }
-  if (featuresSelected('warm') && m.warm_light !== true) {
-    t.push('Không có đèn ấm theo dữ liệu hiện tại.');
-  }
-  if (featuresSelected('usb_c') && m.usb_c !== true) {
-    t.push('Không có cổng USB-C theo dữ liệu hiện tại.');
-  }
-  if (featuresSelected('audio') && !(m.bluetooth_audio === true || m.speakers === true)) {
-    t.push('Không ghi nhận hỗ trợ audiobook/âm thanh trong dữ liệu hiện tại.');
-  }
-  if (featuresSelected('rotation') && m.auto_rotation !== true) {
-    t.push('Không có tự xoay màn hình theo dữ liệu hiện tại.');
+  if (A.notes === 'important' && !(m.stylus === true && m.note_taking === true)) {
+    t.push('Model này không có bút/ghi chú tích hợp theo dữ liệu hiện tại; Wizard vẫn giữ lại nếu các nhu cầu khác phù hợp.');
   }
   return t;
 }
