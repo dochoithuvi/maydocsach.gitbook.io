@@ -709,7 +709,7 @@ function modelImage(m){
     meebook_m8c:"https://manuals.plus/ae/1005008162919811/images/S8d42f734c0244fb2b6d25269e4f4c2e2n.png",
     meebook_m103:"https://wayoza.com/_next/image?q=75&url=https%3A%2F%2Fdown-th.img.susercontent.com%2Ffile%2Fth-11134207-7r992-lw1ehionw0q8ea&w=1080",
   };
-  const src=images[m.id];
+  const src=m.image_url || images[m.id];
   if(!src) return '';
   return '<img class="model-thumb" src="'+escapeHtml(src)+'" alt="'+escapeHtml(m.model||'Máy đọc sách')+'" data-model="'+escapeHtml(m.model||'Máy đọc sách')+'" loading="lazy" decoding="async">';
 }
