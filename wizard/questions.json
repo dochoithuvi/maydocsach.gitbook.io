@@ -1,246 +1,198 @@
 {
-  "schema_version": "2.0",
+  "schema_version": "3.0",
   "brand": "Wiki-eReader",
-  "question_count": 7,
+  "question_count": 6,
   "questions": [
     {
       "key": "budget",
-      "question": "💰 Ngân sách bạn dự định chi khoảng bao nhiêu?",
+      "question": "💰 Bạn sẵn sàng chi khoảng bao nhiêu cho máy?",
       "type": "single",
       "options": [
         [
-          "u1",
+          "under1",
           "Dưới 1 triệu",
-          "Ưu tiên máy cũ/đời cũ; giá VN hiện tại cần kiểm tra."
+          "Thường phù hợp máy cũ/đời cũ; giá thực tế cần kiểm tra."
         ],
         [
           "1to2",
-          "1–2 triệu",
-          "Ưu tiên máy cũ hoặc model nhỏ gọn; giá VN cần kiểm tra theo thời điểm."
+          "Từ 1–2 triệu",
+          "Tập trung các lựa chọn có giá đại diện không vượt 2 triệu."
         ],
         [
-          "2to4",
-          "2–4 triệu",
-          "Mở rộng sang model mới hơn và một số máy màu/Android."
+          "2to3",
+          "Từ 2–3 triệu",
+          "Mở rộng sang nhiều model phổ biến và một số máy mới hơn."
         ],
         [
-          "4to7",
-          "4–7 triệu",
-          "Mở rộng sang máy cao cấp, màn lớn, màu hoặc Android."
+          "3to4",
+          "Từ 3–4 triệu",
+          "Có thêm nhiều lựa chọn màu, Android hoặc cao cấp hơn."
         ],
         [
-          "7plus",
-          "Trên 7 triệu",
-          "Không đặt trần chặt; ưu tiên tính năng và nhu cầu."
+          "4to5",
+          "Từ 4–5 triệu",
+          "Mở rộng sang máy cao cấp, màn lớn hoặc nhiều tính năng."
+        ],
+        [
+          "5to6",
+          "Từ 5–6 triệu",
+          "Có thể xem các model cao cấp và chuyên dụng hơn."
+        ],
+        [
+          "over6",
+          "Trên 6 triệu",
+          "Không đặt trần ngân sách; ưu tiên nhu cầu sử dụng."
         ],
         [
           "unknown",
           "Chưa xác định",
-          "Để Wiki-eReader ưu tiên nhu cầu trước, rồi xem ngân sách sau."
+          "Wizard ưu tiên nhu cầu trước, chưa dùng ngân sách để loại máy."
         ]
       ]
     },
     {
       "key": "primary_use",
-      "question": "📖 Bạn dùng máy chủ yếu để làm gì?",
+      "question": "📖 Bạn sẽ dùng máy chủ yếu để làm gì?",
       "type": "multi",
       "options": [
         [
           "novel",
-          "Sách chữ / tiểu thuyết",
-          "Ưu tiên trải nghiệm đọc chữ và sự gọn nhẹ."
+          "Đọc sách chữ / tiểu thuyết",
+          "Đọc lâu, gọn nhẹ và dễ chịu cho mắt."
         ],
         [
           "pdf",
-          "PDF / tài liệu",
-          "Ưu tiên màn hình lớn hơn và khả năng xử lý tài liệu."
+          "Đọc PDF / tài liệu",
+          "Cần hiển thị tài liệu, bố cục và chữ dễ đọc."
         ],
         [
           "manga",
-          "Manga / truyện tranh",
-          "Ưu tiên màn hình đủ lớn; màn màu là lợi thế nếu nội dung cần màu."
+          "Đọc manga / truyện tranh",
+          "Cần màn hình phù hợp với khung truyện và chi tiết hình ảnh."
         ],
         [
           "color",
-          "Nội dung màu",
-          "Ưu tiên màn hình E Ink màu."
+          "Đọc truyện tranh / tài liệu có màu",
+          "Màn hình màu có thể hữu ích."
         ],
         [
           "work",
           "Học tập / công việc",
-          "Ưu tiên PDF, định dạng rộng, Android hoặc bút ghi chú tùy nhu cầu."
+          "Có thể cần màn hình lớn, ghi chú hoặc nhiều định dạng."
         ],
         [
           "web",
-          "Web / bài viết",
-          "Ưu tiên khả năng hiển thị web và nhiều nguồn nội dung."
+          "Đọc web / bài viết",
+          "Cần sự linh hoạt khi đọc nhiều nguồn nội dung."
         ]
       ],
-      "hint": "Bạn có thể chọn nhiều nhu cầu nếu sử dụng máy cho nhiều mục đích."
+      "hint": "Chọn tất cả những cách anh dự định sử dụng máy thường xuyên."
     },
     {
       "key": "size",
-      "question": "🪶 Bạn ưu tiên kích thước máy thế nào?",
+      "question": "🪶 Anh thích trải nghiệm cầm máy như thế nào?",
       "type": "single",
       "options": [
         [
           "tiny",
-          "Càng nhỏ và nhẹ càng tốt",
-          "Ưu tiên thiết bị bỏ túi."
+          "Nhỏ gọn, dễ cầm một tay",
+          "Ưu tiên mang theo người và đọc khi di chuyển."
         ],
         [
           "6",
-          "Khoảng 6 inch",
-          "Kích thước cân bằng cho đọc ebook."
+          "Gọn nhưng vẫn muốn màn hình dễ đọc",
+          "Khoảng 6 inch là kích thước cân bằng."
         ],
         [
           "7",
-          "Khoảng 7 inch",
-          "Tăng không gian hiển thị nhưng vẫn khá cơ động."
+          "Muốn màn hình rộng hơn một chút",
+          "Khoảng 7 inch, vẫn tương đối cơ động."
         ],
         [
           "large",
-          "Càng lớn càng tốt",
-          "Ưu tiên PDF, tài liệu và ghi chú."
+          "Ưu tiên màn hình thật rộng",
+          "Phù hợp hơn khi đọc PDF, tài liệu hoặc ghi chú."
         ],
         [
           "neutral",
           "Không quan trọng",
-          "Không dùng kích thước để loại máy."
+          "Để Wizard tự cân đối theo nhu cầu khác."
         ]
       ]
     },
     {
       "key": "night",
-      "question": "🌙 Bạn có thường đọc trong phòng tối không?",
+      "question": "🌙 Thói quen đọc của anh thế nào?",
       "type": "single",
       "options": [
         [
           "often",
-          "Thường xuyên",
-          "Cần front light; đèn ấm là lợi thế."
+          "Hay đọc buổi tối / trong phòng tối",
+          "Khả năng chiếu sáng và đèn ấm sẽ được ưu tiên nếu có."
         ],
         [
           "sometimes",
-          "Thỉnh thoảng",
-          "Front light hữu ích nhưng không bắt buộc."
+          "Thỉnh thoảng đọc buổi tối",
+          "Đèn đọc là điểm cộng, nhưng không quyết định kết quả."
         ],
         [
           "rare",
-          "Hầu như không",
-          "Có thể bỏ qua tiêu chí đèn."
-        ]
-      ]
-    },
-    {
-      "key": "features",
-      "question": "⚙️ Bạn thực sự cần tính năng nào?",
-      "type": "multi",
-      "hint": "Những tính năng bạn chọn ở đây được xem là yêu cầu bắt buộc.",
-      "options": [
-        [
-          "water",
-          "Chống nước",
-          ""
-        ],
-        [
-          "warm",
-          "Đèn ấm",
-          ""
-        ],
-        [
-          "buttons",
-          "Nút chuyển trang",
-          ""
-        ],
-        [
-          "android",
-          "Android / cài app",
-          ""
-        ],
-        [
-          "pen",
-          "Ghi chú bằng bút",
-          ""
-        ],
-        [
-          "color",
-          "Màn hình màu",
-          ""
-        ],
-        [
-          "microsd",
-          "Thẻ nhớ gắn ngoài",
-          ""
-        ],
-        [
-          "audio",
-          "Nghe audiobook / âm thanh",
-          "Bluetooth hoặc loa tích hợp."
-        ],
-        [
-          "usb_c",
-          "Cổng USB-C",
-          ""
-        ],
-        [
-          "rotation",
-          "Tự xoay màn hình",
-          "Hữu ích khi đọc tài liệu hoặc dùng ngang/dọc."
+          "Chủ yếu đọc ban ngày",
+          "Không cần ưu tiên nhiều cho tính năng đọc ban đêm."
         ]
       ]
     },
     {
       "key": "ecosystem",
-      "question": "📚 Bạn đọc sách từ đâu là chủ yếu?",
+      "question": "📚 Anh muốn cách dùng sách như thế nào?",
       "type": "single",
       "options": [
         [
           "amazon",
-          "Amazon / Kindle",
-          "Ưu tiên hệ sinh thái Kindle."
+          "Chủ yếu dùng sách trong hệ Kindle / Amazon",
+          "Ưu tiên sự thuận tiện của hệ sinh thái Kindle."
         ],
         [
           "epub",
-          "EPUB / thư viện cá nhân",
-          "Ưu tiên format và quản lý thư viện cá nhân."
+          "Có thư viện EPUB riêng",
+          "Ưu tiên máy hỗ trợ EPUB và quản lý thư viện cá nhân tốt."
         ],
         [
           "many",
-          "Nhiều nguồn khác nhau",
-          "Ưu tiên thiết bị mở và linh hoạt hơn về nguồn nội dung."
+          "Có sách từ nhiều nguồn khác nhau",
+          "Ưu tiên máy linh hoạt với nhiều nguồn và định dạng."
         ],
         [
           "apps",
-          "Muốn cài nhiều ứng dụng",
-          "Ưu tiên Android/Google Play."
+          "Muốn đọc sách bằng nhiều ứng dụng",
+          "Ưu tiên máy có khả năng cài ứng dụng, thường là Android."
         ],
         [
           "unknown",
-          "Chưa biết",
-          "Để Wizard ưu tiên nhu cầu đọc trước."
+          "Chưa biết / chưa có thói quen cố định",
+          "Để Wizard tự cân đối theo nhu cầu đọc."
         ]
       ]
     },
     {
-      "key": "custom",
-      "question": "🧩 Bạn có quan tâm jailbreak / KOReader / tùy biến máy không?",
+      "key": "notes",
+      "question": "✍️ Khi đọc, anh có cần ghi chú trực tiếp lên tài liệu không?",
       "type": "single",
       "options": [
         [
-          "yes",
-          "Có, quan trọng",
-          "Kindle: xét jailbreak/KOReader; Kobo: xét khả năng tùy biến và KOReader; BOOX: xét Android/cài KOReader, không coi jailbreak là bắt buộc."
+          "important",
+          "Có, đây là nhu cầu quan trọng",
+          "Wizard sẽ ưu tiên các máy có bút và khả năng ghi chú phù hợp."
         ],
         [
-          "maybe",
-          "Có, nhưng không bắt buộc",
-          "Tùy biến, KOReader hoặc Android là điểm cộng tùy hệ máy."
+          "sometimes",
+          "Có thể có, nhưng không bắt buộc",
+          "Khả năng ghi chú là điểm cộng, không dùng để loại máy."
         ],
         [
           "no",
-          "Không",
-          "Không dùng tiêu chí tùy biến để xếp hạng."
+          "Không, tôi chủ yếu đọc",
+          "Không ưu tiên tính năng ghi chú."
         ]
       ]
     }
