@@ -395,51 +395,75 @@ function score(m){
 
   const fit = m.fit || {};
   const uses = Array.isArray(use) ? use : (use ? [use] : []);
+  // Nhu cầu sử dụng là trục chính của Wizard.
   uses.forEach(function(u){
     if (num(fit[u]) !== null) {
       const f = Number(fit[u]);
-      add(f * 3);
-      if (f >= 5) reasons.push('Phù hợp tốt với nhu cầu ' + (USE_LABELS[u] || u) + '.');
-      else if (f >= 4) reasons.push('Có dữ liệu phù hợp với nhu cầu ' + (USE_LABELS[u] || u) + '.');
+      add(f * 5);
+      if (f >= 5) reasons.push('Rất phù hợp với nhu cầu ' + (USE_LABELS[u] || u) + '.');
+      else if (f >= 4) reasons.push('Phù hợp với nhu cầu ' + (USE_LABELS[u] || u) + '.');
     }
   });
 
   const screen = num(m.screen_in);
 
+  // Kích thước chỉ là cách diễn giải trải nghiệm, không phải thông số người dùng phải tự hiểu.
   if (A.size === 'tiny') {
-    if (m.palm_sized === true || (screen !== null && screen <= 5)) add(7, 'Ưu tiên máy nhỏ/gọn khớp với model.');
-    else if (screen !== null && screen <= 6.2) add(2);
+    if (m.palm_sized === true || (screen !== null && screen <= 5)) add(8, 'Gọn, dễ mang theo và cầm một tay.');
+    else if (screen !== null && screen <= 6.2) add(3);
   }
-  if (A.size === '6' && screen !== null && screen >= 5.5 && screen <= 6.5) add(4, 'Kích thước gần 6 inch.');
-  if (A.size === '7' && screen !== null && screen > 6.5 && screen <= 7.5) add(4, 'Kích thước gần 7 inch.');
-  if (A.size === 'large' && screen !== null && screen >= 7.5) add(6, 'Màn hình lớn phù hợp PDF/tài liệu.');
+  if (A.size === '6' && screen !== null && screen >= 5.5 && screen <= 6.5) add(6, 'Kích thước gọn, cân bằng giữa tính cơ động và khả năng đọc.');
+  if (A.size === '7' && screen !== null && screen > 6.5 && screen <= 7.5) add(6, 'Màn hình rộng hơn nhưng vẫn khá cơ động.');
+  if (A.size === 'large' && screen !== null && screen >= 7.5) add(8, 'Màn hình lớn, thuận tiện hơn cho tài liệu và ghi chú.');
 
-  if (A.night === 'often' && m.front_light === true) add(3, 'Có đèn đọc, phù hợp thói quen đọc ban đêm.');
-  if (A.night === 'often' && m.warm_light === true) add(2, 'Có đèn ấm, phù hợp đọc ban đêm.');
-  if (A.night === 'sometimes' && m.front_light === true) add(1);
+  // Thói quen đọc ban đêm tự suy ra nhu cầu đèn đọc/đèn ấm.
+  if (A.night === 'often' && m.front_light === true) add(5, 'Có đèn đọc, phù hợp thói quen đọc ban đêm.');
+  if (A.night === 'often' && m.warm_light === true) add(3, 'Có đèn ấm, phù hợp đọc ban đêm.');
+  if (A.night === 'sometimes' && m.front_light === true) add(2);
 
+  // Ghi chú là nhu cầu sử dụng, không phải câu hỏi về "bút/stylus".
   if (A.notes === 'important' && m.stylus === true && m.note_taking === true) {
-    add(5, 'Có bút và ghi chú, phù hợp nhu cầu ghi chú trực tiếp.');
+    add(8, 'Có bút và ghi chú, phù hợp nhu cầu ghi chú trực tiếp.');
   } else if (A.notes === 'sometimes' && m.stylus === true && m.note_taking === true) {
-    add(2, 'Có bút và ghi chú như một điểm cộng.');
+    add(3, 'Có bút và ghi chú như một điểm cộng.');
   }
 
-  if (A.ecosystem === 'amazon' && m.brand === 'Kindle') add(5, 'Thuộc hệ sinh thái Kindle.');
-  if (A.ecosystem === 'epub' && m.native_epub === true) add(5, 'Hỗ trợ EPUB trực tiếp.');
+  // Hệ sinh thái chỉ trở thành ràng buộc khi người dùng thực sự chọn một cách dùng cụ thể.
+  if (A.ecosystem === 'amazon' && m.brand === 'Kindle') add(6, 'Thuộc hệ sinh thái Kindle.');
+  if (A.ecosystem === 'epub' && m.native_epub === true) add(6, 'Hỗ trợ EPUB trực tiếp.');
   if (A.ecosystem === 'many') {
-    if ((num(m.multi_source_fit) || 0) >= 4) add(4, 'Phù hợp nguồn sách đa dạng.');
-    if ((num(m.format_flexibility) || 0) >= 4) add(3);
+    if ((num(m.multi_source_fit) || 0) >= 4) add(5, 'Phù hợp nguồn sách đa dạng.');
+    if ((num(m.format_flexibility) || 0) >= 4) add(3, 'Hỗ trợ nhiều định dạng và nguồn sách.');
   }
-  if (A.ecosystem === 'apps' && m.android === true) add(5, 'Android phù hợp nhu cầu cài ứng dụng.');
+  if (A.ecosystem === 'apps' && m.android === true) add(7, 'Android phù hợp nhu cầu dùng nhiều ứng dụng.');
 
+  // Ngân sách đã lọc cứng; điểm nhỏ này chỉ giúp ưu tiên phương án còn "dư địa" tài chính,
+  // không biến máy rẻ thành máy thắng nếu mức độ phù hợp nhu cầu thấp hơn.
   const bs = budgetState(m);
-  if (bs === 'within') add(4, 'Giá quan sát phù hợp với trần ngân sách đã chọn.');
-  
-  if (bs === 'unknown') add(-5, 'Chưa có giá VN được xác minh.');
+  if (bs === 'within') {
+    const p = m.price_vn || {};
+    const min = num(p.min_vnd);
+    const max = num(p.max_vnd);
+    const current = num(p.current_or_from_vnd);
+    const cap = BUDGET_CAP[A.budget];
+    let representative = null;
+    if (min !== null && max !== null) representative = (min + max) / 2;
+    else if (current !== null) representative = current;
+    else if (min !== null) representative = min;
+    else if (max !== null) representative = max;
+    if (A.budget === 'over6' || cap === Infinity) {
+      add(1, 'Nằm trong ngân sách đã chọn.');
+    } else if (representative !== null && cap) {
+      const ratio = representative / cap;
+      add(ratio <= 0.75 ? 3 : ratio <= 0.9 ? 2 : 1, 'Giá nằm trong ngân sách đã chọn.');
+    }
+  }
+
+  if (bs === 'unknown') add(-6, 'Chưa có giá VN được xác minh.');
 
   const confidence = m.data_confidence;
-  if (confidence === 'high') add(1);
-  else if (confidence === 'medium') add(0.5);
+  if (confidence === 'high') add(0.5);
+  else if (confidence === 'medium') add(0.25);
 
   return { s: s, reasons: reasons };
 }
