@@ -2,7 +2,7 @@
   "schema_version": "2.1",
   "brand": "Wiki-eReader",
   "generated_at": "2026-09-28",
-  "engine_version": "2.5.0-expanded-catalog",
+  "engine_version": "2.5.1-expanded-catalog-data-fix",
   "selection_policy": {
     "candidate_gate": "status=Wizard-ready and critical_fields_ok=true",
     "hard_filter": "Required features + night front-light requirement; budget is a hard filter using the representative VN price.",
@@ -10,7 +10,7 @@
     "results": "3–5 diverse candidates; near matches only when exact matches do not exist.",
     "commerce": "Affiliate presence never changes eligibility or ranking.",
     "budget_gate": "Budget uses the average of min_vnd and max_vnd when both are available; otherwise current_or_from_vnd or the available single price. A representative price above the selected cap is excluded.",
-    "catalog_update": "Added Kindle Oasis 1/2/3, current Kindle Scribe releases, Kobo Sage, BOOX Go 10.3 (Gen II) Lumi, and the 9 Meebook models sold/listed in Vietnam. Wizard-ready requires price, core specs, and a real product image."
+    "catalog_update": "Added Kindle Oasis 1/2/3, current Kindle Scribe releases, Kobo Sage, BOOX Go 10.3 (Gen II) Lumi, and the 9 Meebook models sold/listed in Vietnam. Wizard-ready requires price, core specs, and a real product image. Data fields for new Kindle/Kobo entries were normalized to the correct OS and ecosystem."
   },
   "models": [
     {
@@ -2726,7 +2726,7 @@
       "usb_c": false
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kindle",
       "android": false,
       "color": false,
       "buttons": true,
@@ -2799,10 +2799,11 @@
       "quality_flags": [
         "firmware_specific",
         "used_market"
-      ]
+      ],
+      "os": "KindleOS"
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kindle",
       "android": false,
       "color": false,
       "buttons": true,
@@ -2875,10 +2876,11 @@
       "quality_flags": [
         "firmware_specific",
         "used_market"
-      ]
+      ],
+      "os": "KindleOS"
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kindle",
       "android": false,
       "color": false,
       "buttons": true,
@@ -2951,10 +2953,11 @@
       "quality_flags": [
         "firmware_specific",
         "used_market"
-      ]
+      ],
+      "os": "KindleOS"
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kindle",
       "android": false,
       "color": false,
       "buttons": false,
@@ -3024,10 +3027,11 @@
       "usb_c": true,
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "os": "KindleOS"
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kindle",
       "android": false,
       "color": false,
       "buttons": false,
@@ -3097,10 +3101,11 @@
       "usb_c": true,
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "os": "KindleOS"
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kindle",
       "android": false,
       "color": false,
       "buttons": false,
@@ -3173,10 +3178,11 @@
       "ppi_color": null,
       "quality_flags": [
         "no_front_light"
-      ]
+      ],
+      "os": "KindleOS"
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kindle",
       "android": false,
       "color": true,
       "buttons": false,
@@ -3246,10 +3252,11 @@
       "usb_c": true,
       "ppi_bw": 300,
       "ppi_color": 150,
-      "quality_flags": []
+      "quality_flags": [],
+      "os": "KindleOS"
     },
     {
-      "ecosystem": "android",
+      "ecosystem": "kobo",
       "android": false,
       "color": false,
       "buttons": true,
@@ -3320,7 +3327,8 @@
       "usb_c": true,
       "ppi_bw": 300,
       "ppi_color": null,
-      "quality_flags": []
+      "quality_flags": [],
+      "os": "KoboOS"
     },
     {
       "ecosystem": "android",
