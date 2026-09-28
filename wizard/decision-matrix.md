@@ -158,3 +158,40 @@ Thứ tự làm việc:
 `Yêu cầu của anh → cập nhật bảng tiêu chí → xác định hard/soft → sửa dữ liệu model → sửa thuật toán → chạy test hồi quy`
 
 Mỗi lần anh phản hồi một kết quả thực tế, em sẽ dùng phản hồi đó để bổ sung một dòng vào **Bộ test hồi quy**, để lỗi đó không lặp lại.
+## 11. Trạng thái catalog — 2026-09-28
+
+Sau đợt mở rộng catalog, `wizard/models.json` có **53 record**, trong đó **52 Wizard-ready** và **1 Reference** (`iReader Color7` chưa có giá VN đủ tin cậy).
+
+Các nhóm Kindle hiện được theo dõi theo cấu trúc:
+
+`Keyboard → Basic → Voyage → Paperwhite → Oasis → Scribe → Colorsoft`
+
+Đã bổ sung trong đợt này:
+
+| Nhóm | Model mới |
+|---|---|
+| Kindle Oasis | Oasis 1 (8th), Oasis 2 (9th), Oasis 3 (10th) |
+| Kindle Scribe | Scribe 2024, Scribe 3 có đèn, Scribe 3 không đèn, Scribe Colorsoft |
+| Kobo | Kobo Sage |
+| BOOX | Go 10.3 (Gen II) Lumi |
+| Meebook | E6, M6, M6C, M7, G7S, G7C, M8, M8C, M103 |
+
+### Trạng thái dữ liệu của các model vừa thêm
+
+Mỗi model mới được yêu cầu phải có:
+- Giá tham khảo tại Việt Nam.
+- Thông số cốt lõi đủ cho bộ lọc.
+- Ảnh sản phẩm thật.
+- Nguồn tham chiếu để kiểm tra lại.
+
+Nếu thiếu một trong các phần trên, model không nên tự động chuyển sang `Wizard-ready`.
+
+### Nhóm đang để Reference
+
+| Hãng | Model | Lý do chưa đưa vào Wizard |
+|---|---|---|
+| iReader | iReader Color7 | Chưa có giá VN đủ tin cậy |
+| Bigme | Bigme B6 Color | Thiếu một số trường quan trọng để hard-filter |
+| PocketBook | InkPad Color 3 | Thiếu một số trường quan trọng để hard-filter |
+
+
