@@ -4,7 +4,6 @@ on:
     paths:
       - '.github/workflows/audit-wizard-images.yml'
   workflow_dispatch:
-
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -12,41 +11,23 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - name: Extract exact product image candidates
+      - name: Audit final Wizard image URLs
         shell: bash
         run: |
           node <<'NODE'
-          const https=require('https'),http=require('http');
-          const pages={
-            kindle_pw_12:'https://maydocsachtot.com/san-pham/kindle-paperwhite-6/',
-            kindle_pw_se_12:'https://maydocsachtot.com/san-pham/kindle-paperwhite-6-signature-edition-32gb/',
-            kindle_scribe_2022:'https://www.kindlescribe.vn/san-pham/kindle-scribe-2022/',
-            kindle_scribe_2024:'https://www.kindlescribe.vn/san-pham/kindle-scribe-2024/',
-            kindle_scribe_3_nolight:'https://www.kindlescribe.vn/san-pham/kindle-scribe-3-khong-den/',
-            kobo_sage:'https://ereader.kobo.com/en-us/products/kobo-sage'
-          };
+          const fs=require('fs'),https=require('https'),http=require('http');
+          const models=JSON.parse(fs.readFileSync('wizard/models.json','utf8')).models.filter(m=>m.status==='Wizard-ready'&&m.critical_fields_ok===true);
+          const html=fs.readFileSync('wizard/index.html','utf8');
+          const body=(html.match(/const images=\{([\s\S]*?)\n\s*\};/)||[])[1]||'';
+          const map={}; for(const m of body.matchAll(/^\s*([A-Za-z0-9_]+)\s*:\s*(['"])(.*?)\2\s*,?\s*$/gm)) map[m[1]]=m[3];
           function get(url,redirects=0){return new Promise(resolve=>{
-            const u=new URL(url),lib=u.protocol==='https:'?https:http;
-            const req=lib.get(u,{headers:{'User-Agent':'Mozilla/5.0','Accept':'text/html,*/*'},timeout:15000},res=>{
-              if([301,302,303,307,308].includes(res.statusCode)&&res.headers.location&&redirects<5){
-                const n=new URL(res.headers.location,u).href;res.resume();return get(n,redirects+1).then(resolve);
-              }
-              const a=[];let n=0;res.on('data',c=>{if(n<4000000)a.push(c);n+=c.length});
-              res.on('end',()=>resolve({status:res.statusCode||0,url:u.href,body:Buffer.concat(a).toString('utf8')}));
-            });req.on('timeout',()=>req.destroy());req.on('error',()=>resolve({status:0,url,body:''}));
+            if(!url)return resolve({ok:null,status:0,type:'',bytes:0,error:'NO_URL'});
+            let u;try{u=new URL(url)}catch{return resolve({ok:false,status:0,type:'',bytes:0,error:'BAD_URL'})}
+            const lib=u.protocol==='https:'?https:http;
+            const req=lib.get(u,{headers:{'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153 Safari/537.36','Accept':'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8','Referer':'https://dochoithuvi.github.io/'},timeout:20000},res=>{
+              const s=res.statusCode||0;if([301,302,303,307,308].includes(s)&&res.headers.location&&redirects<5){const n=new URL(res.headers.location,u).href;res.resume();return get(n,redirects+1).then(resolve)}
+              let bytes=0;const chunks=[];res.on('data',c=>{if(bytes<4096)chunks.push(c);bytes+=c.length});res.on('end',()=>{const type=String(res.headers['content-type']||'').toLowerCase();const head=Buffer.concat(chunks).subarray(0,16),sig=head.toString('hex');const magic=sig.startsWith('89504e47')||sig.startsWith('ffd8ff')||sig.startsWith('47494638')||head.toString('ascii',0,4)==='RIFF';const ok=s>=200&&s<300&&(type.startsWith('image/')||magic)&&bytes>100;resolve({ok,status:s,type,bytes,error:ok?'':(!type.startsWith('image/')&&!magic?'NOT_IMAGE':'HTTP_OR_EMPTY')})});
+            });req.on('timeout',()=>req.destroy(new Error('TIMEOUT')));req.on('error',e=>resolve({ok:false,status:0,type:'',bytes:0,error:e.message}));
           })}
-          function urls(html,base){
-            const out=[];
-            for(const m of html.matchAll(/(?:src|data-src|data-large_image|href)=["']([^"']+\.(?:png|jpe?g|webp)(?:\?[^"']*)?)["']/ig)){
-              try{const u=new URL(m[1].replace(/&amp;/g,'&'),base).href;if(!out.includes(u))out.push(u)}catch{}
-            }
-            return out.filter(u=>!/(logo|icon|avatar|payment|banner|footer|header|favicon|emoji)/i.test(u));
-          }
-          (async()=>{
-            for(const [id,page] of Object.entries(pages)){
-              const r=await get(page);
-              console.log('\n### '+id+' PAGE_STATUS='+r.status+' PAGE='+r.url);
-              urls(r.body,r.url).slice(0,30).forEach(u=>console.log(u));
-            }
-          })();
+          (async()=>{let ok=0,bad=0,blank=0;console.log('MODEL_ID\tSTATUS\tCONTENT_TYPE\tBYTES\tSOURCE\tURL\tERROR');for(const m of models){const source=m.image_url?'models.json':(map[m.id]?'fallback':'none'),url=m.image_url||map[m.id]||'',r=await get(url);if(r.ok===true)ok++;else if(r.ok===null)blank++;else bad++;console.log([m.id,r.status,r.type,r.bytes,source,url,r.error].join('\t'))}console.log('SUMMARY\tOK='+ok+'\tBAD='+bad+'\tBLANK='+blank+'\tTOTAL='+models.length);if(bad)process.exitCode=1})();
           NODE
