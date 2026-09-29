@@ -2515,7 +2515,7 @@
         "web": 2
       },
       "wiki_url": "https://maydocsach.gitbook.io/",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/BTidPzbUV",
       "data_confidence": "medium",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -2665,7 +2665,7 @@
         "web": 2
       },
       "wiki_url": "https://maydocsach.gitbook.io/",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/5LBocoMdrP",
       "data_confidence": "medium",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -2742,7 +2742,7 @@
         "web": 2
       },
       "wiki_url": "https://maydocsach.gitbook.io/",
-      "affiliate_url": null,
+      "affiliate_url": "https://s.shopee.vn/3VkAbw8dTW",
       "data_confidence": "medium",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
@@ -4286,5 +4286,10 @@
       "editorial_notes": "Manual hãng xác nhận 7.8 inch, frontlight, microSD và dải định dạng rộng; cần hoàn thiện waterproof/buttons/warm để hard-filter đầy đủ."
     }
   ],
-  "affiliate_source_note": "Affiliate URLs supplied by site owner in Link aff.docx and Link-san-pham-affiliate.xlsx on 2026-09-25; aliases are retained at model level only when the current runtime model is explicit."
+  "affiliate_source_note": "Affiliate URLs supplied by site owner in Link aff.docx and Link-san-pham-affiliate.xlsx on 2026-09-25; aliases are retained at model level only when the current runtime model is explicit.",
+  "affiliate_sync": {
+    "last_synced": "2026-09-29",
+    "source": "maydocsach-affiliate-tracking-registry-v3.xlsx / Affiliate Source 2026-09-25 + Link Registry",
+    "note": "Only exact user-supplied affiliate URLs already present in the registry were synced. Unmatched/placeholder links remain unset."
+  }
 }
