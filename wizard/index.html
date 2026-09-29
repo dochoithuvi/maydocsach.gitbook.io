@@ -357,16 +357,6 @@ function budgetState(m){
     else if (max !== null) representative = max;
     if (representative === null) return 'unknown';
     return representative <= cap ? 'within' : 'over';
-  } else if (current !== null) {
-    representative = current;
-  } else if (min !== null) {
-    representative = min;
-  } else if (max !== null) {
-    representative = max;
-  }
-
-  if (representative === null) return 'unknown';
-  return representative <= cap ? 'within' : 'over';
 }
 
 function hardPass(m){
