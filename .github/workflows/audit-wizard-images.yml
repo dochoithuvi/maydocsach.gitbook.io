@@ -12,59 +12,41 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
-      - name: Discover replacement image candidates
+      - name: Extract exact product image candidates
         shell: bash
         run: |
           node <<'NODE'
-          const https=require('https'), http=require('http');
+          const https=require('https'),http=require('http');
           const pages={
-            kobo_clara_color:'https://ereader.kobo.com/en-us/products/kobo-clara-colour',
-            kobo_clara_bw:'https://ereader.kobo.com/en-us/collections/ereaders/products/kobo-clara-bw',
-            kindle_pw_12:'https://kindlehanoi.vn/san-pham/kindle-paperwhite-6-12th-gen-2024/',
-            kindle_pw_se_12:'https://kindlehanoi.vn/san-pham/kindle-paperwhite-6-signature-edition-12th-gen-2024/',
-            boox_go_color7_gen2:'https://shop.boox.com/products/go7',
-            xteink_x3:'https://www.xteink.com/products/xteink-x3',
-            xteink_x4_classic:'https://www.xteink.com/products/xteink-x4-classic-pocket-ereader',
+            kindle_pw_12:'https://maydocsachtot.com/san-pham/kindle-paperwhite-6/',
+            kindle_pw_se_12:'https://maydocsachtot.com/san-pham/kindle-paperwhite-6-signature-edition-32gb/',
             kindle_scribe_2022:'https://www.kindlescribe.vn/san-pham/kindle-scribe-2022/',
-            kobo_libra_colour:'https://ereader.kobo.com/en-us/products/kobo-libra-colour',
-            boox_note_air5_c:'https://euroshop.boox.com/products/noteair5c',
             kindle_scribe_2024:'https://www.kindlescribe.vn/san-pham/kindle-scribe-2024/',
-            kindle_scribe_3_nolight:'https://www.pbtech.com/product/TABAMZ114121/Amazon-Kindle-Scribe--3rd-Gen-2026--without-Front',
-            kobo_sage:'https://kindlehanoi.vn/san-pham/may-doc-sach-kobo-sage-man-hinh-cam-ung-e-ink-carta-1200-8-hd/',
-            meebook_m8c:'https://maydocsachtot.com/san-pham/meebook-m8c/'
+            kindle_scribe_3_nolight:'https://www.kindlescribe.vn/san-pham/kindle-scribe-3-khong-den/',
+            kobo_sage:'https://ereader.kobo.com/en-us/products/kobo-sage'
           };
-          function get(url, redirects=0){
-            return new Promise(resolve=>{
-              let u; try{u=new URL(url)}catch(e){return resolve({status:0,body:'',url,error:'BAD_URL'})}
-              const lib=u.protocol==='https:'?https:http;
-              const req=lib.get(u,{headers:{'User-Agent':'Mozilla/5.0','Accept':'text/html,*/*'},timeout:15000},res=>{
-                const status=res.statusCode||0;
-                if([301,302,303,307,308].includes(status)&&res.headers.location&&redirects<5){
-                  const next=new URL(res.headers.location,u).href; res.resume(); return get(next,redirects+1).then(resolve);
-                }
-                const chunks=[]; let n=0;
-                res.on('data',c=>{if(n<2_000_000)chunks.push(c); n+=c.length});
-                res.on('end',()=>resolve({status,body:Buffer.concat(chunks).toString('utf8'),url:u.href,error:''}));
-              });
-              req.on('timeout',()=>req.destroy(new Error('TIMEOUT')));
-              req.on('error',e=>resolve({status:0,body:'',url:u.href,error:e.message}));
-            })
-          }
-          function meta(html, base){
-            const pats=[
-              /<meta[^>]+property=["']og:image(?::secure_url)?["'][^>]+content=["']([^"']+)["'][^>]*>/i,
-              /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image(?::secure_url)?["'][^>]*>/i,
-              /<meta[^>]+name=["']twitter:image(?::src)?["'][^>]+content=["']([^"']+)["'][^>]*>/i,
-              /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image(?::src)?["'][^>]*>/i
-            ];
-            for(const p of pats){const m=html.match(p); if(m) try{return new URL(m[1].replace(/&amp;/g,'&'),base).href}catch{}}
-            return '';
+          function get(url,redirects=0){return new Promise(resolve=>{
+            const u=new URL(url),lib=u.protocol==='https:'?https:http;
+            const req=lib.get(u,{headers:{'User-Agent':'Mozilla/5.0','Accept':'text/html,*/*'},timeout:15000},res=>{
+              if([301,302,303,307,308].includes(res.statusCode)&&res.headers.location&&redirects<5){
+                const n=new URL(res.headers.location,u).href;res.resume();return get(n,redirects+1).then(resolve);
+              }
+              const a=[];let n=0;res.on('data',c=>{if(n<4000000)a.push(c);n+=c.length});
+              res.on('end',()=>resolve({status:res.statusCode||0,url:u.href,body:Buffer.concat(a).toString('utf8')}));
+            });req.on('timeout',()=>req.destroy());req.on('error',()=>resolve({status:0,url,body:''}));
+          })}
+          function urls(html,base){
+            const out=[];
+            for(const m of html.matchAll(/(?:src|data-src|data-large_image|href)=["']([^"']+\.(?:png|jpe?g|webp)(?:\?[^"']*)?)["']/ig)){
+              try{const u=new URL(m[1].replace(/&amp;/g,'&'),base).href;if(!out.includes(u))out.push(u)}catch{}
+            }
+            return out.filter(u=>!/(logo|icon|avatar|payment|banner|footer|header|favicon|emoji)/i.test(u));
           }
           (async()=>{
-            console.log('MODEL_ID\tPAGE_STATUS\tPAGE\tIMAGE');
             for(const [id,page] of Object.entries(pages)){
-              const r=await get(page); const img=meta(r.body,r.url||page);
-              console.log([id,r.status,r.url||page,img||('ERROR:'+r.error)].join('\t'));
+              const r=await get(page);
+              console.log('\n### '+id+' PAGE_STATUS='+r.status+' PAGE='+r.url);
+              urls(r.body,r.url).slice(0,30).forEach(u=>console.log(u));
             }
           })();
           NODE
