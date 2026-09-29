@@ -1,0 +1,77 @@
+name: Audit Wizard image URLs
+on:
+  push:
+    paths:
+      - '.github/workflows/audit-wizard-images.yml'
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit image URLs
+        shell: bash
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+          const https = require('https');
+          const http = require('http');
+          const models = JSON.parse(fs.readFileSync('wizard/models.json','utf8')).models
+            .filter(m => m.status === 'Wizard-ready' && m.critical_fields_ok === true);
+          const html = fs.readFileSync('wizard/index.html','utf8');
+          const body = (html.match(/const images=\{([\s\S]*?)\n\s*\};/)||[])[1] || '';
+          const map = {};
+          for (const m of body.matchAll(/^\s*([A-Za-z0-9_]+)\s*:\s*(['"])(.*?)\2\s*,?\s*$/gm)) map[m[1]] = m[3];
+
+          function request(url, redirects=0) {
+            return new Promise(resolve => {
+              if (!url) return resolve({ok:false,status:0,type:'',bytes:0,error:'NO_URL'});
+              let u; try { u = new URL(url); } catch(e) { return resolve({ok:false,status:0,type:'',bytes:0,error:'BAD_URL'}); }
+              const lib = u.protocol === 'https:' ? https : http;
+              const req = lib.get(u, {
+                headers: {
+                  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/153 Safari/537.36',
+                  'Accept': 'image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8',
+                  'Referer': 'https://dochoithuvi.github.io/'
+                },
+                timeout: 20000
+              }, res => {
+                const status = res.statusCode || 0;
+                if ([301,302,303,307,308].includes(status) && res.headers.location && redirects < 5) {
+                  const next = new URL(res.headers.location, u).href;
+                  res.resume();
+                  return request(next, redirects+1).then(resolve);
+                }
+                let bytes=0; const chunks=[];
+                res.on('data', c => { if(bytes < 4096) chunks.push(c); bytes += c.length; });
+                res.on('end', () => {
+                  const type = String(res.headers['content-type']||'').toLowerCase();
+                  const head = Buffer.concat(chunks).subarray(0,16);
+                  const sig = head.toString('hex');
+                  const magic = sig.startsWith('89504e47') || sig.startsWith('ffd8ff') || sig.startsWith('47494638') || head.toString('ascii',0,4)==='RIFF' || head.toString('utf8',0,5).toLowerCase()==='<svg ';
+                  const ok = status >= 200 && status < 300 && (type.startsWith('image/') || magic) && bytes > 100;
+                  resolve({ok,status,type,bytes,error: ok?'':(!type.startsWith('image/')&&!magic?'NOT_IMAGE':'HTTP_OR_EMPTY')});
+                });
+              });
+              req.on('timeout',()=>req.destroy(new Error('TIMEOUT')));
+              req.on('error',e=>resolve({ok:false,status:0,type:'',bytes:0,error:e.message}));
+            });
+          }
+
+          (async()=>{
+            let ok=0, bad=0;
+            console.log('MODEL_ID\tSTATUS\tCONTENT_TYPE\tBYTES\tSOURCE\tURL\tERROR');
+            for(const m of models){
+              const source = m.image_url ? 'models.json' : (map[m.id] ? 'fallback' : 'none');
+              const url = m.image_url || map[m.id] || '';
+              const r = await request(url);
+              if(r.ok) ok++; else bad++;
+              console.log([m.id,r.status,r.type,r.bytes,source,url,r.error].join('\t'));
+            }
+            console.log('SUMMARY\tOK='+ok+'\tBAD='+bad+'\tTOTAL='+models.length);
+            if(bad) process.exitCode=1;
+          })();
+          NODE
