@@ -1,7 +1,7 @@
 {
   "schema_version": "3.0",
   "brand": "Wiki-eReader",
-  "question_count": 6,
+  "question_count": 12,
   "questions": [
     {
       "key": "budget",
@@ -41,12 +41,12 @@
         [
           "over6",
           "Trên 6 triệu",
-          "Không đặt trần ngân ebook; ưu tiên nhu cầu sử dụng."
+          "Không đặt trần ngân sách; ưu tiên nhu cầu sử dụng."
         ],
         [
           "unknown",
           "Chưa xác định",
-          "Wizard ưu tiên nhu cầu trước, chưa dùng ngân ebook để loại máy."
+          "Wizard ưu tiên nhu cầu trước, chưa dùng ngân sách để loại máy."
         ]
       ]
     },
@@ -89,62 +89,111 @@
       "hint": "Chọn tất cả những cách bạn dự định sử dụng máy thường xuyên."
     },
     {
-      "key": "size",
-      "question": "🪶 Bạn thích trải nghiệm cầm máy như thế nào?",
+      "key": "reading_time",
+      "question": "🕒 Bạn thường đọc vào thời gian nào trong ngày?",
       "type": "single",
       "options": [
         [
-          "tiny",
-          "Nhỏ gọn, dễ cầm một tay",
-          "Ưu tiên mang theo người và đọc khi di chuyển."
+          "day",
+          "Ban ngày",
+          "Chủ yếu đọc trong điều kiện có đủ ánh sáng."
         ],
         [
-          "6",
-          "Gọn nhưng vẫn muốn màn hình dễ đọc",
-          "Khoảng 6 inch là kích thước cân bằng."
+          "evening",
+          "Buổi tối",
+          "Thường đọc sau giờ làm việc hoặc học tập."
         ],
         [
-          "7",
-          "Muốn màn hình rộng hơn một chút",
-          "Khoảng 7 inch, vẫn tương đối cơ động."
+          "bedtime",
+          "Trước khi đi ngủ",
+          "Thường đọc trong phòng ngủ hoặc điều kiện ánh sáng yếu."
         ],
         [
-          "large",
-          "Ưu tiên màn hình thật rộng",
-          "Phù hợp hơn khi đọc PDF, tài liệu hoặc ghi chú."
-        ],
-        [
-          "neutral",
-          "Không quan trọng",
-          "Để Wizard tự cân đối theo nhu cầu khác."
+          "anytime",
+          "Cả ngày, tùy lúc",
+          "Thời gian đọc thay đổi tùy hoàn cảnh."
         ]
       ]
     },
     {
       "key": "night",
-      "question": "🌙 Thói quen đọc của bạn thế nào?",
+      "question": "🌙 Bạn có thường đọc trong phòng tối hoặc trước khi đi ngủ không?",
       "type": "single",
       "options": [
         [
           "often",
-          "Hay đọc buổi tối / trong phòng tối",
-          "Khả năng chiếu sáng và đèn ấm sẽ được ưu tiên nếu có."
+          "Có, thường xuyên",
+          "Ưu tiên máy có đèn đọc và đèn ấm nếu có."
         ],
         [
           "sometimes",
-          "Thỉnh thoảng đọc buổi tối",
+          "Thỉnh thoảng",
           "Đèn đọc là điểm cộng, nhưng không quyết định kết quả."
         ],
         [
           "rare",
-          "Chủ yếu đọc ban ngày",
+          "Hầu như không",
           "Không cần ưu tiên nhiều cho tính năng đọc ban đêm."
         ]
       ]
     },
     {
+      "key": "battery",
+      "question": "🔋 Thời lượng pin có quan trọng với bạn không?",
+      "type": "single",
+      "options": [
+        [
+          "normal",
+          "Không quá quan trọng",
+          "Miễn pin đáp ứng tốt nhu cầu đọc hằng ngày."
+        ],
+        [
+          "long",
+          "Khá quan trọng",
+          "Muốn máy dùng được lâu và không phải sạc thường xuyên."
+        ],
+        [
+          "max",
+          "Rất quan trọng",
+          "Ưu tiên thời lượng pin càng lâu càng tốt."
+        ]
+      ]
+    },
+    {
+      "key": "display",
+      "question": "🖥️ Bạn ưu tiên điều gì ở màn hình máy đọc sách?",
+      "type": "single",
+      "options": [
+        [
+          "clear",
+          "Chữ rõ nét, dễ đọc",
+          "Ưu tiên trải nghiệm đọc chữ thoải mái."
+        ],
+        [
+          "large",
+          "Màn hình lớn để đọc PDF / tài liệu",
+          "Ưu tiên diện tích hiển thị rộng."
+        ],
+        [
+          "compact",
+          "Nhỏ gọn, dễ cầm",
+          "Ưu tiên sự cơ động và dễ mang theo."
+        ],
+        [
+          "color",
+          "Màn hình màu",
+          "Ưu tiên khi đọc truyện tranh hoặc tài liệu có hình ảnh màu."
+        ],
+        [
+          "highres",
+          "Độ phân giải cao, chữ thật sắc nét",
+          "Ưu tiên độ chi tiết và độ sắc nét."
+        ]
+      ]
+    },
+    {
       "key": "ecosystem",
-      "question": "📚 Bạn muốn cách dùng Ebook như thế nào?",
+      "question": "📚 Bạn thường lấy sách từ đâu và muốn sử dụng Ebook như thế nào?",
       "type": "single",
       "options": [
         [
@@ -154,8 +203,8 @@
         ],
         [
           "epub",
-          "Có thư viện Ebook EPUB riêng",
-          "Ưu tiên máy hỗ trợ EPUB và quản lý thư viện cá nhân tốt."
+          "Có sẵn sách EPUB/PDF riêng",
+          "Ưu tiên máy hỗ trợ thư viện cá nhân và nhiều định dạng."
         ],
         [
           "many",
@@ -175,8 +224,111 @@
       ]
     },
     {
+      "key": "color_need",
+      "question": "🎨 Bạn có cần màn hình màu không?",
+      "type": "single",
+      "options": [
+        [
+          "no",
+          "Không, chủ yếu đọc sách chữ",
+          "Màn hình đen trắng là đủ."
+        ],
+        [
+          "sometimes",
+          "Có, thỉnh thoảng đọc truyện tranh hoặc sách có hình",
+          "Màu là một điểm cộng."
+        ],
+        [
+          "often",
+          "Có, thường xuyên đọc nội dung màu",
+          "Ưu tiên máy có màn hình màu."
+        ]
+      ]
+    },
+    {
+      "key": "pdf_need",
+      "question": "📄 Bạn có thường xuyên đọc PDF hoặc tài liệu có bố cục phức tạp không?",
+      "type": "single",
+      "options": [
+        [
+          "no",
+          "Không",
+          "Chủ yếu đọc Ebook chữ."
+        ],
+        [
+          "sometimes",
+          "Thỉnh thoảng",
+          "Có đọc PDF nhưng không phải nhu cầu chính."
+        ],
+        [
+          "often",
+          "Thường xuyên",
+          "PDF và tài liệu là một phần quan trọng trong nhu cầu đọc."
+        ],
+        [
+          "main",
+          "Đây là nhu cầu chính",
+          "Ưu tiên máy phù hợp với PDF và tài liệu."
+        ]
+      ]
+    },
+    {
+      "key": "size",
+      "question": "📐 Bạn thích máy có kích thước như thế nào?",
+      "type": "single",
+      "options": [
+        [
+          "tiny",
+          "Nhỏ gọn, dễ cầm bằng một tay",
+          "Ưu tiên mang theo người và đọc khi di chuyển."
+        ],
+        [
+          "6",
+          "Cỡ nhỏ, cân bằng giữa tính cơ động và khả năng đọc",
+          "Khoảng 6 inch là kích thước phổ biến, dễ cầm."
+        ],
+        [
+          "7",
+          "Cỡ trung bình, màn hình rộng hơn",
+          "Khoảng 7 inch, vẫn tương đối cơ động."
+        ],
+        [
+          "large",
+          "Màn hình lớn, ưu tiên đọc thoải mái",
+          "Phù hợp hơn khi đọc PDF, tài liệu hoặc ghi chú."
+        ],
+        [
+          "neutral",
+          "Không quan trọng",
+          "Để Wizard tự cân đối theo nhu cầu khác."
+        ]
+      ]
+    },
+    {
+      "key": "buttons",
+      "question": "👆 Bạn có cần nút bấm vật lý để chuyển trang không?",
+      "type": "single",
+      "options": [
+        [
+          "yes",
+          "Có",
+          "Ưu tiên các model có nút chuyển trang vật lý."
+        ],
+        [
+          "no",
+          "Không, chạm màn hình là đủ",
+          "Không cần ưu tiên nút vật lý."
+        ],
+        [
+          "neutral",
+          "Không quan trọng",
+          "Để Wizard tự cân đối theo các tiêu chí khác."
+        ]
+      ]
+    },
+    {
       "key": "notes",
-      "question": "✍️ Khi đọc, bạn có cần ghi chú trực tiếp lên tài liệu không?",
+      "question": "✍️ Bạn có cần ghi chú hoặc viết trực tiếp lên màn hình không?",
       "type": "single",
       "options": [
         [
