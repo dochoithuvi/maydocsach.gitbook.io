@@ -1,7 +1,7 @@
 {
   "schema_version": "3.0",
   "brand": "Wiki-eReader",
-  "question_count": 12,
+  "question_count": 10,
   "questions": [
     {
       "key": "budget",
@@ -113,51 +113,8 @@
           "Cả ngày, tùy lúc",
           "Thời gian đọc thay đổi tùy hoàn cảnh."
         ]
-      ]
-    },
-    {
-      "key": "night",
-      "question": "🌙 Bạn có thường đọc trong phòng tối hoặc trước khi đi ngủ không?",
-      "type": "single",
-      "options": [
-        [
-          "often",
-          "Có, thường xuyên",
-          "Ưu tiên máy có đèn đọc và đèn ấm nếu có."
-        ],
-        [
-          "sometimes",
-          "Thỉnh thoảng",
-          "Đèn đọc là điểm cộng, nhưng không quyết định kết quả."
-        ],
-        [
-          "rare",
-          "Hầu như không",
-          "Không cần ưu tiên nhiều cho tính năng đọc ban đêm."
-        ]
-      ]
-    },
-    {
-      "key": "battery",
-      "question": "🔋 Thời lượng pin có quan trọng với bạn không?",
-      "type": "single",
-      "options": [
-        [
-          "normal",
-          "Không quá quan trọng",
-          "Miễn pin đáp ứng tốt nhu cầu đọc hằng ngày."
-        ],
-        [
-          "long",
-          "Khá quan trọng",
-          "Muốn máy dùng được lâu và không phải sạc thường xuyên."
-        ],
-        [
-          "max",
-          "Rất quan trọng",
-          "Ưu tiên thời lượng pin càng lâu càng tốt."
-        ]
-      ]
+      ],
+      "hint": "Chọn thời điểm bạn đọc nhiều nhất; Wizard sẽ dùng thông tin này để cân nhắc đèn đọc và đèn ấm."
     },
     {
       "key": "display",
