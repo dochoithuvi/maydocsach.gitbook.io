@@ -139,6 +139,7 @@ code{font-size:.92em;background:var(--accent-soft);padding:.12em .3em;border-rad
 <div class="wrap">
 <section class="intro">
   <div class="status" id="status">Đang tải dữ liệu…</div>
+  <div class="note">💾 Lựa chọn của bạn được tự động lưu trên thiết bị này, để có thể quay lại chỉnh sửa.</div>
 </section>
 <section class="panel" id="wizard">
   <div class="bar"><div class="dots" id="dots"></div><div class="meta"><span id="label"></span><span id="counter"></span></div></div>
@@ -154,7 +155,10 @@ code{font-size:.92em;background:var(--accent-soft);padding:.12em .3em;border-rad
       <div class="path"><strong>🧩 Theo hệ sinh thái</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle" target="_blank" rel="noopener">Kindle</a> · <a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kobo" target="_blank" rel="noopener">Kobo</a> · <a href="https://maydocsach.gitbook.io/guide" target="_blank" rel="noopener">BOOX / Xteink</a></div>
       <div class="path"><strong>🛠 Tùy biến</strong><a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle" target="_blank" rel="noopener">Jailbreak & KOReader</a> · <a href="https://maydocsach.gitbook.io/guide/so-sanh-may-doc-sach" target="_blank" rel="noopener">So sánh</a></div>
     </div>
-    <button class="primary" id="restart" style="margin-top:11px">↻ Chọn lại</button>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:11px">
+  <button class="secondary" id="editAnswers">✏️ Chỉnh sửa câu trả lời</button>
+  <button class="primary" id="restart">↻ Chọn lại</button>
+</div>
   </div>
 </section>
 </div>
@@ -174,6 +178,7 @@ code{font-size:.92em;background:var(--accent-soft);padding:.12em .3em;border-rad
 })();
 
 let Q = [], M = [], i = 0, A = {};
+const STORAGE_KEY = 'wiki-ereader-wizard:v5';
 
 const els = {
   view: document.getElementById('view'),
@@ -185,15 +190,60 @@ const els = {
   status: document.getElementById('status')
 };
 
+function saveState(completed){
+  try {
+    const questionKeys = Q.map(function(q){ return q.key; });
+    const answers = {};
+    questionKeys.forEach(function(key){
+      if (A[key] !== undefined) answers[key] = A[key];
+    });
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      version: 1,
+      updated_at: new Date().toISOString(),
+      current_index: i,
+      completed: completed === true,
+      answers: answers
+    }));
+  } catch (_) {}
+}
+
+function restoreState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const saved = JSON.parse(raw);
+    if (!saved || saved.version !== 1 || !saved.answers) return null;
+    const validKeys = Q.map(function(q){ return q.key; });
+    const answers = {};
+    validKeys.forEach(function(key){
+      if (saved.answers[key] !== undefined) answers[key] = saved.answers[key];
+    });
+    A = answers;
+    i = Math.max(0, Math.min(Number(saved.current_index) || 0, Math.max(Q.length - 1, 0)));
+    return saved;
+  } catch (_) {
+    return null;
+  }
+}
+
+function clearSavedState(){
+  try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+}
+
 const labels = {
-  u1:'Dưới 1 triệu', one:'1–2 triệu', '1to2':'1–2 triệu', two:'2–4 triệu', '2to4':'2–4 triệu',
-  four:'4–7 triệu', '4to7':'4–7 triệu', sevenplus:'Trên 7 triệu', '7plus':'Trên 7 triệu',
+  u1:'Dưới 1 triệu', one:'1–2 triệu', '1to2':'1–2 triệu', two:'2–3 triệu', '2to3':'2–3 triệu',
+  four:'4–5 triệu', '4to5':'4–5 triệu', five:'5–6 triệu', '5to6':'5–6 triệu',
+  sevenplus:'Trên 6 triệu', 'over6':'Trên 6 triệu',
   unknown:'Chưa xác định',
   novel:'Ebook chữ', pdf:'PDF', manga:'Manga', color:'Màu', work:'Tài liệu công việc', web:'Web',
   tiny:'Ưu tiên siêu nhỏ', '6':'Khoảng 6 inch', '7':'Khoảng 7 inch', large:'Màn hình lớn', neutral:'Kích thước không quan trọng',
-  often:'Đọc đêm thường xuyên', sometimes:'Đọc đêm thỉnh thoảng', rare:'Ít đọc ban đêm',
+  day:'Ban ngày', evening:'Buổi tối', bedtime:'Trước khi đi ngủ', anytime:'Cả ngày, tùy lúc',
   amazon:'Amazon / Kindle', epub:'EPUB / thư viện cá nhân', many:'Nhiều nguồn', apps:'Nhiều ứng dụng',
-  important:'Ghi chú là nhu cầu quan trọng', sometimes:'Đọc tối thỉnh thoảng', no:'Không cần ghi chú'
+  clear:'Chữ rõ nét', large_display:'Màn hình lớn', compact:'Nhỏ gọn', color_display:'Màn hình màu', highres:'Độ phân giải cao',
+  color_no:'Không cần màu', color_sometimes:'Màu thỉnh thoảng', color_often:'Cần màu thường xuyên',
+  pdf_no:'Không cần PDF', pdf_sometimes:'PDF thỉnh thoảng', pdf_often:'Đọc PDF thường xuyên', pdf_main:'PDF là nhu cầu chính',
+  buttons_yes:'Có nút chuyển trang', buttons_no:'Không cần nút', buttons_neutral:'Nút bấm không quan trọng',
+  notes_important:'Ghi chú là nhu cầu quan trọng', notes_sometimes:'Ghi chú đôi khi hữu ích', notes_no:'Không cần ghi chú'
 };
 
 const BUDGET_CAP = {
@@ -266,6 +316,7 @@ function render(){
           ? A[q.key].filter(function(x){ return x !== id; })
           : A[q.key].concat(id);
       }
+      saveState(false);
       render();
     };
   });
@@ -360,6 +411,7 @@ function budgetState(m){
 }
 
 function hardPass(m){
+  if (A.reading_time === 'bedtime' && m.front_light !== true) return false;
   if (A.ecosystem === 'amazon' && m.brand !== 'Kindle') return false;
   if (A.ecosystem === 'epub' && m.native_epub !== true) return false;
   if (A.ecosystem === 'apps' && m.android !== true) return false;
@@ -406,15 +458,58 @@ function score(m){
   if (A.size === '7' && screen !== null && screen > 6.5 && screen <= 7.5) add(6, 'Màn hình rộng hơn nhưng vẫn khá cơ động.');
   if (A.size === 'large' && screen !== null && screen >= 7.5) add(8, 'Màn hình lớn, thuận tiện hơn cho tài liệu và ghi chú.');
 
-  // Thói quen đọc ban đêm tự suy ra nhu cầu đèn đọc/đèn ấm.
-  if (A.night === 'often' && m.front_light === true) add(5, 'Có đèn đọc, phù hợp thói quen đọc ban đêm.');
-  if (A.night === 'often' && m.warm_light === true) add(3, 'Có đèn ấm, phù hợp đọc ban đêm.');
-  if (A.night === 'sometimes' && m.front_light === true) add(2);
+  // Thời điểm đọc được dùng để cân nhắc đèn đọc/đèn ấm.
+  if (A.reading_time === 'evening') {
+    if (m.front_light === true) add(4, 'Có đèn đọc, phù hợp đọc vào buổi tối.');
+  } else if (A.reading_time === 'bedtime') {
+    if (m.front_light === true) add(5, 'Có đèn đọc, phù hợp đọc trước khi đi ngủ.');
+    if (m.warm_light === true) add(3, 'Có đèn ấm, phù hợp đọc trước khi đi ngủ.');
+  } else if (A.reading_time === 'anytime') {
+    if (m.front_light === true) add(2);
+  }
+
+  const ppi = num(m.ppi_bw) !== null ? num(m.ppi_bw) : num(m.ppi);
+
+  // Màn hình và độ sắc nét.
+  if (A.display === 'clear') {
+    if (ppi >= 300) add(5, 'Chữ rõ nét với mật độ điểm ảnh cao.');
+    else if (ppi >= 250) add(3);
+  }
+  if (A.display === 'large_display') {
+    if (screen !== null && screen >= 7.5) add(7, 'Màn hình lớn, thuận tiện hơn cho tài liệu.');
+    else if (screen !== null && screen >= 7) add(3);
+  }
+  if (A.display === 'compact') {
+    if (m.palm_sized === true || (screen !== null && screen <= 6.2)) add(6, 'Nhỏ gọn, dễ cầm và mang theo.');
+  }
+  if (A.display === 'color_display' && m.color === true) add(7, 'Có màn hình màu.');
+  if (A.display === 'highres' && ppi >= 300) add(6, 'Mật độ điểm ảnh cao, chữ sắc nét.');
+
+  // Nhu cầu màu.
+  if (A.color_need === 'color_sometimes' && m.color === true) add(4, 'Có màu khi bạn thỉnh thoảng đọc nội dung màu.');
+  if (A.color_need === 'color_often' && m.color === true) add(8, 'Màn hình màu phù hợp nhu cầu nội dung màu thường xuyên.');
+
+  // Nhu cầu PDF/tài liệu.
+  if (A.pdf_need === 'pdf_sometimes' && (num(fit.pdf) || 0) >= 4) add(2);
+  if (A.pdf_need === 'pdf_often') {
+    if ((num(fit.pdf) || 0) >= 4) add(5, 'Phù hợp hơn với nhu cầu đọc PDF thường xuyên.');
+    if (screen !== null && screen >= 7) add(2);
+  }
+  if (A.pdf_need === 'pdf_main') {
+    if ((num(fit.pdf) || 0) >= 5) add(8, 'Rất phù hợp với nhu cầu PDF chính.');
+    else if ((num(fit.pdf) || 0) >= 4) add(5, 'Phù hợp với nhu cầu PDF chính.');
+    if (screen !== null && screen >= 7.5) add(4, 'Màn hình lớn hỗ trợ PDF và tài liệu.');
+    else if (screen !== null && screen >= 7) add(2);
+  }
+
+  // Nút chuyển trang.
+  if (A.buttons === 'buttons_yes' && m.buttons === true) add(7, 'Có nút chuyển trang vật lý.');
+  if (A.buttons === 'buttons_no' && m.buttons !== true) add(2);
 
   // Ghi chú là nhu cầu sử dụng, không phải câu hỏi về "bút/stylus".
-  if (A.notes === 'important' && m.stylus === true && m.note_taking === true) {
+  if (A.notes === 'notes_important' && m.stylus === true && m.note_taking === true) {
     add(8, 'Có bút và ghi chú, phù hợp nhu cầu ghi chú trực tiếp.');
-  } else if (A.notes === 'sometimes' && m.stylus === true && m.note_taking === true) {
+  } else if (A.notes === 'notes_sometimes' && m.stylus === true && m.note_taking === true) {
     add(3, 'Có bút và ghi chú như một điểm cộng.');
   }
 
@@ -500,7 +595,7 @@ function tradeoffs(m){
   if (A.size === 'tiny' && screen !== null && screen > 5) {
     t.push('Không thuộc nhóm máy siêu nhỏ.');
   }
-  if (A.notes === 'important' && !(m.stylus === true && m.note_taking === true)) {
+  if (A.notes === 'notes_important' && !(m.stylus === true && m.note_taking === true)) {
     t.push('Model này không có bút/ghi chú tích hợp theo dữ liệu hiện tại; Wizard vẫn giữ lại nếu các nhu cầu khác phù hợp.');
   }
   return t;
@@ -585,6 +680,7 @@ function resultsPage(){
   }).sort(function(a,b){ return b.s - a.s; });
 
   const picks = ranked.slice(0, 5);
+  saveState(true);
 
   const chips = Object.values(A).flat().slice(0, 12).map(function(x){
     return '<span class="chip">' + escapeHtml(labels[x] || x) + '</span>';
@@ -810,8 +906,13 @@ async function boot(){
       return m.status === 'Wizard-ready' && m.critical_fields_ok === true;
     });
 
+    restoredState = restoreState();
     els.status.textContent = 'Đã tải ' + M.length + ' model Wizard-ready đủ dữ liệu.';
-    render();
+    if (restoredState && restoredState.completed) {
+      resultsPage();
+    } else {
+      render();
+    }
   } catch (e) {
     els.status.textContent = 'Lỗi tải dữ liệu.';
     document.getElementById('wizard').innerHTML =
@@ -825,6 +926,7 @@ els.next.onclick = function(){
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   if (i < Q.length - 1) {
     i++;
+    saveState(false);
     render();
   } else {
     resultsPage();
@@ -835,6 +937,7 @@ els.prev.onclick = function(){
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   if (i > 0) {
     i--;
+    saveState(false);
     render();
   }
 };
@@ -854,10 +957,21 @@ document.addEventListener('keydown', function(e){
   }
 });
 
+document.getElementById('editAnswers').onclick = function(){
+  if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+  i = 0;
+  saveState(false);
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('wizard').style.display = 'block';
+  render();
+  scheduleResize();
+};
+
 document.getElementById('restart').onclick = function(){
   if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
   A = {};
   i = 0;
+  clearSavedState();
   document.getElementById('results').style.display = 'none';
   document.getElementById('wizard').style.display = 'block';
   render();
