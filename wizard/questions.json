@@ -127,7 +127,7 @@
           "Ưu tiên trải nghiệm đọc chữ thoải mái."
         ],
         [
-          "large",
+          "large_display",
           "Màn hình lớn để đọc PDF / tài liệu",
           "Ưu tiên diện tích hiển thị rộng."
         ],
@@ -137,7 +137,7 @@
           "Ưu tiên sự cơ động và dễ mang theo."
         ],
         [
-          "color",
+          "color_display",
           "Màn hình màu",
           "Ưu tiên khi đọc truyện tranh hoặc tài liệu có hình ảnh màu."
         ],
@@ -186,17 +186,17 @@
       "type": "single",
       "options": [
         [
-          "no",
+          "color_no",
           "Không, chủ yếu đọc sách chữ",
           "Màn hình đen trắng là đủ."
         ],
         [
-          "sometimes",
+          "color_sometimes",
           "Có, thỉnh thoảng đọc truyện tranh hoặc sách có hình",
           "Màu là một điểm cộng."
         ],
         [
-          "often",
+          "color_often",
           "Có, thường xuyên đọc nội dung màu",
           "Ưu tiên máy có màn hình màu."
         ]
@@ -208,22 +208,22 @@
       "type": "single",
       "options": [
         [
-          "no",
+          "pdf_no",
           "Không",
           "Chủ yếu đọc Ebook chữ."
         ],
         [
-          "sometimes",
+          "pdf_sometimes",
           "Thỉnh thoảng",
           "Có đọc PDF nhưng không phải nhu cầu chính."
         ],
         [
-          "often",
+          "pdf_often",
           "Thường xuyên",
           "PDF và tài liệu là một phần quan trọng trong nhu cầu đọc."
         ],
         [
-          "main",
+          "pdf_main",
           "Đây là nhu cầu chính",
           "Ưu tiên máy phù hợp với PDF và tài liệu."
         ]
@@ -267,17 +267,17 @@
       "type": "single",
       "options": [
         [
-          "yes",
+          "buttons_yes",
           "Có",
           "Ưu tiên các model có nút chuyển trang vật lý."
         ],
         [
-          "no",
+          "buttons_no",
           "Không, chạm màn hình là đủ",
           "Không cần ưu tiên nút vật lý."
         ],
         [
-          "neutral",
+          "buttons_neutral",
           "Không quan trọng",
           "Để Wizard tự cân đối theo các tiêu chí khác."
         ]
@@ -289,17 +289,17 @@
       "type": "single",
       "options": [
         [
-          "important",
+          "notes_important",
           "Có, đây là nhu cầu quan trọng",
           "Wizard sẽ ưu tiên các máy có bút và khả năng ghi chú phù hợp."
         ],
         [
-          "sometimes",
+          "notes_sometimes",
           "Có thể có, nhưng không bắt buộc",
           "Khả năng ghi chú là điểm cộng, không dùng để loại máy."
         ],
         [
-          "no",
+          "notes_no",
           "Không, tôi chủ yếu đọc",
           "Không ưu tiên tính năng ghi chú."
         ]
