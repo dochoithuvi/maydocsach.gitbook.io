@@ -253,7 +253,7 @@
     {
       "id": "basic11",
       "brand": "Kindle",
-      "model": "Kindle Basic 11 (2022)",
+      "model": "Kindle Basic 11th",
       "family": "Kindle Basic",
       "release_year": 2022,
       "lifecycle": "Legacy / used market",
@@ -332,7 +332,7 @@
     {
       "id": "basic10",
       "brand": "Kindle",
-      "model": "Kindle Basic 10th (2019)",
+      "model": "Kindle Basic 10th",
       "family": "Kindle Basic",
       "release_year": 2019,
       "lifecycle": "Used / discontinued",
@@ -799,7 +799,7 @@
     {
       "id": "kindle_pw_12",
       "brand": "Kindle",
-      "model": "Kindle Paperwhite 12th Gen (2024)",
+      "model": "Kindle Paperwhite 12th Gen",
       "family": "Paperwhite",
       "release_year": 2024,
       "lifecycle": "Current",
@@ -1036,7 +1036,7 @@
     {
       "id": "kindle_pw_se_12",
       "brand": "Kindle",
-      "model": "Kindle Paperwhite Signature Edition 12th Gen (2024)",
+      "model": "Kindle Paperwhite Signature Edition 12th Gen",
       "family": "Paperwhite",
       "release_year": 2024,
       "lifecycle": "Current",
@@ -1115,7 +1115,7 @@
     {
       "id": "kindle_2024",
       "brand": "Kindle",
-      "model": "Kindle Basic 12th (2024)",
+      "model": "Kindle Basic 12th",
       "family": "Kindle Basic",
       "release_year": 2024,
       "lifecycle": "Current",
@@ -2534,7 +2534,7 @@
       "quality_flags": [],
       "usb_c": false,
       "auto_rotation": false,
-      "image_url": "https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/images/kindle-paperwhite-1.png"
+      "image_url": "https://i.ebayimg.com/images/g/FNkAAOSw6udgPFHW/s-l1600.jpg"
     },
     {
       "id": "ppw2",
