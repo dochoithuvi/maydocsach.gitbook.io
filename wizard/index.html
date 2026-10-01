@@ -179,6 +179,8 @@ code{font-size:.92em;background:var(--accent-soft);padding:.12em .3em;border-rad
 
 let Q = [], M = [], i = 0, A = {};
 const STORAGE_KEY = 'wiki-ereader-wizard:v5';
+const ANALYTICS_ENDPOINT = ''; // Dán URL /exec của Google Apps Script vào đây sau khi deploy. Để trống = không gửi analytics.
+const ANALYTICS_VERSION = '1.0';
 
 const els = {
   view: document.getElementById('view'),
@@ -228,6 +230,33 @@ function restoreState(){
 
 function clearSavedState(){
   try { localStorage.removeItem(STORAGE_KEY); } catch (_) {}
+}
+
+function makeEventId(){
+  try {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+  } catch (_) {}
+  return 'evt-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+}
+
+function trackWizardEvent(type, extra){
+  if (!ANALYTICS_ENDPOINT) return;
+  try {
+    const payload = Object.assign({
+      type: type,
+      event_id: makeEventId(),
+      analytics_version: ANALYTICS_VERSION,
+      question_schema: '3.1',
+      source: 'wiki-ereader-wizard'
+    }, extra || {});
+    fetch(ANALYTICS_ENDPOINT, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type':'text/plain;charset=UTF-8'},
+      body: JSON.stringify(payload),
+      keepalive: true
+    }).catch(function(){});
+  } catch (_) {}
 }
 
 const labels = {
@@ -640,7 +669,7 @@ function exactBudgetCandidates(list){
   });
 }
 
-function resultsPage(){
+function resultsPage(shouldTrack){
   const strict = M.filter(hardPass);
   let pool = strict;
   let budgetMessage = '';
@@ -679,6 +708,12 @@ function resultsPage(){
 
   const picks = ranked.slice(0, 5);
   saveState(true);
+  if (shouldTrack !== false) {
+    trackWizardEvent('completed', {
+      answers_json: JSON.stringify(A),
+      result_model_ids: picks.map(function(x){ return x.m.id; })
+    });
+  }
 
   const chips = Object.values(A).flat().slice(0, 12).map(function(x){
     return '<span class="chip">' + escapeHtml(labels[x] || x) + '</span>';
@@ -695,8 +730,8 @@ function resultsPage(){
       const tr = tradeoffs(m);
       const reason = x.reasons.slice(0, 2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí bạn đã chọn.';
       const links = [];
-      if (m.wiki_url) links.push(['📖 Xem Wiki', m.wiki_url, false]);
-      if (m.affiliate_url) links.push(['🔎 Xem giá & nơi bán ↗', m.affiliate_url, true]);
+      if (m.wiki_url) links.push(['📖 Xem Wiki', m.wiki_url, false, 'wiki']);
+      if (m.affiliate_url) links.push(['🔎 Xem giá & nơi bán ↗', m.affiliate_url, true, 'commerce']);
 
       let html = '<article class="card">';
       html += '<span class="tag">' + escapeHtml(referenceMode ? 'Tham khảo · ' + (m.brand || 'eReader') : (m.brand || 'eReader')) + '</span>';
@@ -711,7 +746,7 @@ function resultsPage(){
       if (links.length) {
         html += '<div class="links">';
         links.forEach(function(l,j){
-          html += '<a class="link ' + (l[2] ? 'main' : '') + '" href="' + escapeHtml(l[1]) + '" target="_blank" rel="noopener">' + escapeHtml(l[0]) + '</a>';
+          html += '<a class="link ' + (l[2] ? 'main' : '') + '" href="' + escapeHtml(l[1]) + '" target="_blank" rel="noopener" data-analytics-kind="' + escapeHtml(l[3] || 'link') + '" data-model-id="' + escapeHtml(m.id || '') + '">' + escapeHtml(l[0]) + '</a>';
         });
         html += '</div>';
       }
@@ -907,7 +942,7 @@ async function boot(){
     restoredState = restoreState();
     els.status.textContent = 'Đã tải ' + M.length + ' model Wizard-ready đủ dữ liệu.';
     if (restoredState && restoredState.completed) {
-      resultsPage();
+      resultsPage(false);
     } else {
       render();
     }
@@ -939,6 +974,15 @@ els.prev.onclick = function(){
     render();
   }
 };
+
+document.addEventListener('click', function(e){
+  const link = e.target.closest && e.target.closest('a[data-analytics-kind]');
+  if (!link) return;
+  trackWizardEvent('model_click', {
+    model_id: link.getAttribute('data-model-id') || '',
+    link_kind: link.getAttribute('data-analytics-kind') || 'link'
+  });
+});
 
 document.getElementById('imageViewerClose').onclick = function(){
   closeModelImageViewer();
