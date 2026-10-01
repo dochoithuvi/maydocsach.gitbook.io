@@ -602,7 +602,7 @@ function resultsPage(){
       const reason = x.reasons.slice(0, 2).join(' ') || 'Có một số thuộc tính phù hợp với bộ tiêu chí bạn đã chọn.';
       const links = [];
       if (m.wiki_url) links.push(['📖 Xem Wiki', m.wiki_url, false]);
-      if (m.affiliate_url) links.push(['🛒 Xem giá trên Shopee ↗', m.affiliate_url, true]);
+      if (m.affiliate_url) links.push(['🔎 Xem giá & nơi bán ↗', m.affiliate_url, true]);
 
       let html = '<article class="card">';
       html += '<span class="tag">' + escapeHtml(referenceMode ? 'Tham khảo · ' + (m.brand || 'eReader') : (m.brand || 'eReader')) + '</span>';
