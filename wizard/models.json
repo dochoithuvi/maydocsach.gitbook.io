@@ -2461,7 +2461,7 @@
     {
       "id": "ppw1",
       "brand": "Kindle",
-      "model": "Kindle Paperwhite 1 (PPW1)",
+      "model": "Kindle Paperwhite 1",
       "family": "Paperwhite",
       "release_year": 2012,
       "lifecycle": "Used / discontinued",
@@ -2533,12 +2533,13 @@
       "ppi_color": null,
       "quality_flags": [],
       "usb_c": false,
-      "auto_rotation": false
+      "auto_rotation": false,
+      "image_url": "https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/images/kindle-paperwhite-1.png"
     },
     {
       "id": "ppw2",
       "brand": "Kindle",
-      "model": "Kindle Paperwhite 2 (PPW2)",
+      "model": "Kindle Paperwhite 2",
       "family": "Paperwhite",
       "release_year": 2013,
       "lifecycle": "Used / discontinued",
