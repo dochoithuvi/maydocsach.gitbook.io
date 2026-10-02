@@ -883,18 +883,34 @@ function sendReady(){
   });
 }
 
+let lastResizeHeight = 0;
+let resizeFrame = 0;
+
+function getDocumentHeight(){
+  const body = document.body;
+  const doc = document.documentElement;
+  return Math.max(
+    body ? body.scrollHeight : 0,
+    body ? body.offsetHeight : 0,
+    doc ? doc.scrollHeight : 0,
+    doc ? doc.offsetHeight : 0,
+    Math.ceil(window.visualViewport?.height || 0)
+  );
+}
+
 function sendResize(){
   if (window.parent === window) return;
 
-  // Keep the outer GitBook block height stable.
-  // This prevents GitBook page scroll anchoring/layout jumps when
-  // the Wizard changes between questions and the final results.
-  const mobile = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-  const resultsVisible = document.getElementById('results')?.style.display === 'block';
-  // Keep the form shorter than the mobile viewport so tapping its controls
-  // cannot make the host GitBook page auto-scroll to a focused control.
-  const height = mobile ? (resultsVisible ? 1900 : 820) : (resultsVisible ? 1300 : 900);
+  // The Wizard is embedded inside a GitBook webframe.
+  // Do NOT use a fixed iframe height here: the results can be much taller
+  // than a mobile viewport when several model cards are shown.
+  // Instead, report the actual document height so GitBook keeps the whole
+  // Wizard in the normal page flow and the outer page remains scrollable.
+  const height = Math.max(1, Math.ceil(getDocumentHeight()) + 2);
   const width = Math.max(1, window.innerWidth || document.documentElement.clientWidth || 1);
+
+  if (height === lastResizeHeight) return;
+  lastResizeHeight = height;
 
   sendReady();
 
@@ -908,18 +924,26 @@ function sendResize(){
   });
 }
 
-let resizeState = '';
 function scheduleResize(){
-  const mobile = window.matchMedia && window.matchMedia('(max-width: 720px)').matches;
-  const resultsVisible = document.getElementById('results')?.style.display === 'block';
-  const state = (mobile ? 'm' : 'd') + (resultsVisible ? 'r' : 'f');
-  if (resizeState === state) return;
-  resizeState = state;
-  sendResize();
+  if (resizeFrame) cancelAnimationFrame(resizeFrame);
+  resizeFrame = requestAnimationFrame(function(){
+    resizeFrame = 0;
+    sendResize();
+    // Run once more after layout/images settle.
+    requestAnimationFrame(sendResize);
+  });
 }
 
 if (typeof window !== 'undefined') {
   window.addEventListener('load', scheduleResize, { once: true });
+  window.addEventListener('resize', scheduleResize);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', scheduleResize);
+
+  if (typeof ResizeObserver !== 'undefined') {
+    const resizeObserver = new ResizeObserver(function(){ scheduleResize(); });
+    resizeObserver.observe(document.documentElement);
+    if (document.body) resizeObserver.observe(document.body);
+  }
 }
 
 async function boot(){
