@@ -353,6 +353,8 @@ function render(){
 }
 
 function num(v){
+  // Missing numeric fields must stay null; Number(null) and Number('') both become 0.
+  if (v === null || v === undefined || (typeof v === 'string' && v.trim() === '')) return null;
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 }
