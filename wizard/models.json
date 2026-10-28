@@ -1,7 +1,7 @@
 {
   "schema_version": "2.1",
   "brand": "Wiki-eReader",
-  "generated_at": "2026-09-28",
+  "generated_at": "2026-10-28",
   "engine_version": "2.6.0-schema-audit",
   "selection_policy": {
     "candidate_gate": "status=Wizard-ready and critical_fields_ok=true",
@@ -1785,17 +1785,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "2to4",
       "price_vn": {
-        "min_vnd": 2299000,
-        "max_vnd": 2320000,
-        "current_or_from_vnd": 2299000,
+        "min_vnd": 2332000,
+        "max_vnd": 2332000,
+        "current_or_from_vnd": 2332000,
         "condition": "new",
         "availability": "listed",
-        "last_checked": "2026-09-27",
+        "last_checked": "2026-10-28",
         "status": "observed",
-        "source": "Shopee snapshot",
-        "source_url": "https://shopee.vn/",
+        "source": "Shopee - XTEINK Chính hãng ủy quyền quốc tế (Vietnam)",
+        "source_url": "https://shopee.vn/xteink.vn",
         "confidence": "medium",
-        "note": "Khoảng 2,299–2,32 triệu."
+        "note": "Giá quan sát trên gian hàng XTEINK tại Việt Nam ngày 2026-10-28; có thể thay đổi theo voucher và chương trình bán hàng."
       },
       "fit": {
         "novel": 4,
@@ -1810,19 +1810,21 @@
       "data_confidence": "high",
       "critical_fields_ok": true,
       "status": "Wizard-ready",
-      "last_verified": "2026-09-25",
+      "last_verified": "2026-10-28",
       "source_primary": "https://www.xteink.com/products/xteink-x4-pro-pocket-ereader",
       "source_secondary": [
-        "https://www.xteink.com/"
+        "https://www.xteink.com/",
+        "https://shopee.vn/xteink.vn",
+        "https://www.xteink.vn/products/xteink-x4-pro/"
       ],
-      "editorial_notes": "",
+      "editorial_notes": "Bản X4 Pro: màn hình 4,3 inch 219 PPI, bộ nhớ microSD 16GB (mở rộng tối đa 256GB), đèn trước ấm/lạnh, cảm ứng + nút vật lý, pin 1100mAh, nặng 72g. Cổng trên máy là pogo-pin; có adapter sạc từ tính đi kèm, không ghi nhận cổng USB-C trực tiếp.",
       "brand_name": "Wiki-eReader",
       "ppi_bw": 219,
       "ppi_color": null,
       "quality_flags": [
         "vn_price_refresh"
       ],
-      "usb_c": true,
+      "usb_c": false,
       "auto_rotation": false
     },
     {
