@@ -1785,17 +1785,17 @@
       "jailbreak_fw_scope": "Not evaluated by Wizard; check model/firmware or current support documentation.",
       "budget_hint_vn": "2to4",
       "price_vn": {
-        "min_vnd": 1700000,
-        "max_vnd": 2150000,
-        "current_or_from_vnd": 1700000,
+        "min_vnd": 2180000,
+        "max_vnd": 2180000,
+        "current_or_from_vnd": 2180000,
         "condition": "new",
         "availability": "listed",
         "last_checked": "2026-10-28",
         "status": "observed",
-        "source": "Khoảng giá tham khảo do người dùng cập nhật",
-        "source_url": "https://shopee.vn/list/xteink/x4%20pro",
+        "source": "Shopee - XTEINK Vietnam listing price before buyer-specific vouchers",
+        "source_url": "https://shopee.vn/xteink.vn",
         "confidence": "medium",
-        "note": "Khoảng giá tham khảo 1,70–2,15 triệu theo cập nhật của chủ site; giá thực tế tùy shop, phiên bản, phụ kiện và khuyến mãi."
+        "note": "Giá niêm yết tham khảo trước voucher cá nhân; giá checkout có thể thấp hơn nếu áp mã hợp lệ."
       },
       "fit": {
         "novel": 4,
