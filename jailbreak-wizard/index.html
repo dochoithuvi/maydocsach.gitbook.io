@@ -405,7 +405,7 @@ small{font-size:11px}
           option("register-yes","Có thể đăng nhập","Kindle có thể đăng nhập vào tài khoản Amazon.",state.canRegister===true)+
           option("register-no","Không thể đăng nhập","Kindle không thể đăng nhập vào tài khoản Amazon hoặc đang bị blacklist.",state.canRegister===false)+
         '</div>'+
-        '<div class="help">Đừng đăng nhập hoặc kết nối Wi‑Fi chỉ để thử nếu bạn đang cố giữ một firmware có thể jailbreak. Hãy đọc hướng dẫn chính thức trước.</div>';
+        '<div class="help">Nếu không đăng nhập được do OTP, mật khẩu hoặc mạng, Wizard vẫn dùng câu trả lời này để lọc các phương pháp yêu cầu thiết bị được đăng ký với Amazon; vì vậy kết quả có thể thiếu phương pháp. Lỗi đăng nhập không tự chứng minh Kindle bị blacklist. Nếu cần giữ firmware hiện tại, hãy đọc <a href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/ngan-kindle-tu-dong-cap-nhat-truoc-khi-jailbreak" target="_blank" rel="noopener">hướng dẫn ngăn Kindle tự động cập nhật trước khi jailbreak</a> trước khi kết nối Wi-Fi.</div>';
       root.querySelectorAll("[data-answer]").forEach(btn=>btn.addEventListener("click",()=>{
         state.canRegister=btn.dataset.answer==="true";
         renderStep();
@@ -473,7 +473,7 @@ small{font-size:11px}
     if(state.methods.length){
       $("resultTitle").textContent="Có "+state.methods.length+" phương pháp phù hợp theo bảng tham chiếu";
       $("resultsList").innerHTML=
-        '<div class="alert"><strong>Trước khi bắt đầu:</strong> Hãy mở hướng dẫn được đề xuất và xác nhận lại model, firmware, điều kiện đăng ký và các lưu ý phiên bản hệ điều hành. Không thử theo hướng dẫn dành cho model khác.</div>'+
+        '<div class="alert"><strong>Trước khi bắt đầu:</strong> Hãy mở hướng dẫn được đề xuất và xác nhận lại model, firmware, tình trạng đăng nhập Amazon và các điều kiện riêng của phương pháp. Không thử theo hướng dẫn dành cho model khác.</div>'+
         state.methods.map(resultCard).join("")+
         '<p class="help">Thứ tự hiển thị tuân theo thứ tự ưu tiên trong bộ dữ liệu tham chiếu. Nếu kết quả khác với Wizard chính thức, hãy ưu tiên Wizard chính thức.</p>';
     }else{
