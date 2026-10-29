@@ -179,6 +179,44 @@ small{font-size:11px}
   const stepNames = ["Nhận diện Kindle", "Phiên bản firmware", "Đăng nhập tài khoản Amazon", "Quảng cáo trên màn hình khóa"];
   const dataDate = $("dataDate");
 
+  // Tự co giãn webframe theo chiều cao thực của công cụ để không cần cuộn bên trong khung GitBook.
+  let lastFrameHeight = 0;
+  let frameResizeQueued = false;
+
+  function sendWebframeAction(action) {
+    window.parent.postMessage({ action }, "*");
+  }
+
+  function resizeWebframe() {
+    if (frameResizeQueued) return;
+    frameResizeQueued = true;
+    window.requestAnimationFrame(() => {
+      frameResizeQueued = false;
+      const wrap = document.querySelector(".wrap");
+      if (!wrap) return;
+      const height = Math.ceil(wrap.getBoundingClientRect().height);
+      if (height > 0 && Math.abs(height - lastFrameHeight) > 1) {
+        lastFrameHeight = height;
+        sendWebframeAction({
+          action: "@webframe.resize",
+          size: { height }
+        });
+      }
+    });
+  }
+
+  const frameWrap = document.querySelector(".wrap");
+  if (frameWrap && "ResizeObserver" in window) {
+    new ResizeObserver(resizeWebframe).observe(frameWrap);
+  }
+  window.addEventListener("resize", resizeWebframe, { passive: true });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(resizeWebframe);
+  }
+  window.addEventListener("load", resizeWebframe, { once: true });
+  sendWebframeAction({ action: "@webframe.ready" });
+  resizeWebframe();
+
   function esc(value){
     return String(value == null ? "" : value).replace(/[&<>'"]/g, c => ({
       "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"
