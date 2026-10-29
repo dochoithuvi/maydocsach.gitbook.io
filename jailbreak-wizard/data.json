@@ -343,12 +343,14 @@
     "4PH": "KSC",
     "4F9": "KSC",
     "4FB": "KSC",
-    "46P": "KSC"
+    "46P": "KSC",
+    "5W5": "KT7",
+    "5W6": "KT7"
   },
   "jailbreaks": [
     {
       "name": "WinterBreak2",
-      "url": "https://kindlemodding.org/jailbreaking/Legacy/WinterBreak2/",
+      "url": "https://kindlemodding.org/jailbreaking/WinterBreak2/",
       "registration": false,
       "ads": false,
       "models": [
