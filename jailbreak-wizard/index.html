@@ -167,7 +167,7 @@ small{font-size:11px}
     methods: [], data: null
   };
   const $ = id => document.getElementById(id);
-  const stepNames = ["Nhận diện Kindle", "Phiên bản firmware", "Khả năng đăng ký", "Quảng cáo trên màn hình khóa"];
+  const stepNames = ["Nhận diện Kindle", "Phiên bản firmware", "Đăng nhập tài khoản Amazon", "Quảng cáo trên màn hình khóa"];
   const dataDate = $("dataDate");
 
   function esc(value){
@@ -296,11 +296,11 @@ small{font-size:11px}
       }
     } else if(state.step===2){
       root.innerHTML =
-        '<h2>Kindle của bạn có thể đăng ký với Amazon không?</h2>'+
-        '<p class="lead">Hãy trả lời dựa trên tình trạng thực tế. Một số phương pháp không phù hợp với thiết bị bị blacklist hoặc không thể đăng ký.</p>'+
+        '<h2>Kindle của bạn có đăng nhập được tài khoản Amazon không?</h2>'+
+        '<p class="lead">Hãy trả lời dựa trên tình trạng thực tế. Một số phương pháp jailbreak không phù hợp nếu Kindle bị blacklist hoặc không thể đăng nhập vào tài khoản Amazon.</p>'+
         '<div class="options">'+
-          option("register-yes","Có thể đăng ký","Thiết bị có thể kết nối với tài khoản Amazon.",state.canRegister===true)+
-          option("register-no","Không thể đăng ký","Không kết nối được hoặc thiết bị bị blacklist.",state.canRegister===false)+
+          option("register-yes","Có thể đăng nhập","Kindle có thể đăng nhập vào tài khoản Amazon.",state.canRegister===true)+
+          option("register-no","Không thể đăng nhập","Kindle không thể đăng nhập vào tài khoản Amazon hoặc đang bị blacklist.",state.canRegister===false)+
         '</div>'+
         '<div class="help">Đừng đăng ký hoặc kết nối Wi‑Fi chỉ để thử nếu bạn đang cố giữ một firmware có thể jailbreak. Hãy đọc hướng dẫn chính thức trước.</div>';
       root.querySelectorAll("[data-answer]").forEach(btn=>btn.addEventListener("click",()=>{
@@ -353,7 +353,7 @@ small{font-size:11px}
       '<h3>'+esc(method.name)+'</h3>'+
       '<p>Model '+esc(state.model)+' · Firmware '+esc(state.firmware)+'</p>'+
       (notes.length?'<p>'+notes.map(esc).join(" ")+'</p>':'')+
-      '<a class="cta" href="'+esc(method.url)+'" target="_blank" rel="noopener">Mở hướng dẫn chính thức ↗</a>'+
+      '<a class="cta" href="'+esc(method.url)+'" target="_blank" rel="noopener">'+(method.guide_specific===false?"Xem mục Jailbreak & KOReader ↗":"Mở hướng dẫn trên MayDocSach ↗")+"</a>'+
       '</article>';
   }
   function renderResults(){
@@ -363,7 +363,7 @@ small{font-size:11px}
     $("resultContext").innerHTML=[
       modelLabel(state.model),
       "Firmware "+state.firmware,
-      state.canRegister?"Có thể đăng ký":"Không thể đăng ký",
+      state.canRegister?"Có thể đăng nhập":"Không thể đăng nhập",
       state.hasAds===true?"Có quảng cáo":state.hasAds===false?"Không có quảng cáo":"Chưa chắc quảng cáo"
     ].map(v=>'<span class="result-pill">'+esc(v)+'</span>').join("");
     if(state.methods.length){
