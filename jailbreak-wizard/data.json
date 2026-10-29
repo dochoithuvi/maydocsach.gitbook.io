@@ -350,7 +350,7 @@
   "jailbreaks": [
     {
       "name": "WinterBreak2",
-      "url": "https://kindlemodding.org/jailbreaking/WinterBreak2/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-less-than-5.16.4-bang-winterbreak2",
       "registration": false,
       "ads": false,
       "models": [
@@ -383,11 +383,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "SpiderCat",
-      "url": "https://kindlemodding.org/jailbreaking/SpiderCat",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-less-than-5.19.5-bang-spidercat",
       "registration": false,
       "ads": false,
       "models": [
@@ -414,11 +415,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "Véra",
-      "url": "https://kindlemodding.org/jailbreaking/Vera/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-less-than-5.20.1-bang-vera",
       "registration": false,
       "ads": false,
       "models": [
@@ -442,11 +444,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "Nosebleed",
-      "url": "https://kindlemodding.org/jailbreaking/Nosebleed/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.16.4-5.18.6-bang-nosebleed",
       "registration": false,
       "ads": false,
       "models": [
@@ -482,11 +485,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "Sanctuary",
-      "url": "https://kindlemodding.org/jailbreaking/Sanctuary",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.16.4-5.18.3-bang-sanctuary",
       "registration": false,
       "ads": false,
       "models": [
@@ -515,11 +519,12 @@
             ]
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "WinterBreak",
-      "url": "https://kindlemodding.org/jailbreaking/WinterBreak/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.6.1.1-5.18.0.2-bang-winterbreak",
       "registration": true,
       "ads": false,
       "models": [
@@ -554,11 +559,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "SpringBreak",
-      "url": "https://kindlemodding.org/jailbreaking/SpringBreak",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.19.2-bang-springbreak",
       "registration": true,
       "ads": false,
       "models": [
@@ -592,11 +598,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "Shadow",
-      "url": "https://kindlemodding.org/jailbreaking/Shadow/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/huong-dan-jailbreak-kindle-bang-shadow",
       "registration": false,
       "ads": false,
       "models": [
@@ -618,11 +625,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "AdBreak",
-      "url": "https://kindlemodding.org/jailbreaking/AdBreak/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.18.1-5.18.5.0.1-bang-adbreak",
       "registration": true,
       "ads": true,
       "models": [
@@ -664,11 +672,12 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": true
     },
     {
       "name": "NiLuJe K2/DX/DXG/K3 Jailbreak",
-      "url": "https://kindlemodding.org/jailbreaking/Legacy/K2DXDXGK3-Jailbreak/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle",
       "registration": false,
       "ads": false,
       "models": [
@@ -688,11 +697,13 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": false,
+      "guide_note": "Hiện chưa có bài hướng dẫn riêng cho phương pháp này trên MayDocSach; mở mục Jailbreak & KOReader để xem các hướng dẫn liên quan."
     },
     {
       "name": "NiLuJe K4 Jailbreak",
-      "url": "https://kindlemodding.org/jailbreaking/Legacy/K4-Jailbreak/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle",
       "registration": false,
       "ads": false,
       "models": [
@@ -710,11 +721,13 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": false,
+      "guide_note": "Hiện chưa có bài hướng dẫn riêng cho phương pháp này trên MayDocSach; mở mục Jailbreak & KOReader để xem các hướng dẫn liên quan."
     },
     {
       "name": "NiLuJe K5 Jailbreak",
-      "url": "https://kindlemodding.org/jailbreaking/Legacy/K5-Jailbreak/",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle",
       "registration": false,
       "ads": false,
       "models": [
@@ -732,11 +745,13 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": false,
+      "guide_note": "Hiện chưa có bài hướng dẫn riêng cho phương pháp này trên MayDocSach; mở mục Jailbreak & KOReader để xem các hướng dẫn liên quan."
     },
     {
       "name": "LEGACY",
-      "url": "https://kindlemodding.org/jailbreaking/Legacy/index.html",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle",
       "registration": false,
       "ads": false,
       "models": [
@@ -754,11 +769,13 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": false,
+      "guide_note": "Hiện chưa có bài hướng dẫn riêng cho phương pháp này trên MayDocSach; mở mục Jailbreak & KOReader để xem các hướng dẫn liên quan."
     },
     {
       "name": "Android Jailbreak Methods",
-      "url": "https://www.mobileread.com/forums/showthread.php?p=4087697",
+      "url": "https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle",
       "registration": false,
       "ads": false,
       "models": [
@@ -776,7 +793,9 @@
             "denied": []
           }
         }
-      ]
+      ],
+      "guide_specific": false,
+      "guide_note": "Hiện chưa có bài hướng dẫn riêng cho phương pháp này trên MayDocSach; mở mục Jailbreak & KOReader để xem các hướng dẫn liên quan."
     }
   ]
 }
