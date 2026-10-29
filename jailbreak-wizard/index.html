@@ -424,7 +424,7 @@ small{font-size:11px}
     .then(res=>{if(!res.ok)throw new Error("Không tải được data.json");return res.json();})
     .then(data=>{
       state.data=data;
-      dataDate.textContent=data.generated_at||"—";
+      if(dataDate) dataDate.textContent=data.generated_at||"—";
       $("stepContent").innerHTML="";
       renderStep();
     })
