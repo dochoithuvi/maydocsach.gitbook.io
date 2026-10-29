@@ -6,20 +6,25 @@ summary: |
 
   Nhúng công cụ chọn máy đọc sách và công cụ tra cứu phương pháp jailbreak Kindle trực tiếp vào trang GitBook.
 
-  Các Wizard được phục vụ từ GitHub Pages và proxy qua publicContentEndpoint để GitBook nhận đúng cơ chế webframe resize.
+  Mỗi công cụ có một block riêng để tránh nhầm URL khi hiển thị và giữ đúng cách co giãn khung trong GitBook.
 organization: maydocsach
 visibility: private
 scopes: []
 script: src/index.tsx
 blocks:
   - id: embed
-    title: MayDocSach Wizard
-    description: Nhúng Wiki-eReader Wizard hoặc Kindle Jailbreak Wizard vào trang GitBook.
+    title: E-Reader Wizard
+    description: Nhúng công cụ chọn máy đọc sách của MayDocSach vào trang GitBook.
     icon: compass
     urlUnfurl:
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/**
+  - id: jailbreak
+    title: Kindle Jailbreak Wizard
+    description: Nhúng công cụ tra cứu phương pháp jailbreak Kindle vào trang GitBook.
+    icon: compass
+    urlUnfurl:
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard/
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard/**
