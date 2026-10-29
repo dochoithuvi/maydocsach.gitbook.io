@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Kindle Jailbreak Wizard · Máy Đọc Sách</title>
+<meta name="description" content="Công cụ tham khảo chọn phương pháp jailbreak Kindle theo model, firmware, khả năng đăng ký và phiên bản quảng cáo.">
+<style>
+:root{
+ --page:#f5f7fb;--surface:#fff;--surface-soft:#f8fafc;--surface-hover:#f1f5f9;
+ --selected:#edf4ff;--text:#172033;--muted:#657087;--soft:#8791a3;--border:#dfe5ee;
+ --accent:#2563eb;--accent-hover:#1d4ed8;--accent-soft:#e7efff;--good:#effbf3;
+ --good-text:#176b3a;--warn:#fff7e8;--warn-text:#825b08;--danger:#fff0ef;
+ --danger-text:#9a3328;--shadow:0 8px 30px rgba(25,42,75,.07);
+}
+html[data-theme="dark"]{
+ color-scheme:dark;--page:#15171b;--surface:#202329;--surface-soft:#252a32;
+ --surface-hover:#2b303a;--selected:#263653;--text:#f1f4f9;--muted:#a4adbd;
+ --soft:#8791a3;--border:#393f4a;--accent:#7ca5ff;--accent-hover:#9ab8ff;
+ --accent-soft:#273650;--good:#1c3428;--good-text:#b7f3cb;--warn:#3a301c;
+ --warn-text:#ffdf9a;--danger:#402320;--danger-text:#ffb6ae;--shadow:none;
+}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ color-scheme:dark;--page:#15171b;--surface:#202329;--surface-soft:#252a32;
+ --surface-hover:#2b303a;--selected:#263653;--text:#f1f4f9;--muted:#a4adbd;
+ --soft:#8791a3;--border:#393f4a;--accent:#7ca5ff;--accent-hover:#9ab8ff;
+ --accent-soft:#273650;--good:#1c3428;--good-text:#b7f3cb;--warn:#3a301c;
+ --warn-text:#ffdf9a;--danger:#402320;--danger-text:#ffb6ae;--shadow:none;
+}}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--page);color:var(--text)}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button,input,select{font:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+a{color:var(--accent-hover)}
+.wrap{max-width:880px;margin:0 auto;padding:26px 16px 36px}
+.hero{margin-bottom:18px}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;color:var(--accent);margin-bottom:7px}
+h1{margin:0;font-size:clamp(27px,4.5vw,40px);line-height:1.1;letter-spacing:-.035em}
+.hero p{max-width:760px;color:var(--muted);margin:10px 0 0;font-size:14px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.chip{font-size:11px;font-weight:650;border:1px solid var(--border);border-radius:999px;padding:5px 9px;background:var(--surface);color:var(--muted)}
+.alert{border:1px solid #f0d7a8;background:var(--warn);color:var(--warn-text);padding:12px 14px;border-radius:12px;font-size:12px;margin:15px 0}
+.alert strong{color:inherit}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}
+.panelbar{padding:13px 17px 11px;border-bottom:1px solid var(--border);background:var(--surface-soft)}
+.progress{display:flex;gap:6px}
+.segment{height:5px;border-radius:99px;background:var(--border);flex:1}
+.segment.done{background:var(--accent)}
+.progress-meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:var(--muted);margin-top:8px}
+.content{padding:23px 22px 24px}
+h2{font-size:23px;line-height:1.2;letter-spacing:-.025em;margin:0 0 7px}
+.lead{font-size:13px;color:var(--muted);margin:0 0 17px;max-width:700px}
+label.field-label{display:block;font-size:12px;font-weight:750;margin:16px 0 6px}
+input[type=text],select{display:block;width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:10px;background:var(--surface);color:var(--text);outline:none}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 18%,transparent)}
+.help{font-size:11px;line-height:1.5;color:var(--muted);margin-top:7px}
+.status{font-size:12px;font-weight:650;margin-top:9px;min-height:19px}
+.status.good{color:var(--good-text)}.status.bad{color:var(--danger-text)}.status.info{color:var(--muted)}
+.separator{display:flex;align-items:center;gap:10px;color:var(--soft);font-size:10px;text-transform:uppercase;letter-spacing:.11em;font-weight:800;margin:17px 0 3px}
+.separator:before,.separator:after{content:"";height:1px;background:var(--border);flex:1}
+.options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:13px}
+.option{appearance:none;display:block;width:100%;text-align:left;border:1px solid var(--border);background:var(--surface);border-radius:12px;padding:13px 14px;color:var(--text);cursor:pointer;transition:background .12s,border-color .12s,transform .12s;min-height:72px}
+.option:hover{background:var(--surface-hover);border-color:color-mix(in srgb,var(--accent) 45%,var(--border));transform:translateY(-1px)}
+.option.selected{background:var(--selected);border-color:var(--accent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 20%,transparent)}
+.option strong{font-size:13px;display:block;font-weight:750}
+.option span{font-size:11px;color:var(--muted);display:block;margin-top:4px}
+.actions{display:flex;justify-content:space-between;gap:10px;padding:13px 17px;border-top:1px solid var(--border);background:var(--surface-soft)}
+.btn{border:0;border-radius:9px;padding:10px 14px;font-size:12px;font-weight:750;cursor:pointer}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.primary{background:var(--accent);color:white}.btn.primary:hover:not(:disabled){background:var(--accent-hover)}
+.btn.secondary{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+.btn.text{color:var(--accent-hover);background:transparent}
+.result-head{padding:20px 22px;border-bottom:1px solid var(--border)}
+.result-head h2{margin:5px 0 7px}
+.result-context{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.result-pill{background:var(--accent-soft);color:var(--accent-hover);border-radius:999px;padding:5px 8px;font-size:10px;font-weight:750}
+.results-list{padding:15px 16px}
+.method{border:1px solid var(--border);border-radius:13px;padding:16px;margin-bottom:10px;background:var(--surface)}
+.method.recommended{border-color:color-mix(in srgb,var(--accent) 60%,var(--border));box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 12%,transparent)}
+.method h3{font-size:17px;line-height:1.25;margin:0 0 7px}
+.tag{display:inline-block;font-size:10px;font-weight:800;border-radius:999px;padding:4px 7px;background:var(--accent-soft);color:var(--accent-hover);margin-bottom:8px}
+.method p{font-size:12px;color:var(--muted);margin:5px 0}
+.method a.cta{display:inline-flex;margin-top:9px;border-radius:8px;background:var(--accent);padding:8px 11px;color:#fff;text-decoration:none;font-size:11px;font-weight:800}
+.method a.cta:hover{filter:brightness(.96)}
+.empty{padding:19px;border:1px solid var(--border);background:var(--surface-soft);border-radius:12px}
+.empty h3{font-size:18px;margin:0 0 5px}
+.empty p{font-size:13px;color:var(--muted);margin:5px 0}
+.footer{color:var(--muted);font-size:11px;margin:13px 2px 0;display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between}
+.footer a{color:var(--muted)}
+.hidden{display:none!important}
+small{font-size:11px}
+@media(max-width:600px){
+ .wrap{padding:20px 11px 25px}
+ .content{padding:18px 15px 19px}
+ .panelbar{padding:11px 14px 10px}
+ .actions{position:sticky;bottom:0;padding:10px 12px}
+ h2{font-size:21px}
+ .options{grid-template-columns:1fr}
+ .option{min-height:62px}
+ .result-head{padding:18px 15px}
+ .results-list{padding:12px}
+ .footer{font-size:10px}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="kicker">MayDocSach · Công cụ tra cứu</div>
+    <h1>🧭 Kindle Jailbreak Wizard</h1>
+    <p>Nhập model, firmware và một vài thông tin về Kindle để xem những phương pháp jailbreak có thể phù hợp. Giao diện tiếng Việt, chạy tĩnh trên GitHub Pages.</p>
+    <div class="chips">
+      <span class="chip">Không cần đăng nhập</span>
+      <span class="chip">Không gửi serial lên máy chủ</span>
+      <span class="chip">Có thể chọn model thủ công</span>
+    </div>
+  </header>
+
+  <div class="alert">
+    <strong>Lưu ý:</strong> Đây là công cụ độc lập, không phải website chính thức KindleModding. Bảng tương thích là bản tham chiếu được cập nhật ngày <span id="dataDate">2026-10-29</span> và có thể chậm hơn dữ liệu chính thức. Trước khi jailbreak, hãy xác nhận lại bằng <a href="https://kindlemodding.org/jailbreak-wizard.html" target="_blank" rel="noopener">KindleModding Wizard</a> và đọc toàn bộ hướng dẫn của phương pháp được đề xuất.
+  </div>
+
+  <section class="panel" id="wizardPanel">
+    <div class="panelbar">
+      <div class="progress" id="progress"></div>
+      <div class="progress-meta"><span id="stepName">Nhận diện Kindle</span><span id="stepCounter">Bước 1/4</span></div>
+    </div>
+    <div class="content" id="stepContent">
+      <h2>Đang tải dữ liệu…</h2>
+      <p class="lead">Chuẩn bị bảng model và firmware.</p>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn secondary" id="prevBtn">← Quay lại</button>
+      <button type="button" class="btn primary" id="nextBtn" disabled>Tiếp tục →</button>
+    </div>
+  </section>
+
+  <section class="panel hidden" id="resultsPanel" aria-live="polite">
+    <div class="result-head">
+      <div class="kicker">Kết quả tra cứu</div>
+      <h2 id="resultTitle">Phương pháp jailbreak phù hợp</h2>
+      <p class="lead" style="margin-bottom:0">Kết quả là đối chiếu theo model, firmware và câu trả lời của bạn — không phải bảo đảm jailbreak sẽ thành công.</p>
+      <div class="result-context" id="resultContext"></div>
+    </div>
+    <div class="results-list" id="resultsList"></div>
+    <div class="actions">
+      <button type="button" class="btn secondary" id="editBtn">✏️ Sửa câu trả lời</button>
+      <button type="button" class="btn primary" id="restartBtn">↻ Làm lại</button>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>Tham khảo: <a href="https://kindlemodding.org/jailbreaking/" target="_blank" rel="noopener">Jailbreaking overview</a></span>
+    <span><a href="https://kindlemodding.org/jailbreak-wizard.html" target="_blank" rel="noopener">Mở Wizard chính thức ↗</a></span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  "use strict";
+  const state = {
+    step: 0, serial: "", model: "", firmware: "",
+    canRegister: null, hasAds: null, serialDetected: false,
+    methods: [], data: null
+  };
+  const $ = id => document.getElementById(id);
+  const stepNames = ["Nhận diện Kindle", "Phiên bản firmware", "Khả năng đăng ký", "Quảng cáo trên màn hình khóa"];
+  const dataDate = $("dataDate");
+
+  function esc(value){
+    return String(value == null ? "" : value).replace(/[&<>'"]/g, c => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"
+    })[c]);
+  }
+  function compareVersions(a,b){
+    const aa = String(a).split(".").map(Number);
+    const bb = String(b).split(".").map(Number);
+    for(let i=0;i<Math.max(aa.length,bb.length);i++){
+      const x = aa[i] || 0, y = bb[i] || 0;
+      if(x>y) return 1;
+      if(x<y) return -1;
+    }
+    return 0;
+  }
+  function validFirmware(value){
+    return /^\d{1,2}(?:\.\d{1,2}){1,5}$/.test(value) && Number(value.split(".")[0]) <= 5;
+  }
+  function modelBySerial(value){
+    const serial = String(value || "").toUpperCase().replace(/\s+/g,"");
+    if(!state.data || serial.length < 4) return {model:"",code:"",reason:"Nhập ít nhất 4 ký tự đầu để thử nhận diện."};
+    let code = "";
+    if(serial[0] === "G"){
+      if(serial.length < 6) return {model:"",code:"",reason:"Với serial bắt đầu bằng G, hãy nhập đủ 6–8 ký tự đầu."};
+      code = serial.slice(3,6);
+    } else if (/^[0-9A-F]$/.test(serial[0])){
+      code = serial.slice(2,4);
+    } else {
+      return {model:"",code:"",reason:"Chưa nhận diện được định dạng serial này. Bạn có thể chọn model thủ công."};
+    }
+    const model = state.data.serial_codes[code] || "";
+    return {model,code,reason:model ? "Đã tìm thấy mã model trong bảng cục bộ." : "Mã " + code + " chưa có trong bảng cục bộ. Hãy xác nhận model trên Kindle và chọn thủ công."};
+  }
+  function modelLabel(id){
+    const m = (state.data.models || []).find(x=>x.id===id);
+    return m ? m.label : (id || "Chưa chọn model");
+  }
+  function stepValid(){
+    if(state.step===0) return !!state.model;
+    if(state.step===1) return validFirmware(state.firmware);
+    if(state.step===2) return typeof state.canRegister==="boolean";
+    if(state.step===3) return typeof state.hasAds==="boolean";
+    return false;
+  }
+  function refreshProgress(){
+    $("progress").innerHTML = stepNames.map((_,n)=>'<div class="segment '+(n<=state.step?"done":"")+'"></div>').join("");
+    $("stepName").textContent = stepNames[state.step] || "Kết quả";
+    $("stepCounter").textContent = "Bước " + (state.step+1) + "/4";
+    $("prevBtn").disabled = state.step===0;
+    $("nextBtn").disabled = !stepValid();
+    $("nextBtn").textContent = state.step===3 ? "Xem kết quả →" : "Tiếp tục →";
+  }
+  function renderStep(){
+    refreshProgress();
+    const root=$("stepContent");
+    if(state.step===0){
+      const options = (state.data.models || []).map(m=>'<option value="'+esc(m.id)+'" '+(state.model===m.id?"selected":"")+'>'+esc(m.label)+' ['+esc(m.id)+']</option>').join("");
+      root.innerHTML =
+        '<h2>Nhận diện model Kindle</h2>'+
+        '<p class="lead">Bạn chỉ cần nhập <strong>8 ký tự đầu của serial</strong> (không cần nhập toàn bộ serial). Nếu mã chưa nhận diện được, hãy xác nhận model trong phần Device info rồi chọn thủ công.</p>'+
+        '<label class="field-label" for="serialInput">8 ký tự đầu của serial (không bắt buộc nếu chọn model thủ công)</label>'+
+        '<input id="serialInput" type="text" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Ví dụ: G090…">'+
+        '<div class="help">Trên Kindle: dấu ba chấm → Settings → Device options → Device info. Giữ kín phần serial còn lại; không gửi toàn bộ serial lên Internet.</div>'+
+        '<div class="status info" id="serialStatus" role="status">Nhập serial để thử nhận diện tự động, hoặc chọn model ở bên dưới.</div>'+
+        '<div class="separator">Hoặc chọn model thủ công</div>'+
+        '<label class="field-label" for="manualModel">Dòng Kindle</label>'+
+        '<select id="manualModel"><option value="">— Chọn model / mã cộng đồng —</option>'+options+'</select>'+
+        '<div class="help">Nếu chưa chắc model, hãy kiểm tra tên model và firmware trước khi thực hiện. Với thiết bị đời mới chưa có trong bảng, công cụ sẽ không tự đoán phương pháp.</div>';
+      const serialInput=$("serialInput");
+      serialInput.value=state.serial;
+      serialInput.addEventListener("input",function(){
+        state.serial = serialInput.value.toUpperCase().replace(/\s+/g,"").slice(0,8);
+        serialInput.value=state.serial;
+        state.serialDetected=false;
+        const r=modelBySerial(state.serial);
+        if(r.model){state.model=r.model;state.serialDetected=true;}
+        else state.model="";
+        const sel=$("manualModel");
+        sel.value=state.model;
+        const msg=$("serialStatus");
+        if(r.model){
+          msg.className="status good";
+          msg.textContent="Đã nhận diện: "+modelLabel(r.model)+" · mã "+r.code+". Vui lòng xác nhận lại model trước khi tiếp tục.";
+        }else{
+          msg.className="status info";
+          msg.textContent=r.reason;
+        }
+        refreshProgress();
+      });
+      $("manualModel").addEventListener("change",function(){
+        state.model=this.value;
+        state.serialDetected=false;
+        const msg=$("serialStatus");
+        if(state.model){
+          msg.className="status good";
+          msg.textContent="Đã chọn thủ công: "+modelLabel(state.model)+". Hãy chắc chắn model này khớp với thiết bị của bạn.";
+        } else {
+          const r=modelBySerial(state.serial);
+          msg.className="status info";
+          msg.textContent=r.reason;
+        }
+        refreshProgress();
+      });
+      // Rerender should preserve the manually selected or detected model.
+      $("manualModel").value=state.model;
+    } else if(state.step===1){
+      root.innerHTML =
+        '<h2>Nhập firmware hiện tại</h2>'+
+        '<p class="lead">Firmware nằm trong cùng màn hình Device info. Nhập đúng toàn bộ dãy số, gồm cả những nhóm số phía sau nếu có.</p>'+
+        '<label class="field-label" for="firmwareInput">Firmware</label>'+
+        '<input id="firmwareInput" type="text" maxlength="20" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="Ví dụ: 5.19.4">'+
+        '<div class="help">Ví dụ hợp lệ: 5.16.3 · 5.19.2.0.1 · 5.20.1.0.2. Không dựa vào firmware của máy khác cùng tên.</div>'+
+        '<div class="status info" id="firmwareStatus" role="status">Chưa nhập firmware.</div>';
+      const input=$("firmwareInput");
+      input.value=state.firmware;
+      input.addEventListener("input",function(){
+        state.firmware=input.value.replace(/[^0-9.]/g,"");
+        input.value=state.firmware;
+        const status=$("firmwareStatus");
+        if(validFirmware(state.firmware)){
+          status.className="status good";status.textContent="Định dạng hợp lệ. Hãy kiểm tra lại từng con số trước khi tiếp tục.";
+        }else{
+          status.className="status bad";status.textContent="Định dạng chưa hợp lệ. Nhập firmware như 5.19.4.";
+        }
+        refreshProgress();
+      });
+      if(state.firmware){
+        const status=$("firmwareStatus");
+        status.className=validFirmware(state.firmware)?"status good":"status bad";
+        status.textContent=validFirmware(state.firmware)?"Định dạng hợp lệ. Hãy kiểm tra lại từng con số trước khi tiếp tục.":"Định dạng chưa hợp lệ.";
+      }
+    } else if(state.step===2){
+      root.innerHTML =
+        '<h2>Kindle của bạn có thể đăng ký với Amazon không?</h2>'+
+        '<p class="lead">Hãy trả lời dựa trên tình trạng thực tế. Một số phương pháp không phù hợp với thiết bị bị blacklist hoặc không thể đăng ký.</p>'+
+        '<div class="options">'+
+          option("register-yes","Có thể đăng ký","Thiết bị có thể kết nối với tài khoản Amazon.",state.canRegister===true)+
+          option("register-no","Không thể đăng ký","Không kết nối được hoặc thiết bị bị blacklist.",state.canRegister===false)+
+        '</div>'+
+        '<div class="help">Đừng đăng ký hoặc kết nối Wi‑Fi chỉ để thử nếu bạn đang cố giữ một firmware có thể jailbreak. Hãy đọc hướng dẫn chính thức trước.</div>';
+      root.querySelectorAll("[data-answer]").forEach(btn=>btn.addEventListener("click",()=>{
+        state.canRegister=btn.dataset.answer==="true";
+        renderStep();
+      }));
+    } else if(state.step===3){
+      root.innerHTML =
+        '<h2>Kindle có hiển thị quảng cáo trên màn hình khóa không?</h2>'+
+        '<p class="lead">Hãy kiểm tra màn hình khóa: bản có quảng cáo thường hiển thị quảng cáo/sản phẩm; bản không quảng cáo thường hiển thị ảnh hoặc bìa sách.</p>'+
+        '<div class="options">'+
+          option("ads-yes","Có quảng cáo","Màn hình khóa hiện quảng cáo.",state.hasAds===true)+
+          option("ads-no","Không có quảng cáo","Màn hình khóa hiện ảnh hoặc bìa sách.",state.hasAds===false)+
+          option("ads-unknown","Không chắc","Công cụ sẽ không dùng AdBreak như một gợi ý.",state.hasAds==="unknown")+
+        '</div>'+
+        '<div class="help">Nếu không chắc, hãy chọn “Không chắc” thay vì đoán. Phương pháp yêu cầu quảng cáo sẽ không được đưa vào kết quả khi bạn chưa xác nhận.</div>';
+      root.querySelectorAll("[data-answer]").forEach(btn=>btn.addEventListener("click",()=>{
+        if(btn.dataset.answer==="unknown") state.hasAds="unknown";
+        else state.hasAds=btn.dataset.answer==="true";
+        renderStep();
+      }));
+    }
+    refreshProgress();
+  }
+  function option(id,title,desc,selected){
+    let answer = id.endsWith("-yes") ? "true" : (id.endsWith("-no") ? "false" : "unknown");
+    return '<button type="button" class="option '+(selected?"selected":"")+'" data-answer="'+answer+'"><strong>'+esc(title)+'</strong><span>'+esc(desc)+'</span></button>';
+  }
+  function methodMatches(method){
+    if(!(method.models||[]).includes(state.model)) return false;
+    if(method.registration && state.canRegister!==true) return false;
+    if(method.ads && state.hasAds!==true) return false;
+    return (method.firmwares||[]).some(rule=>{
+      if(!(rule.models||["all"]).includes("all") && !rule.models.includes(state.model)) return false;
+      const outliers=rule.outliers||{accepted:[],denied:[]};
+      if((outliers.denied||[]).includes(state.firmware)) return false;
+      if((outliers.accepted||[]).includes(state.firmware)) return true;
+      return compareVersions(state.firmware,rule.min)>=0 && compareVersions(state.firmware,rule.max)<=0;
+    });
+  }
+  function getResults(){return (state.data.jailbreaks||[]).filter(methodMatches);}
+  function resultCard(method,index){
+    const recommended=index===0;
+    let notes=[];
+    if(method.registration) notes.push("Phương pháp này bị loại khi bạn cho biết Kindle không thể đăng ký.");
+    if(method.ads) notes.push("Phương pháp này yêu cầu phiên bản có quảng cáo.");
+    if(method.name==="Shadow") notes.push("Trang chính thức từng thông báo hỗ trợ Windows đang tạm thời bị rút lại; kiểm tra hướng dẫn mới nhất trước khi thao tác.");
+    return '<article class="method '+(recommended?"recommended":"")+'>'+
+      '<span class="tag">'+(recommended?"Gợi ý đầu tiên":"Phương án thay thế")+'</span>'+
+      '<h3>'+esc(method.name)+'</h3>'+
+      '<p>Model '+esc(state.model)+' · Firmware '+esc(state.firmware)+'</p>'+
+      (notes.length?'<p>'+notes.map(esc).join(" ")+'</p>':'')+
+      '<a class="cta" href="'+esc(method.url)+'" target="_blank" rel="noopener">Mở hướng dẫn chính thức ↗</a>'+
+      '</article>';
+  }
+  function renderResults(){
+    state.methods=getResults();
+    $("wizardPanel").classList.add("hidden");
+    $("resultsPanel").classList.remove("hidden");
+    $("resultContext").innerHTML=[
+      modelLabel(state.model),
+      "Firmware "+state.firmware,
+      state.canRegister?"Có thể đăng ký":"Không thể đăng ký",
+      state.hasAds===true?"Có quảng cáo":state.hasAds===false?"Không có quảng cáo":"Chưa chắc quảng cáo"
+    ].map(v=>'<span class="result-pill">'+esc(v)+'</span>').join("");
+    if(state.methods.length){
+      $("resultTitle").textContent="Có "+state.methods.length+" phương pháp phù hợp theo bảng tham chiếu";
+      $("resultsList").innerHTML=
+        '<div class="alert"><strong>Trước khi bắt đầu:</strong> Hãy mở hướng dẫn được đề xuất và xác nhận lại model, firmware, điều kiện đăng ký và các lưu ý phiên bản hệ điều hành. Không thử theo hướng dẫn dành cho model khác.</div>'+
+        state.methods.map(resultCard).join("")+
+        '<p class="help">Thứ tự hiển thị tuân theo thứ tự ưu tiên trong bộ dữ liệu tham chiếu. Nếu kết quả khác với Wizard chính thức, hãy ưu tiên Wizard chính thức.</p>';
+    }else{
+      $("resultTitle").textContent="Chưa tìm thấy phương pháp khớp";
+      $("resultsList").innerHTML=
+        '<div class="empty"><h3>Chưa có kết quả phù hợp trong bảng dữ liệu này</h3>'+
+        '<p>Điều đó không có nghĩa là chắc chắn không có phương pháp jailbreak; bảng tham chiếu có thể chưa cập nhật hoặc model/firmware đã nhập chưa chính xác.</p>'+
+        '<p>Hãy kiểm tra lại firmware và mở <a href="https://kindlemodding.org/jailbreak-wizard.html" target="_blank" rel="noopener">Wizard chính thức của KindleModding</a> để xác nhận.</p>'+
+        '<p>Không tự ý cập nhật, downgrade hoặc thử ngẫu nhiên một phương pháp khác chỉ để tìm cách vượt qua thông báo này.</p></div>';
+    }
+  }
+  function next(){
+    if(!stepValid())return;
+    if(state.step<3){state.step++;renderStep();}
+    else renderResults();
+  }
+  function stepValid(){
+    if(state.step===0)return !!state.model;
+    if(state.step===1)return validFirmware(state.firmware);
+    if(state.step===2)return typeof state.canRegister==="boolean";
+    if(state.step===3)return typeof state.hasAds==="boolean" || state.hasAds==="unknown";
+    return false;
+  }
+  $("nextBtn").addEventListener("click",next);
+  $("prevBtn").addEventListener("click",()=>{
+    if(state.step>0){state.step--;renderStep();}
+  });
+  $("editBtn").addEventListener("click",()=>{
+    $("resultsPanel").classList.add("hidden");
+    $("wizardPanel").classList.remove("hidden");
+    state.step=0;renderStep();
+  });
+  $("restartBtn").addEventListener("click",()=>{
+    state.step=0;state.serial="";state.model="";state.firmware="";
+    state.canRegister=null;state.hasAds=null;state.serialDetected=false;state.methods=[];
+    $("resultsPanel").classList.add("hidden");
+    $("wizardPanel").classList.remove("hidden");
+    renderStep();
+  });
+
+  fetch("./data.json",{cache:"no-store"})
+    .then(res=>{if(!res.ok)throw new Error("Không tải được data.json");return res.json();})
+    .then(data=>{
+      state.data=data;
+      dataDate.textContent=data.generated_at||"—";
+      $("stepContent").innerHTML="";
+      renderStep();
+    })
+    .catch(()=>{
+      $("stepContent").innerHTML='<h2>Không tải được dữ liệu</h2><p class="lead">Hãy kiểm tra GitHub Pages đã publish cả <code>index.html</code> và <code>data.json</code> trong thư mục <code>jailbreak-wizard/</code> chưa.</p>';
+      $("nextBtn").disabled=true;
+    });
+})();
+</script>
+</body>
+</html>
