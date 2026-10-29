@@ -1,0 +1,780 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-10-29",
+  "provenance": "Compatibility ranges and model/device-code references adapted as factual data from public KindleModding pages and KindleTool model data; this is an independent, unofficial implementation.",
+  "sources": [
+    "https://kindlemodding.org/jailbreak-wizard.html",
+    "https://kindlemodding.org/jailbreaking/",
+    "https://github.com/KindleModding/kindlemodding.github.io/blob/main/static/jailbreaks.json",
+    "https://github.com/KindleModding/kindlemodding.github.io/blob/main/static/models_json_generator.py"
+  ],
+  "models": [
+    {
+      "id": "K1",
+      "label": "Kindle thế hệ 1 (2007)",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "K2",
+      "label": "Kindle thế hệ 2",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "DX",
+      "label": "Kindle DX / DXG",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "K3",
+      "label": "Kindle Keyboard (K3)",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "K4",
+      "label": "Kindle thế hệ 4",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "KT",
+      "label": "Kindle Touch",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "PW",
+      "label": "Kindle Paperwhite thế hệ 1",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "PW2",
+      "label": "Kindle Paperwhite thế hệ 2",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "KV",
+      "label": "Kindle Voyage",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "KT2",
+      "label": "Kindle Basic 7th Gen (2014)",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "KOA",
+      "label": "Kindle Oasis thế hệ 1",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "PW3",
+      "label": "Kindle Paperwhite thế hệ 3",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "KT3",
+      "label": "Kindle Basic 8th Gen (2016)",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "KOA2",
+      "label": "Kindle Oasis thế hệ 2",
+      "group": "Đời cũ"
+    },
+    {
+      "id": "KT4",
+      "label": "Kindle Basic 10th Gen (2019)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "PW4",
+      "label": "Kindle Paperwhite thế hệ 4 (2018)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "KOA3",
+      "label": "Kindle Oasis thế hệ 3",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "PW5",
+      "label": "Kindle Paperwhite thế hệ 5 (2021)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "KT5",
+      "label": "Kindle Basic 11th Gen (2022)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "KS",
+      "label": "Kindle Scribe (2022)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "KT6",
+      "label": "Kindle Basic 11th Gen (2024)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "PW6",
+      "label": "Kindle Paperwhite thế hệ 6 (2024)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "KS2",
+      "label": "Kindle Scribe (2024)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "CS",
+      "label": "Kindle Colorsoft (2024)",
+      "group": "Kindle hiện đại"
+    },
+    {
+      "id": "KT7",
+      "label": "Kindle Basic (2026)",
+      "group": "Model mới – chưa có phương pháp trong bảng dữ liệu"
+    },
+    {
+      "id": "KS3",
+      "label": "Kindle Scribe thế hệ 3",
+      "group": "Model mới – chưa có phương pháp trong bảng dữ liệu"
+    },
+    {
+      "id": "KSC",
+      "label": "Kindle Scribe Colorsoft",
+      "group": "Model mới – chưa có phương pháp trong bảng dữ liệu"
+    },
+    {
+      "id": "KM",
+      "label": "Kindle x Migu",
+      "group": "Model đặc biệt"
+    }
+  ],
+  "serial_codes": {
+    "10": "KT",
+    "11": "KT",
+    "12": "KT",
+    "13": "KV",
+    "17": "PW2",
+    "20": "PW",
+    "23": "K4",
+    "24": "PW",
+    "52": "KV",
+    "53": "KV",
+    "54": "KV",
+    "60": "PW2",
+    "61": "PW2",
+    "62": "PW2",
+    "102": "PW4",
+    "103": "PW4",
+    "219": "PW5",
+    "227": "KS",
+    "263": "KS",
+    "270": "KS",
+    "346": "PW6",
+    "349": "PW6",
+    "454": "KS3",
+    "455": "CS",
+    "456": "CS",
+    "01": "K1",
+    "02": "K2",
+    "03": "K2",
+    "04": "DX",
+    "05": "DX",
+    "09": "DX",
+    "06": "K3",
+    "08": "K3",
+    "0A": "K3",
+    "0E": "K4",
+    "0F": "KT",
+    "1B": "PW",
+    "1C": "PW",
+    "1D": "PW",
+    "1F": "PW",
+    "5A": "PW2",
+    "D4": "PW2",
+    "D5": "PW2",
+    "D6": "PW2",
+    "D7": "PW2",
+    "D8": "PW2",
+    "F2": "PW2",
+    "5F": "PW2",
+    "2A": "KV",
+    "4F": "KV",
+    "C6": "KT2",
+    "DD": "KT2",
+    "0GC": "KOA",
+    "0GD": "KOA",
+    "0GR": "KOA",
+    "0GS": "KOA",
+    "0GT": "KOA",
+    "0GU": "KOA",
+    "0G1": "PW3",
+    "0G2": "PW3",
+    "0G4": "PW3",
+    "0G5": "PW3",
+    "0G6": "PW3",
+    "0G7": "PW3",
+    "0KB": "PW3",
+    "0KC": "PW3",
+    "0KD": "PW3",
+    "0KE": "PW3",
+    "0KF": "PW3",
+    "0KG": "PW3",
+    "0LK": "PW3",
+    "0LL": "PW3",
+    "TTT": "PW3",
+    "0DU": "KT3",
+    "0K9": "KT3",
+    "0KA": "KT3",
+    "0LM": "KOA2",
+    "0LN": "KOA2",
+    "0LP": "KOA2",
+    "0LQ": "KOA2",
+    "0P1": "KOA2",
+    "0P2": "KOA2",
+    "0P6": "KOA2",
+    "0P7": "KOA2",
+    "0P8": "KOA2",
+    "0S1": "KOA2",
+    "0S2": "KOA2",
+    "0S3": "KOA2",
+    "0S4": "KOA2",
+    "0S7": "KOA2",
+    "0SA": "KOA2",
+    "0PP": "PW4",
+    "0T1": "PW4",
+    "0T2": "PW4",
+    "0T3": "PW4",
+    "0T4": "PW4",
+    "0T5": "PW4",
+    "0T6": "PW4",
+    "0T7": "PW4",
+    "0TJ": "PW4",
+    "0TK": "PW4",
+    "0TL": "PW4",
+    "0TM": "PW4",
+    "0TN": "PW4",
+    "16Q": "PW4",
+    "16R": "PW4",
+    "16S": "PW4",
+    "16T": "PW4",
+    "16U": "PW4",
+    "16V": "PW4",
+    "0PL": "PW4",
+    "10L": "KT4",
+    "0WF": "KT4",
+    "0WG": "KT4",
+    "0WH": "KT4",
+    "0WJ": "KT4",
+    "0VB": "KT4",
+    "11L": "KOA3",
+    "0WQ": "KOA3",
+    "0WP": "KOA3",
+    "0WN": "KOA3",
+    "0WM": "KOA3",
+    "0WL": "KOA3",
+    "1LG": "PW5",
+    "1Q0": "PW5",
+    "1VD": "PW5",
+    "1PX": "PW5",
+    "21A": "PW5",
+    "2BH": "PW5",
+    "2BJ": "PW5",
+    "2DK": "PW5",
+    "22D": "KT5",
+    "25T": "KT5",
+    "23A": "KT5",
+    "2AQ": "KT5",
+    "2AP": "KT5",
+    "1XH": "KT5",
+    "22C": "KT5",
+    "27J": "KS",
+    "2BL": "KS",
+    "2BM": "KS",
+    "23L": "KS",
+    "23M": "KS",
+    "3L5": "KT6",
+    "3L6": "KT6",
+    "3L4": "KT6",
+    "3L3": "KT6",
+    "A89": "KT6",
+    "3L2": "KT6",
+    "3KM": "KT6",
+    "33X": "PW6",
+    "33W": "PW6",
+    "3HA": "PW6",
+    "3H5": "PW6",
+    "3H3": "PW6",
+    "3H8": "PW6",
+    "3J5": "PW6",
+    "3JS": "PW6",
+    "3H9": "CS",
+    "3H4": "CS",
+    "3HB": "CS",
+    "3H6": "CS",
+    "3H2": "CS",
+    "34X": "CS",
+    "3H7": "CS",
+    "3JT": "CS",
+    "3J6": "CS",
+    "4EP": "CS",
+    "3V0": "KS2",
+    "3V1": "KS2",
+    "3X5": "KS2",
+    "3UV": "KS2",
+    "3X4": "KS2",
+    "3X3": "KS2",
+    "41E": "KS2",
+    "41D": "KS2",
+    "6HQ": "KT7",
+    "6HR": "KT7",
+    "56S": "KT7",
+    "56T": "KT7",
+    "56U": "KT7",
+    "56V": "KT7",
+    "4PG": "KS3",
+    "4PE": "KS3",
+    "4PL": "KS3",
+    "4F8": "KS3",
+    "4FA": "KS3",
+    "4VX": "KSC",
+    "4PF": "KSC",
+    "4PH": "KSC",
+    "4F9": "KSC",
+    "4FB": "KSC",
+    "46P": "KSC"
+  },
+  "jailbreaks": [
+    {
+      "name": "WinterBreak2",
+      "url": "https://kindlemodding.org/jailbreaking/Legacy/WinterBreak2/",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "PW",
+        "PW2",
+        "KV",
+        "KT2",
+        "PW3",
+        "KOA",
+        "KT3",
+        "KOA2",
+        "PW4",
+        "KT4",
+        "KOA3",
+        "PW5",
+        "KT5",
+        "KS"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "5.6.1.1",
+          "max": "5.16.3",
+          "outliers": {
+            "accepted": [
+              "5.16.5"
+            ],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "SpiderCat",
+      "url": "https://kindlemodding.org/jailbreaking/SpiderCat",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "PW4",
+        "KT4",
+        "KOA3",
+        "PW5",
+        "KT5",
+        "KT6",
+        "PW6",
+        "CS",
+        "KS",
+        "KS2"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "5.16.3",
+          "max": "5.19.5",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Véra",
+      "url": "https://kindlemodding.org/jailbreaking/Vera/",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "PW5",
+        "KT5",
+        "KT6",
+        "PW6",
+        "CS",
+        "KS",
+        "KS2"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "5.17.1",
+          "max": "5.20.1.0.2",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Nosebleed",
+      "url": "https://kindlemodding.org/jailbreaking/Nosebleed/",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "KT5",
+        "PW5",
+        "KOA3",
+        "PW6",
+        "KT6"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "KT5",
+            "PW5",
+            "KOA3"
+          ],
+          "min": "5.16.4",
+          "max": "5.18.6",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        },
+        {
+          "models": [
+            "PW6",
+            "KT6"
+          ],
+          "min": "5.16.4",
+          "max": "5.17.1.0.4",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sanctuary",
+      "url": "https://kindlemodding.org/jailbreaking/Sanctuary",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "PW4",
+        "KT4",
+        "KOA3",
+        "PW5",
+        "KT5",
+        "KS",
+        "KT6",
+        "PW6",
+        "KS2",
+        "CS"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "5.16.4",
+          "max": "5.18.3",
+          "outliers": {
+            "accepted": [],
+            "denied": [
+              "5.16.5"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "WinterBreak",
+      "url": "https://kindlemodding.org/jailbreaking/WinterBreak/",
+      "registration": true,
+      "ads": false,
+      "models": [
+        "PW",
+        "PW2",
+        "KV",
+        "KT2",
+        "PW3",
+        "KOA",
+        "KT3",
+        "KOA2",
+        "PW4",
+        "KT4",
+        "KOA3",
+        "PW5",
+        "KT5",
+        "KS",
+        "KT6",
+        "PW6",
+        "KS2",
+        "CS"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "5.6.1.1",
+          "max": "5.18.0.2",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "SpringBreak",
+      "url": "https://kindlemodding.org/jailbreaking/SpringBreak",
+      "registration": true,
+      "ads": false,
+      "models": [
+        "KT5",
+        "PW5",
+        "KT4",
+        "PW4"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "KT5",
+            "PW5"
+          ],
+          "min": "5.18.1",
+          "max": "5.19.2.0.1",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        },
+        {
+          "models": [
+            "KT4",
+            "PW4"
+          ],
+          "min": "5.18.1",
+          "max": "5.18.1.1.1",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shadow",
+      "url": "https://kindlemodding.org/jailbreaking/Shadow/",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "KS",
+        "KS2",
+        "CS",
+        "PW6",
+        "KT6"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "5.19.4",
+          "max": "5.19.6",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "AdBreak",
+      "url": "https://kindlemodding.org/jailbreaking/AdBreak/",
+      "registration": true,
+      "ads": true,
+      "models": [
+        "PW4",
+        "KT4",
+        "KOA3",
+        "PW5",
+        "KT5",
+        "KS",
+        "KT6",
+        "PW6"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "KOA3",
+            "PW5",
+            "KT5",
+            "KS",
+            "KT6",
+            "PW6"
+          ],
+          "min": "5.18.1",
+          "max": "5.18.5.0.1",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        },
+        {
+          "models": [
+            "PW4",
+            "KT4"
+          ],
+          "min": "5.18.1",
+          "max": "5.18.1",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "NiLuJe K2/DX/DXG/K3 Jailbreak",
+      "url": "https://kindlemodding.org/jailbreaking/Legacy/K2DXDXGK3-Jailbreak/",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "K2",
+        "DX",
+        "K3"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "2.0.0",
+          "max": "4.0.0",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "NiLuJe K4 Jailbreak",
+      "url": "https://kindlemodding.org/jailbreaking/Legacy/K4-Jailbreak/",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "K4"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "2.0.0",
+          "max": "5.0.0",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "NiLuJe K5 Jailbreak",
+      "url": "https://kindlemodding.org/jailbreaking/Legacy/K5-Jailbreak/",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "KT"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "5.0.0",
+          "max": "5.4.4.2",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "LEGACY",
+      "url": "https://kindlemodding.org/jailbreaking/Legacy/index.html",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "K1"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "0.0.0",
+          "max": "2.0.0",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    },
+    {
+      "name": "Android Jailbreak Methods",
+      "url": "https://www.mobileread.com/forums/showthread.php?p=4087697",
+      "registration": false,
+      "ads": false,
+      "models": [
+        "KM"
+      ],
+      "firmwares": [
+        {
+          "models": [
+            "all"
+          ],
+          "min": "0.0.0",
+          "max": "999.0.0",
+          "outliers": {
+            "accepted": [],
+            "denied": []
+          }
+        }
+      ]
+    }
+  ]
+}
