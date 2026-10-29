@@ -153,6 +153,7 @@ small{font-size:11px}
 
   <footer class="footer">
     <span>Tham khảo: <a href="https://kindlemodding.org/jailbreaking/" target="_blank" rel="noopener">Jailbreaking overview</a></span>
+    <span><a href="https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/" target="_blank" rel="noopener">Wizard chọn máy đọc sách ↗</a></span>
     <span><a href="https://kindlemodding.org/jailbreak-wizard.html" target="_blank" rel="noopener">Mở Wizard chính thức ↗</a></span>
   </footer>
 </main>
@@ -205,13 +206,6 @@ small{font-size:11px}
   function modelLabel(id){
     const m = (state.data.models || []).find(x=>x.id===id);
     return m ? m.label : (id || "Chưa chọn model");
-  }
-  function stepValid(){
-    if(state.step===0) return !!state.model;
-    if(state.step===1) return validFirmware(state.firmware);
-    if(state.step===2) return typeof state.canRegister==="boolean";
-    if(state.step===3) return typeof state.hasAds==="boolean";
-    return false;
   }
   function refreshProgress(){
     $("progress").innerHTML = stepNames.map((_,n)=>'<div class="segment '+(n<=state.step?"done":"")+'"></div>').join("");
