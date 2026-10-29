@@ -302,7 +302,7 @@ small{font-size:11px}
           option("register-yes","Có thể đăng nhập","Kindle có thể đăng nhập vào tài khoản Amazon.",state.canRegister===true)+
           option("register-no","Không thể đăng nhập","Kindle không thể đăng nhập vào tài khoản Amazon hoặc đang bị blacklist.",state.canRegister===false)+
         '</div>'+
-        '<div class="help">Đừng đăng ký hoặc kết nối Wi‑Fi chỉ để thử nếu bạn đang cố giữ một firmware có thể jailbreak. Hãy đọc hướng dẫn chính thức trước.</div>';
+        '<div class="help">Đừng đăng nhập hoặc kết nối Wi‑Fi chỉ để thử nếu bạn đang cố giữ một firmware có thể jailbreak. Hãy đọc hướng dẫn chính thức trước.</div>';
       root.querySelectorAll("[data-answer]").forEach(btn=>btn.addEventListener("click",()=>{
         state.canRegister=btn.dataset.answer==="true";
         renderStep();
@@ -345,9 +345,10 @@ small{font-size:11px}
   function resultCard(method,index){
     const recommended=index===0;
     let notes=[];
-    if(method.registration) notes.push("Phương pháp này bị loại khi bạn cho biết Kindle không thể đăng ký.");
+    if(method.registration) notes.push("Phương pháp này có thể không phù hợp nếu Kindle của bạn không thể đăng nhập vào tài khoản Amazon.");
     if(method.ads) notes.push("Phương pháp này yêu cầu phiên bản có quảng cáo.");
-    if(method.name==="Shadow") notes.push("Tại thời điểm cập nhật dữ liệu, trang Shadow có thông báo hỗ trợ Windows tạm thời bị rút lại; hãy xác nhận lại hướng dẫn mới nhất trước khi thao tác.");
+    if(method.name==="Shadow") notes.push("Tại thời điểm cập nhật dữ liệu, hướng dẫn Shadow có lưu ý riêng về hỗ trợ Windows; hãy kiểm tra bài hướng dẫn mới nhất trước khi thao tác.");
+    if(method.guide_note) notes.push(method.guide_note);
     return '<article class="method '+(recommended?"recommended":"")+'>'+
       '<span class="tag">'+(recommended?"Gợi ý đầu tiên":"Phương án thay thế")+'</span>'+
       '<h3>'+esc(method.name)+'</h3>'+
