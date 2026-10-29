@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
-<title>Kindle Jailbreak Wizard · Máy Đọc Sách</title>
-<meta name="description" content="Công cụ tham khảo chọn phương pháp jailbreak Kindle theo model, firmware, khả năng đăng ký và phiên bản quảng cáo.">
+<title>Kindle Jailbreak Wizard tiếng Việt – Tra cứu jailbreak Kindle | Máy Đọc Sách</title>
+<meta name="description" content="Kindle Jailbreak Wizard tiếng Việt: tra cứu phương pháp jailbreak theo model, firmware, khả năng đăng nhập Amazon và quảng cáo. Có hướng dẫn tiếng Việt trên MayDocSach.">
 <style>
 :root{
  --page:#f5f7fb;--surface:#fff;--surface-soft:#f8fafc;--surface-hover:#f1f5f9;
@@ -103,6 +103,29 @@ small{font-size:11px}
  .results-list{padding:12px}
  .footer{font-size:10px}
 }
+
+.seo-content{margin-top:20px;border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:23px 22px;box-shadow:var(--shadow)}
+.seo-content h2{font-size:21px;margin:0 0 8px}
+.seo-content h3{font-size:14px;line-height:1.35;margin:0 0 7px}
+.seo-content p,.seo-content li{font-size:12px;color:var(--muted);line-height:1.75}
+.seo-content p{margin:6px 0 11px}
+.seo-content ul,.seo-content ol{padding-left:19px;margin:8px 0 12px}
+.seo-content li{padding-left:2px;margin:3px 0}
+.seo-intro{margin-bottom:18px}
+.seo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:13px 0 23px}
+.seo-card{border:1px solid var(--border);border-radius:12px;background:var(--surface-soft);padding:14px}
+.seo-card p:last-child{margin-bottom:0}
+.seo-block{border-top:1px solid var(--border);padding-top:20px;margin-top:18px}
+.guide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.guide-link{border:1px solid var(--border);border-radius:10px;padding:11px 12px;text-decoration:none;background:var(--surface-soft);display:block;font-size:12px;font-weight:750;color:var(--text)}
+.guide-link:hover{border-color:var(--accent);background:var(--selected)}
+.guide-link small{display:block;margin-top:3px;font-weight:450;color:var(--muted);line-height:1.45}
+.seo-content .notice{margin-top:12px;padding:12px 13px;background:var(--warn);color:var(--warn-text);border-radius:10px;font-size:12px;line-height:1.65}
+.seo-content details{border-top:1px solid var(--border);padding:11px 0}
+.seo-content summary{cursor:pointer;font-weight:750;font-size:12px}
+.seo-content details p{margin:8px 0 0}
+@media(max-width:600px){.seo-content{padding:18px 14px}.seo-grid,.guide-grid{grid-template-columns:1fr}.seo-content h2{font-size:19px}}
+
 </style>
 </head>
 <body>
@@ -148,6 +171,86 @@ small{font-size:11px}
     <div class="actions">
       <button type="button" class="btn secondary" id="editBtn">✏️ Sửa câu trả lời</button>
       <button type="button" class="btn primary" id="restartBtn">↻ Làm lại</button>
+    </div>
+  </section>
+
+
+  <section class="seo-content" aria-labelledby="guide-title">
+    <div class="seo-intro">
+      <div class="kicker">Hướng dẫn sử dụng</div>
+      <h2 id="guide-title">Cách dùng Kindle Jailbreak Wizard tiếng Việt</h2>
+      <p>Kindle Jailbreak Wizard của MayDocSach giúp bạn đối chiếu model Kindle, phiên bản firmware và một số điều kiện thiết bị để tìm các hướng dẫn jailbreak có thể phù hợp. Công cụ chỉ đưa ra kết quả tham khảo dựa trên bảng dữ liệu được lưu cùng trang; khả năng jailbreak thực tế còn phụ thuộc model, firmware chính xác và các điều kiện riêng của từng phương pháp.</p>
+    </div>
+    <div class="seo-grid">
+      <article class="seo-card">
+        <h3>1. Nhập serial để nhận diện Kindle</h3>
+        <p>Trên Kindle, mở dấu ba chấm → <strong>Settings → Device options → Device info</strong>. Nhập 8 ký tự đầu của serial vào Wizard. Nếu không nhận diện được, hãy xác nhận model trên thiết bị rồi chọn model thủ công.</p>
+        <p>Trang chỉ xử lý serial trong trình duyệt; không gửi serial lên máy chủ và không cần nhập toàn bộ số serial.</p>
+      </article>
+      <article class="seo-card">
+        <h3>2. Nhập đúng firmware hiện tại</h3>
+        <p>Nhập toàn bộ phiên bản phần mềm hiển thị trong Device info, gồm cả các nhóm số phía sau nếu có, ví dụ <code>5.19.2.0.1</code>. Không lấy firmware của máy khác cùng tên để suy ra kết quả.</p>
+      </article>
+      <article class="seo-card">
+        <h3>3. Trả lời các câu hỏi về thiết bị</h3>
+        <p>Chọn tình trạng đăng nhập tài khoản Amazon và việc màn hình khóa có quảng cáo hay không. Một số phương pháp jailbreak có thêm điều kiện về đăng ký hoặc quảng cáo.</p>
+        <p><strong>Lưu ý:</strong> không đăng nhập được do lỗi mật khẩu, OTP hoặc mạng không đồng nghĩa chắc chắn máy bị blacklist. Nếu chưa xác định rõ, hãy kiểm tra thêm bằng Wizard chính thức trước khi thao tác.</p>
+      </article>
+      <article class="seo-card">
+        <h3>4. Mở hướng dẫn tương ứng</h3>
+        <p>Kết quả sẽ liệt kê các phương pháp khớp với model, firmware và câu trả lời của bạn trong bộ dữ liệu tham chiếu. Nhấn nút mở hướng dẫn trên MayDocSach, rồi đọc đầy đủ điều kiện và các bước trước khi làm.</p>
+      </article>
+    </div>
+
+    <div class="seo-block">
+      <h2>Cách đọc kết quả jailbreak Kindle</h2>
+      <ul>
+        <li><strong>Có một hoặc nhiều phương pháp:</strong> các điều kiện trong bảng dữ liệu đang khớp với thiết bị bạn nhập. Đây không phải cam kết jailbreak sẽ thành công; hãy kiểm tra lại phạm vi model và firmware trong bài hướng dẫn.</li>
+        <li><strong>Không tìm thấy phương pháp phù hợp:</strong> có thể firmware/model chưa nằm trong dữ liệu, đã thay đổi hoặc câu trả lời của bạn loại một số phương pháp. Điều đó không tự động chứng minh rằng Kindle không thể jailbreak.</li>
+        <li><strong>Kết quả khác Wizard chính thức:</strong> hãy ưu tiên <a href="https://kindlemodding.org/jailbreak-wizard.html" target="_blank" rel="noopener">KindleModding Jailbreaking Wizard</a>, vì đây là nguồn tham chiếu gốc của các quy tắc tương thích.</li>
+      </ul>
+      <div class="notice"><strong>Trước khi jailbreak:</strong> đọc trọn bài hướng dẫn dành đúng model và firmware của bạn. Không cài firmware, downgrade, factory reset hoặc chạy tệp không rõ nguồn chỉ để thử một phương pháp khác. Nếu có cảnh báo riêng theo hệ điều hành hoặc phiên bản, hãy làm theo thông tin mới nhất ở bài hướng dẫn đó.</div>
+    </div>
+
+    <div class="seo-block">
+      <h2>Hướng dẫn jailbreak Kindle bằng tiếng Việt</h2>
+      <p>Sau khi Wizard gợi ý phương pháp, mở bài tương ứng dưới đây để xem điều kiện tương thích, tệp cần chuẩn bị và quy trình cài đặt. Các bài này thuộc thư viện MayDocSach.</p>
+      <div class="guide-grid">
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-less-than-5.20.1-bang-vera">Jailbreak bằng Véra<small>Kiểm tra firmware và model được hỗ trợ.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/huong-dan-jailbreak-kindle-bang-shadow">Jailbreak bằng Shadow<small>Đọc lưu ý về phạm vi hỗ trợ trước khi bắt đầu.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-less-than-5.19.5-bang-spidercat">Jailbreak bằng SpiderCat<small>Đối chiếu đúng khoảng firmware của bài.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.19.2-bang-springbreak">Jailbreak bằng SpringBreak<small>Hướng dẫn cho các trường hợp firmware tương ứng.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.18.1-5.18.5.0.1-bang-adbreak">Jailbreak bằng AdBreak<small>Kiểm tra yêu cầu về quảng cáo và firmware.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.16.4-5.18.6-bang-nosebleed">Jailbreak bằng Nosebleed<small>Xem model cụ thể và giới hạn firmware trong bài.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.16.4-5.18.3-bang-sanctuary">Jailbreak bằng Sanctuary<small>Đọc cả các phiên bản firmware ngoại lệ.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-5.6.1.1-5.18.0.2-bang-winterbreak">Jailbreak bằng WinterBreak<small>Đối chiếu model, firmware và tình trạng đăng nhập.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle/jailbreak-less-than-5.16.4-bang-winterbreak2">Jailbreak bằng WinterBreak2<small>Kiểm tra kỹ khoảng firmware được hướng dẫn.</small></a>
+        <a class="guide-link" href="https://maydocsach.gitbook.io/guide/may-doc-sach-kindle/jailbreak-and-cai-koreader-cho-kindle">Tất cả hướng dẫn Jailbreak & KOReader<small>Mục tổng hợp các bài hướng dẫn Kindle trên MayDocSach.</small></a>
+      </div>
+    </div>
+
+    <div class="seo-block" aria-labelledby="wizard-faq-title">
+      <h2 id="wizard-faq-title">Câu hỏi thường gặp về jailbreak Kindle</h2>
+      <details>
+        <summary>Wizard có đảm bảo Kindle của tôi jailbreak được không?</summary>
+        <p>Không. Wizard chỉ đối chiếu dữ liệu model, firmware và các điều kiện được khai báo cho từng phương pháp. Hãy kiểm tra hướng dẫn mới nhất và xác nhận model/firmware chính xác trước khi thao tác.</p>
+      </details>
+      <details>
+        <summary>Vì sao serial không được nhận diện?</summary>
+        <p>Có thể mã serial chưa nằm trong bảng tra cứu hoặc dữ liệu chưa cập nhật. Hãy kiểm tra model trong Device info và chọn thủ công; nếu vẫn không chắc, dùng Wizard chính thức thay vì chọn ngẫu nhiên.</p>
+      </details>
+      <details>
+        <summary>Không đăng nhập được Amazon có nghĩa Kindle bị blacklist không?</summary>
+        <p>Không nhất thiết. Lỗi OTP, mật khẩu, kết nối mạng hoặc dịch vụ có thể ngăn đăng nhập mà không chứng minh thiết bị bị blacklist. Vì một số phương pháp có điều kiện đăng ký, hãy xác minh nguyên nhân trước khi xem kết quả là kết luận cuối cùng.</p>
+      </details>
+      <details>
+        <summary>Tại sao một firmware có nhiều phương pháp jailbreak?</summary>
+        <p>Một số khoảng firmware có thể giao nhau giữa nhiều phương pháp. Các điều kiện như model cụ thể, khả năng đăng nhập và quảng cáo sẽ giúp sàng lọc; hãy đọc từng bài để xác định lựa chọn phù hợp nhất với thiết bị.</p>
+      </details>
+      <details>
+        <summary>Wizard không có kết quả thì nên làm gì?</summary>
+        <p>Kiểm tra lại serial, model và firmware, sau đó mở <a href="https://kindlemodding.org/jailbreak-wizard.html" target="_blank" rel="noopener">Wizard chính thức của KindleModding</a>. Không cập nhật hoặc downgrade firmware chỉ để cố làm cho một phương pháp khớp.</p>
+      </details>
     </div>
   </section>
 
