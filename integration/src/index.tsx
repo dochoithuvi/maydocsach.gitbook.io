@@ -11,6 +11,8 @@ type EmbedProps = {
 
 const DEFAULT_WIZARD_URL =
     'https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/';
+const DEFAULT_JAILBREAK_URL =
+    'https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard/';
 
 const ALLOWED_SOURCE_ROOTS = [
     '/maydocsach.gitbook.io/wizard',
@@ -97,6 +99,34 @@ const handleFetchEvent: FetchEventCallback<RuntimeContext> = async (request, con
     }
 };
 
+function buildWebframeUrl(configuredURL: string, context: RuntimeContext): string {
+    const upstreamURL = new URL(configuredURL);
+    const sourceRoot =
+        getAllowedSourceRoot(upstreamURL.pathname) ??
+        '/maydocsach.gitbook.io/wizard';
+    const routeName = sourceRoot.endsWith('/jailbreak-wizard')
+        ? 'jailbreak-wizard'
+        : 'wizard';
+    const suffix = upstreamURL.pathname.slice(sourceRoot.length) || '/';
+
+    const publicContentBase =
+        context.environment.integration.urls.publicContentEndpoint.replace(
+            /\/$/,
+            '',
+        );
+    const webframeURL = new URL(
+        publicContentBase + '/' + routeName + suffix,
+    );
+
+    webframeURL.searchParams.set('source', upstreamURL.toString());
+    webframeURL.searchParams.set(
+        'v',
+        String(context.environment.integration.version),
+    );
+    webframeURL.searchParams.set('embed', 'gitbook');
+    return webframeURL.toString();
+}
+
 const embedBlock = createComponent<EmbedProps>({
     componentId: 'embed',
 
@@ -105,17 +135,13 @@ const embedBlock = createComponent<EmbedProps>({
             case '@link.unfurl': {
                 const url = action.url;
 
-                if (typeof url !== 'string' || !isAllowedWizardUrl(url)) {
+                if (typeof url !== 'string' || !isAllowedWizardUrl(url) ||
+                    !new URL(url).pathname.startsWith('/maydocsach.gitbook.io/wizard')) {
                     return element;
                 }
 
-                return {
-                    props: {
-                        url,
-                    },
-                };
+                return { props: { url } };
             }
-
             default:
                 return element;
         }
@@ -124,39 +150,39 @@ const embedBlock = createComponent<EmbedProps>({
     async render(element, context) {
         const configuredURL =
             typeof element.props.url === 'string' &&
-            isAllowedWizardUrl(element.props.url)
+            isAllowedWizardUrl(element.props.url) &&
+            new URL(element.props.url).pathname.startsWith('/maydocsach.gitbook.io/wizard')
                 ? element.props.url
                 : DEFAULT_WIZARD_URL;
 
-        const upstreamURL = new URL(configuredURL);
-        const sourceRoot =
-            getAllowedSourceRoot(upstreamURL.pathname) ??
-            '/maydocsach.gitbook.io/wizard';
-        const routeName = sourceRoot.endsWith('/jailbreak-wizard')
-            ? 'jailbreak-wizard'
-            : 'wizard';
-        const suffix = upstreamURL.pathname.slice(sourceRoot.length) || '/';
-
-        const publicContentBase =
-            context.environment.integration.urls.publicContentEndpoint.replace(
-                /\/$/,
-                '',
-            );
-        const webframeURL = new URL(
-            publicContentBase + '/' + routeName + suffix,
-        );
-
-        // Retain the selected source URL for diagnostics and compatibility.
-        webframeURL.searchParams.set('source', upstreamURL.toString());
-        webframeURL.searchParams.set(
-            'v',
-            String(context.environment.integration.version),
-        );
-        webframeURL.searchParams.set('embed', 'gitbook');
-
         return (
             <block>
-                <webframe source={{ url: webframeURL.toString() }} />
+                <webframe source={{ url: buildWebframeUrl(configuredURL, context) }} />
+            </block>
+        );
+    },
+});
+
+const jailbreakBlock = createComponent<EmbedProps>({
+    componentId: 'jailbreak',
+
+    async action(element, action) {
+        if (action.action === '@link.unfurl') {
+            const url = action.url;
+            if (typeof url === 'string' && isAllowedWizardUrl(url) &&
+                new URL(url).pathname.startsWith('/maydocsach.gitbook.io/jailbreak-wizard')) {
+                return { props: { url } };
+            }
+        }
+        return element;
+    },
+
+    async render(_element, context) {
+        // This block is intentionally pinned to the jailbreak-specific URL.
+        // It cannot silently fall back to the e-reader recommendation Wizard.
+        return (
+            <block>
+                <webframe source={{ url: buildWebframeUrl(DEFAULT_JAILBREAK_URL, context) }} />
             </block>
         );
     },
@@ -164,5 +190,5 @@ const embedBlock = createComponent<EmbedProps>({
 
 export default createIntegration({
     fetch: handleFetchEvent,
-    components: [embedBlock],
+    components: [embedBlock, jailbreakBlock],
 });
