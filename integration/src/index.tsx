@@ -12,13 +12,24 @@ type EmbedProps = {
 const DEFAULT_WIZARD_URL =
     'https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/';
 
+const ALLOWED_SOURCE_ROOTS = [
+    '/maydocsach.gitbook.io/wizard',
+    '/maydocsach.gitbook.io/jailbreak-wizard',
+];
+
+function getAllowedSourceRoot(pathname: string): string | undefined {
+    return ALLOWED_SOURCE_ROOTS.find(
+        (root) => pathname === root || pathname.startsWith(root + '/'),
+    );
+}
+
 function isAllowedWizardUrl(url: string): boolean {
     try {
         const parsed = new URL(url);
         return (
             parsed.protocol === 'https:' &&
             parsed.hostname === 'dochoithuvi.github.io' &&
-            parsed.pathname.startsWith('/maydocsach.gitbook.io/wizard')
+            getAllowedSourceRoot(parsed.pathname) !== undefined
         );
     } catch {
         return false;
@@ -33,15 +44,33 @@ const handleFetchEvent: FetchEventCallback<RuntimeContext> = async (request, con
     );
     const requestURL = new URL(request.url);
     const basePath = publicContentEndpoint.pathname.replace(/\/$/, '');
-    const wizardPrefix = basePath + '/wizard';
 
-    if (!requestURL.pathname.startsWith(wizardPrefix)) {
+    const routes = [
+        {
+            slug: 'wizard',
+            upstreamRoot: '/maydocsach.gitbook.io/wizard',
+        },
+        {
+            slug: 'jailbreak-wizard',
+            upstreamRoot: '/maydocsach.gitbook.io/jailbreak-wizard',
+        },
+    ];
+
+    const route = routes.find(({ slug }) => {
+        const prefix = basePath + '/' + slug;
+        return (
+            requestURL.pathname === prefix ||
+            requestURL.pathname.startsWith(prefix + '/')
+        );
+    });
+
+    if (!route) {
         return new Response('Not found', { status: 404 });
     }
 
-    const suffix = requestURL.pathname.slice(wizardPrefix.length);
-    const upstreamPath =
-        '/maydocsach.gitbook.io/wizard' + (suffix || '/');
+    const routePrefix = basePath + '/' + route.slug;
+    const suffix = requestURL.pathname.slice(routePrefix.length) || '/';
+    const upstreamPath = route.upstreamRoot + suffix;
     const upstreamURL = new URL(
         'https://dochoithuvi.github.io' + upstreamPath,
     );
@@ -100,13 +129,24 @@ const embedBlock = createComponent<EmbedProps>({
                 : DEFAULT_WIZARD_URL;
 
         const upstreamURL = new URL(configuredURL);
+        const sourceRoot =
+            getAllowedSourceRoot(upstreamURL.pathname) ??
+            '/maydocsach.gitbook.io/wizard';
+        const routeName = sourceRoot.endsWith('/jailbreak-wizard')
+            ? 'jailbreak-wizard'
+            : 'wizard';
+        const suffix = upstreamURL.pathname.slice(sourceRoot.length) || '/';
 
+        const publicContentBase =
+            context.environment.integration.urls.publicContentEndpoint.replace(
+                /\/$/,
+                '',
+            );
         const webframeURL = new URL(
-            context.environment.integration.urls.publicContentEndpoint +
-                '/wizard/',
+            publicContentBase + '/' + routeName + suffix,
         );
 
-        // Keep the configured Wizard URL available for future compatibility.
+        // Retain the selected source URL for diagnostics and compatibility.
         webframeURL.searchParams.set('source', upstreamURL.toString());
         webframeURL.searchParams.set(
             'v',
@@ -116,9 +156,7 @@ const embedBlock = createComponent<EmbedProps>({
 
         return (
             <block>
-                <webframe
-                    source={{ url: webframeURL.toString() }}
-                />
+                <webframe source={{ url: webframeURL.toString() }} />
             </block>
         );
     },

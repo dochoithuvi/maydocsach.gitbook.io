@@ -1,25 +1,30 @@
 name: maydocsach-ereader-wizard
-title: MayDocSach E-Reader Wizard
-description: Nhúng E-Reader Wizard của MayDocSach trực tiếp vào GitBook.
+title: MayDocSach Wizard
+description: Nhúng công cụ Wiki-eReader và Kindle Jailbreak Wizard trực tiếp vào GitBook.
 summary: |
-  # MayDocSach E-Reader Wizard
+  # MayDocSach Wizard
 
-  Nhúng công cụ chọn máy đọc sách của MayDocSach trực tiếp vào trang GitBook.
+  Nhúng công cụ chọn máy đọc sách và công cụ tra cứu phương pháp jailbreak Kindle trực tiếp vào trang GitBook.
 
-  Wizard có source trên GitHub Pages, nhưng được Integration proxy qua publicContentEndpoint để GitBook nhận đúng cơ chế webframe resize.
+  Các Wizard được phục vụ từ GitHub Pages và proxy qua publicContentEndpoint để GitBook nhận đúng cơ chế webframe resize.
 organization: maydocsach
 visibility: private
 scopes: []
 script: src/index.tsx
 blocks:
   - id: embed
-    title: E-Reader Wizard
-    description: Nhúng E-Reader Wizard của MayDocSach vào trang GitBook.
+    title: MayDocSach Wizard
+    description: Nhúng Wiki-eReader Wizard hoặc Kindle Jailbreak Wizard vào trang GitBook.
     icon: compass
     urlUnfurl:
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/
       - https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/**
+      - https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard
+      - https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard/
+      - https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard/**
 externalLinks:
   - url: https://dochoithuvi.github.io/maydocsach.gitbook.io/wizard/
     label: E-Reader Wizard
+  - url: https://dochoithuvi.github.io/maydocsach.gitbook.io/jailbreak-wizard/
+    label: Kindle Jailbreak Wizard
