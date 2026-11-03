@@ -38,6 +38,10 @@ jobs:
       - name: Install GitBook CLI
         run: npm install --global @gitbook/cli
 
+      - name: Validate integration
+        working-directory: integration
+        run: npm run build
+
       - name: Authenticate GitBook
         env:
           GITBOOK_API_TOKEN: ${{ secrets.GITBOOK_API_TOKEN }}
@@ -63,10 +67,6 @@ jobs:
 
           echo "::error::GitBook authentication failed after 5 attempts."
           exit 1
-
-      - name: Validate integration
-        working-directory: integration
-        run: npm run build
 
       - name: Publish integration
         working-directory: integration
