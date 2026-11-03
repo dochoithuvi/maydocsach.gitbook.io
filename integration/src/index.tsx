@@ -38,6 +38,74 @@ function isAllowedWizardUrl(url: string): boolean {
     }
 }
 
+const UPSTREAM_TIMEOUT_MS = 6000;
+const MAX_UPSTREAM_ATTEMPTS = 3;
+const RETRYABLE_UPSTREAM_STATUSES = new Set([408, 425, 429, 500, 502, 503, 504]);
+
+function wait(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function fetchUpstreamWithRetry(
+    upstreamURL: URL,
+    routeSlug: string,
+): Promise<Response | null> {
+    for (let attempt = 1; attempt <= MAX_UPSTREAM_ATTEMPTS; attempt += 1) {
+        const controller = new AbortController();
+        let timedOut = false;
+        const timeout = setTimeout(() => {
+            timedOut = true;
+            controller.abort();
+        }, UPSTREAM_TIMEOUT_MS);
+
+        try {
+            const upstream = await fetch(upstreamURL.toString(), {
+                signal: controller.signal,
+                redirect: 'follow',
+                headers: {
+                    'User-Agent': 'MayDocSach-Wizard-Proxy/1.1',
+                    Accept: '*/*',
+                },
+            });
+
+            if (
+                !RETRYABLE_UPSTREAM_STATUSES.has(upstream.status) ||
+                attempt === MAX_UPSTREAM_ATTEMPTS
+            ) {
+                return upstream;
+            }
+
+            console.warn(
+                `[MayDocSach Wizard] Upstream returned HTTP ${upstream.status} for /${routeSlug} (attempt ${attempt}/${MAX_UPSTREAM_ATTEMPTS}); retrying.`,
+            );
+
+            try {
+                await upstream.body?.cancel();
+            } catch {
+                // The response body is no longer needed; continue to the retry.
+            }
+        } catch (error) {
+            const detail =
+                error instanceof Error ? error.message : String(error);
+            console.warn(
+                `[MayDocSach Wizard] Upstream ${timedOut ? 'timed out' : 'request failed'} for /${routeSlug} (attempt ${attempt}/${MAX_UPSTREAM_ATTEMPTS}): ${detail}`,
+            );
+
+            if (attempt === MAX_UPSTREAM_ATTEMPTS) {
+                return null;
+            }
+        } finally {
+            clearTimeout(timeout);
+        }
+
+        if (attempt < MAX_UPSTREAM_ATTEMPTS) {
+            await wait(attempt === 1 ? 300 : 800);
+        }
+    }
+
+    return null;
+}
+
 const handleFetchEvent: FetchEventCallback<RuntimeContext> = async (request, context) => {
     const { environment } = context;
 
@@ -67,7 +135,10 @@ const handleFetchEvent: FetchEventCallback<RuntimeContext> = async (request, con
     });
 
     if (!route) {
-        return new Response('Not found', { status: 404 });
+        return new Response('Not found', {
+            status: 404,
+            headers: { 'Cache-Control': 'no-store' },
+        });
     }
 
     const routePrefix = basePath + '/' + route.slug;
@@ -78,27 +149,45 @@ const handleFetchEvent: FetchEventCallback<RuntimeContext> = async (request, con
     );
     upstreamURL.search = requestURL.search;
 
-    try {
-        const upstream = await fetch(upstreamURL.toString());
-        const headers = new Headers();
-        const contentType = upstream.headers.get('content-type');
+    const upstream = await fetchUpstreamWithRetry(upstreamURL, route.slug);
 
-        if (contentType) {
-            headers.set('Content-Type', contentType);
-        }
-
-        headers.set('Cache-Control', 'public, max-age=60, s-maxage=300');
-
-        return new Response(upstream.body, {
-            status: upstream.status,
-            statusText: upstream.statusText,
-            headers,
-        });
-    } catch {
-        return new Response('Wizard source unavailable', { status: 502 });
+    if (!upstream) {
+        console.error(
+            `[MayDocSach Wizard] Giving up after ${MAX_UPSTREAM_ATTEMPTS} attempts for ${upstreamURL.toString()}.`,
+        );
+        return new Response(
+            'Wizard source unavailable after 3 attempts. Please retry shortly.',
+            {
+                status: 502,
+                headers: {
+                    'Content-Type': 'text/plain; charset=utf-8',
+                    'Cache-Control': 'no-store',
+                    'Retry-After': '10',
+                    'X-Content-Type-Options': 'nosniff',
+                },
+            },
+        );
     }
-};
 
+    const headers = new Headers();
+    const contentType = upstream.headers.get('content-type');
+
+    if (contentType) {
+        headers.set('Content-Type', contentType);
+    }
+
+    headers.set(
+        'Cache-Control',
+        upstream.ok ? 'public, max-age=60, s-maxage=300' : 'no-store',
+    );
+    headers.set('X-Content-Type-Options', 'nosniff');
+
+    return new Response(upstream.body, {
+        status: upstream.status,
+        statusText: upstream.statusText,
+        headers,
+    });
+};
 function buildWebframeUrl(configuredURL: string, context: RuntimeContext): string {
     const upstreamURL = new URL(configuredURL);
     const sourceRoot =
