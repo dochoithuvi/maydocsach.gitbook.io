@@ -46,7 +46,23 @@ jobs:
             echo "::error::Missing repository secret GITBOOK_API_TOKEN"
             exit 1
           fi
-          gitbook auth --token="$GITBOOK_API_TOKEN"
+          # GitBook's API may temporarily return 5xx during authentication.
+          # Retry so a transient control-plane error does not block publishing.
+          for attempt in 1 2 3 4 5; do
+            echo "GitBook authentication attempt ${attempt}/5"
+            if gitbook auth --token="$GITBOOK_API_TOKEN"; then
+              exit 0
+            fi
+
+            if [ "$attempt" -lt 5 ]; then
+              delay=$((attempt * 5))
+              echo "GitBook authentication failed; retrying in ${delay}s."
+              sleep "$delay"
+            fi
+          done
+
+          echo "::error::GitBook authentication failed after 5 attempts."
+          exit 1
 
       - name: Validate integration
         working-directory: integration
